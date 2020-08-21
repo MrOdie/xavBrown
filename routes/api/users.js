@@ -30,6 +30,12 @@ router.post('/', [
 
   const { name, userName, email, password, role } = req.body;
 
+  if (role !== 'basic') {
+    return res.status(400).json({
+      errors: [{ msg: 'Request denied.'}]
+    })
+  }
+
   try {
     let user = await User.findOne({ email });
 
