@@ -1,17 +1,14 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-module.exports = (req, res, next) => {
-  // Check for user role
+const User = require('../models/User')
 
-  if (req.user.role === 'admin') {
-    console.log('success');
-  } else {
-    console.log('failure');
-  }
+module.exports = async (req, res, next) => {
+  // Check for user role
+  const user = await User.findById(req.user.id);
 
   try {
-    if (req.user.body !== 'admin'){
+    if (user.role !== 'admin'){
       return res.status(401).json({
         msg: 'Access Restricted'
       });
