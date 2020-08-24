@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
         msg: 'Access Restricted'
       });
     }
-
+    console.log('is admin')
     next();
   } catch (err) {
     console.log('Something is wrong with the Role Middleware');

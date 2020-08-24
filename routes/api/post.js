@@ -13,9 +13,8 @@ const {
 const User = require('../../models/User');
 const Post = require('../../models/Post');
 
-
 // @route post api/post
-// @desc Get posts
+// @desc Create a post
 // @access Private
 router.post('/', [
   auth,
@@ -55,10 +54,8 @@ router.post('/', [
 
 // @route GET api/posts
 // @desc Get all posts
-// @Private
-router.get('/', [
-  auth,
-  roles,
+// @Public
+router.get('/', 
   async (req, res) => {
     try {
       const posts = await Post.find().sort({ data: -1 });
@@ -68,6 +65,6 @@ router.get('/', [
       res.status(500).send('Server Error.')
     }
   }
-])
+)
 
 module.exports = router;
