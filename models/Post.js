@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { default: slugify } = require('slugify');
+var uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
@@ -11,7 +12,8 @@ const PostSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   description: {
     type: String
@@ -44,5 +46,7 @@ PostSchema.pre("validate", function (next) {
 
   next();
 })
+
+PostSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Post', PostSchema);
