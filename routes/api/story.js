@@ -16,7 +16,7 @@ const Post = require('../../models/Post');
 const Story = require('../../models/Story');
 
 // @route Post api/stories
-// @desc Create a stories
+// @desc Create a story
 // @Private
 
 router.post(
@@ -48,13 +48,11 @@ router.post(
       }
 
       const user = await User.findById(req.user.id).select('-password');
-      console.log(req.body.title);
+
       const newStory = new Story({
         owner: req.user.id,
         title: req.body.title
       });
-
-      console.log(newStory);
 
       const story = await newStory.save();
 
@@ -83,7 +81,7 @@ router.get('/', async (req, res) => {
 // @desc Get Story by ID
 // @access Private
 router.get(
-  '/:slug',
+  '/:id',
   [
     auth,
     roles,
@@ -91,7 +89,7 @@ router.get(
   ], async (req, res) => {
 
     try {
-      const story = await Story.find({ slug: req.params.slug });
+      const story = await Story.findById(req.params.id);
 
       if (!story) {
         return res.status(404).json({
@@ -108,31 +106,29 @@ router.get(
   }
 );
 
-// @route Delete api/posts/:slug
-// @desc Delete a route by slug
+// @route Delete api/stories/:id
+// @desc Delete a story
 // @access Private
 router.delete(
-  '/:slug', [
+  '/:id', [
   auth,
   roles,
   checkObjectId
 ], async (req, res) => {
   try {
-    const story = await Story.find({ slug: req.params.slug });
+    const story = await Story.findById(req.params.id);
 
     if (!story) {
       return res.status(404).json({ msg: 'Story not found.' });
     }
 
-    const storyOwnerString = story[0].owner.toString();
-
     // Check user
-    if (storyOwnerString !== req.user.id) {
+    if (story.owner != req.user.id) {
       return res.status(401).json({ msg: 'User not authorized.' });
     }
 
     // BC I'm looking up based on the slug, can only delete by adding '[0]' after story, because the story variable at the top, returns an array with a single object. So, gotta use the [0] to reference the object's place in the array otherwise it returns undefined. 
-    await story[0].remove();
+    await story.remove();
 
     res.json({ msg: 'Post removed.' });
 
@@ -149,11 +145,11 @@ router.delete(
 *
 */
 
-// @route api/:slug/:post
-// @desc Create a post
+// @route api/:id/
+// @desc Create and update a post
 // @access Private
 router.post(
-  '/:slug/',
+  '/:id/',
   [
     auth,
     roles,
@@ -172,20 +168,26 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-      const story = await Story.find({ slug: req.params.slug });
+      const story = await Story.findById(req.params.id);
       let getPosts = await Post.find();
 
+      const storyId = story._id;
+      console.log(typeof(storyId));
+
       for (let i = 0; i < getPosts.length; i++) {
-        if (getPosts[i].title === req.body.title){
-          return res.status(401).json({ msg: "Please choose a unique title" });
+        if (JSON.stringify(getPosts[i].story) == JSON.stringify(storyId)) {
+          if (getPosts[i].title === req.body.title) {
+            return res.status(401).json({ msg: "Please choose a unique title" });
+          }
         }
       }
 
-      if (!user || !story[0]) {
+      if (!user || !story) {
         return res.status(400).json({ msg: 'Story or User not found.' });
       }
 
       const newPost = new Post({
+        story: story._id,
         owner: req.user.id,
         name: user.name,
         title: req.body.title,
@@ -193,13 +195,9 @@ router.post(
         markdown: req.body.markdown
       });
 
-      console.log(story[0])
+      await newPost.save();
 
-      story[0].posts.unshift(newPost);
-
-      await story[0].save();
-
-      res.json(story[0].posts);
+      res.json(newPost);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error.')
@@ -207,19 +205,104 @@ router.post(
   }
 );
 
+// @route PUT api/slug/post
+// @desc update a post
+// @access Private
+router.put(
+  '/:id/:postId',
+  [
+    auth,
+    roles
+  ], async (req, res) => {
+
+    try {
+      const story = await Story.findById(req.params.id);
+      let getPosts = await Post.find();
+      const storyId = story._id;
+
+      for (let i = 0; i < getPosts.length; i++) {
+        if (getPosts[i].story == storyId) {
+          if (getPosts[i].title === req.body.title) {
+            return res.status(401).json({ msg: "Please choose a unique title" });
+          }
+        }
+      }
+
+      const post = await Post.findOneAndUpdate(
+        { _id: req.params.postId },
+        {
+          $set: {
+            title: req.body.title,
+            markdown: req.body.markdown
+          }
+        }, {
+        new: true,
+        upsert: true
+      }
+      );
+
+      res.json(post);
+
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ msg: "Server Error." });
+    }
+  }
+);
+
+// @route GET api/slug/post
+// @desc get post
+// @access Public
 router.get(
-  '/:slug/',
+  '/:slug/:postSlug',
+  async (req, res) => {
+    try {
+      //const post = new Post.find().sort({ data: -1 });
+      const story = await Story.find({ slug: req.params.slug });
+      const post = await Post.find({ postSlug: req.params.postSlug });
+      console.log(post)
+      if (!story[0]) {
+        return res.status(404).json({ msg: 'Cannot find the Story' });
+      }
+
+      if (!post[0]) {
+        return res.status(404).json({ msg: 'Cannot find the Post' });
+      }
+
+      res.json(post[0])
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ msg: 'Server Error.' });
+    }
+  }
+)
+
+// @route Delete api/stories/:id/:postId
+// @desc Delete a post
+// @access Private
+router.delete(
+  '/:id/:postId',
   [
     auth,
     roles
   ], async (req, res) => {
     try {
-      const post = new Post.find().sort({ data: -1 });
+      const post = await Post.findById(req.params.postId);
 
-      res.json(post);
+      if (!post) {
+        return res.status(404).json({ msg: "Post not found." });
+      }
+
+      if (post.owner.toString() !== req.user.id) {
+        return res.status(401).json({ msg: "User not authorized." });
+      }
+
+      await post.remove();
+
+      res.json({ msg: "Post removed" });
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: 'Server Error.' });
+      res.status(500).json({ msg: "Server Error." })
     }
   }
 )

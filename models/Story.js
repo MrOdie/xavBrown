@@ -12,42 +12,6 @@ const StorySchema = new Schema({
     required: true,
     unique: true
   },
-  slug: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  posts: [
-    {
-      owner: {
-        type: Schema.Types.ObjectId
-      },
-      name: {
-        type: String
-      },
-      title: {
-        type: String,
-        required: true,
-      },
-      description: {
-        type: String
-      },
-      markdown: {
-        type: String,
-        required: true
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now
-      },
-      slug: {
-        type: String,
-        required: true,
-      }
-    }, {
-      timestamps: true,
-    }
-  ],
   date: {
     type: Date,
     default: Date.now
@@ -56,19 +20,6 @@ const StorySchema = new Schema({
   {
     timestamps: true,
   });
-
-StorySchema.pre("validate", function (next) {
-  const post = this;
-
-  if (post.title) {
-    post.slug = slugify(post.title, { lower: true, strict: true });
-  }
-  if (post.posts[0] !== undefined && post.posts[0] !== null) {
-    post.posts[0].slug = slugify(post.posts[0].title, { lower: true, strict: true })
-  }
-
-  next();
-});
 
 StorySchema.plugin(uniqueValidator);
 

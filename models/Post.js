@@ -13,7 +13,6 @@ const PostSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true
   },
   description: {
     type: String
@@ -26,26 +25,14 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  slug: {
-    type: String,
-    required: true,
-    unique: true
+  story: {
+    type: Schema.Types.ObjectId
   }
 },
   {
     timestamps: true,
   }
 );
-
-PostSchema.pre("validate", function (next) {
-  const post = this;
-
-  if (post.title) {
-    post.slug = slugify(post.title, { lower: true, strict: true });
-  }
-
-  next();
-})
 
 PostSchema.plugin(uniqueValidator);
 
