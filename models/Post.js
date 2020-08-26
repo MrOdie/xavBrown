@@ -25,6 +25,24 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
   story: {
     type: Schema.Types.ObjectId
   }

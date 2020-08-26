@@ -81,7 +81,7 @@ router.get('/', async (req, res) => {
 // @desc Get Story by ID
 // @access Private
 router.get(
-  '/:id',
+  '/s/:id',
   [
     auth,
     roles,
@@ -110,7 +110,7 @@ router.get(
 // @desc Delete a story
 // @access Private
 router.delete(
-  '/:id', [
+  '/s/:id', [
   auth,
   roles,
   checkObjectId
@@ -145,11 +145,11 @@ router.delete(
 *
 */
 
-// @route api/:id/
+// @route api/stories/:id/
 // @desc Create and update a post
 // @access Private
 router.post(
-  '/:id/',
+  '/s/:id/',
   [
     auth,
     roles,
@@ -172,7 +172,7 @@ router.post(
       let getPosts = await Post.find();
 
       const storyId = story._id;
-      console.log(typeof(storyId));
+      console.log(typeof (storyId));
 
       for (let i = 0; i < getPosts.length; i++) {
         if (JSON.stringify(getPosts[i].story) == JSON.stringify(storyId)) {
@@ -209,7 +209,7 @@ router.post(
 // @desc update a post
 // @access Private
 router.put(
-  '/:id/:postId',
+  '/s/:id/:postId',
   [
     auth,
     roles
@@ -254,22 +254,22 @@ router.put(
 // @desc get post
 // @access Public
 router.get(
-  '/:slug/:postSlug',
+  '/s/:id/:postId',
   async (req, res) => {
     try {
       //const post = new Post.find().sort({ data: -1 });
-      const story = await Story.find({ slug: req.params.slug });
-      const post = await Post.find({ postSlug: req.params.postSlug });
+      const story = await Story.findById(req.params.id);
+      const post = await Post.findById(req.params.postId);
       console.log(post)
-      if (!story[0]) {
+      if (!story) {
         return res.status(404).json({ msg: 'Cannot find the Story' });
       }
 
-      if (!post[0]) {
+      if (!post) {
         return res.status(404).json({ msg: 'Cannot find the Post' });
       }
 
-      res.json(post[0])
+      res.json(post)
     } catch (err) {
       console.error(err);
       res.status(500).json({ msg: 'Server Error.' });
@@ -281,7 +281,7 @@ router.get(
 // @desc Delete a post
 // @access Private
 router.delete(
-  '/:id/:postId',
+  '/s/:id/:postId',
   [
     auth,
     roles
@@ -305,6 +305,83 @@ router.delete(
       res.status(500).json({ msg: "Server Error." })
     }
   }
-)
+);
+
+// @route POST api/stories/comment/:id
+// @desc Comment on a post
+// @access Private
+router.post(
+  '/c/comment/:id',
+  [
+    auth,
+    checkObjectId,
+    [check('text', 'Text is required.').not().isEmpty()]
+  ], async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+    console.log('here')
+    try {
+      const user = await User.findById(req.user.id).select('-password');
+      const post = await Post.findById(req.params.id);
+
+      const newComment = {
+        text: req.body.text,
+        name: user.name,
+        user: req.user.id
+      };
+
+      post.comments.unshift(newComment);
+
+      await post.save();
+
+      res.json(post.comments);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ msg: 'Server Error.' });
+    }
+  }
+);
+
+// @route DELETE api/stories/c/comment/:id
+// @desc Delete a comment on a post
+// @access Private
+router.delete(
+  '/c/comment/:id/:comment_id',
+  auth, async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      const post = await Post.findById(req.params.id);
+
+      // Pull out comment
+      const comment = post.comments.find(
+        comment => comment.id === req.params.comment_id
+      );
+
+      // Make sure comment exists
+      if (!comment) {
+        return res.status(404).json({ msg: "Comment not found." });
+      }
+
+      // Check user
+      if (comment.user.toString() !== req.user.id || user.role !== 'admin') {
+        return res.status(401).json({ msg: 'User not Authorized' });
+      }
+
+      post.comments = post.comments.filter(
+        ({ id }) => id !== req.params.comment_id
+      );
+
+      await post.save();
+
+      return res.json(post.comments);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ msg: 'Server Error.' });
+    }
+  }
+);
 
 module.exports = router;
