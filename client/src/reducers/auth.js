@@ -33,14 +33,14 @@ export default function (state = initialState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false
-      }
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
         ...payload,
         isAuthenticated: true,
         loading: false
-      }
+      };
     case ACCOUNT_DELETED:
       return {
         ...state,
@@ -48,7 +48,7 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
-      }
+      };
     case AUTH_ERROR:
     case LOGOUT:
       return {
@@ -57,8 +57,8 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
-      }
-    default: 
+      };
+    default:
       return state;
   }
 }

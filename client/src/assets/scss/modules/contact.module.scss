@@ -7,8 +7,8 @@
   // box-shadow: 0px 7px 10px $white;
   box-shadow: 5px 5px rgba(37, 61, 88, 0.4), 10px 10px rgba(37, 61, 88, 0.3), 15px 15px rgba(37, 61, 88, 0.2),
     20px 20px rgba(37, 61, 88, 0.1), 25px 25px rgba(37, 61, 88, 0.05);
-  border: 5px solid map-get($trivia, color1);
-  background-color: map-get($trivia, color1);
+  border: 5px solid map-get($xav, color1);
+  background-color: map-get($xav, color1);
 
   .info {
     margin: 2rem 3.8rem;
@@ -30,7 +30,7 @@
       display: block;
       content: "";
       margin: 0 auto;
-      background-color: map-get($trivia, color1);
+      background-color: map-get($xav, color1);
     }
   }
   .contact__form {
@@ -79,8 +79,8 @@
 
         .submit {
           width: inherit;
-          background-color: map-get($trivia, color1);
-          border: 1px solid map-get($trivia, color1);
+          background-color: map-get($xav, color1);
+          border: 1px solid map-get($xav, color1);
           border-radius: 5px;
           padding: 1rem 0.5rem;
           color: $white;
@@ -93,8 +93,8 @@
           &:hover,
           &:active,
           &:focus {
-            background-color: map-get($trivia, color5);
-            border: 1px solid map-get($trivia, color5);
+            background-color: map-get($xav, color5);
+            border: 1px solid map-get($xav, color5);
             color: $white;
             text-shadow: 0px 0px 1px $text;
           }

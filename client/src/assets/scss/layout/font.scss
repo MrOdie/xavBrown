@@ -57,7 +57,7 @@ option {
 a {
   cursor: pointer;
   text-decoration: none;
-  color: map-get($trivia, color1);
+  color: map-get($xav, color1);
 }
 
 .h1,
@@ -97,7 +97,7 @@ figcaption {
 }
 
 blockquote {
-  border-left: 5px solid map-get($trivia, color1);
+  border-left: 5px solid map-get($xav, color1);
   padding-left: 2rem;
 }
 
@@ -144,28 +144,28 @@ main {
   border: 1px solid;
 
   &.btn-primary {
-    background-color: map-get($trivia, color4);
-    border-color: map-get($trivia, color4);
+    background-color: map-get($xav, color4);
+    border-color: map-get($xav, color4);
     color: $alt-white;
 
     &:hover,
     &:focus,
     &:active {
-      background-color: darken(map-get($trivia, color4), 5%);
-      border-color: darken(map-get($trivia, color4), 5%);
+      background-color: darken(map-get($xav, color4), 5%);
+      border-color: darken(map-get($xav, color4), 5%);
     }
   }
 
   &.btn-secondary {
-    background-color: map-get($trivia, color5);
-    border-color: map-get($trivia, color5);
+    background-color: map-get($xav, color5);
+    border-color: map-get($xav, color5);
     color: $alt-white;
 
     &:hover,
     &:focus,
     &:active {
-      background-color: lighten(map-get($trivia, color5), 5%);
-      border-color: lighten(map-get($trivia, color5), 5%);
+      background-color: lighten(map-get($xav, color5), 5%);
+      border-color: lighten(map-get($xav, color5), 5%);
     }
   }
 

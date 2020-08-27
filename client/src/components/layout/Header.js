@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/Auth';
+import { logout } from '../../actions/auth';
 
 import { useScrollHandler } from '../../hooks/useScrollHandler';
 import classes from '../../assets/scss/modules/header.module.scss';
@@ -46,7 +46,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
     <header id="Header" className={!scroll ? `${classes.mainHeader} ${classes.scrolled} ${classes[parent]}` : `${classes.mainHeader} ${classes[parent]}`} >
 
       <div className={classes.logo}>
-        <Link to="/"><h2 className="h1">Trivia</h2></Link>
+        <Link to="/"><h2 className="h1">Xavier Brown</h2></Link>
       </div>
 
       <input type="checkbox" id="menu-btn" className={classes.menuBtn} />

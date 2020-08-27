@@ -26,7 +26,7 @@ router.get('/', [auth, roles], async (req, res) => {
 // @desc Authenticate user && get token
 // @access Public
 router.post('/', [
-  check('userName', 'Please enter your User Name').exists(),
+  check('email', 'Please enter your email').isEmail(),
   check('password', 'Password is required').exists()
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -36,10 +36,10 @@ router.post('/', [
       errors: errors.array()
     });
   }
-  const { userName, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ userName });
+    let user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({

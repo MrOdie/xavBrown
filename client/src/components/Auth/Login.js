@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/Auth';
+import { login } from '../../actions/auth';
 
 import Layout from '../layout/Layout';
 import classes from '../../assets/scss/modules/login.module.scss';
@@ -24,6 +24,7 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
+    console.log(isAuthenticated);
     return <Redirect to="/dashboard" />;
   }
 

@@ -34,27 +34,27 @@
         flex-flow: row wrap;
 
         .login {
-          background-color: map-get($trivia, color1);
-          border: 1px solid map-get($trivia, color1);
+          background-color: darken(map-get($xav, color1), 5%);
+          border: 1px solid darken(map-get($xav, color1), 5%);
           margin-right: .5rem;
 
           &:hover,
           &:focus,
           &:active {
-            background-color: #183d1f;
-            border-color: #183d1f;
+            background-color: map-get($xav, color1);
+            border-color: map-get($xav, color1);
           }
         }
         .register {
-          background-color: map-get($trivia, color4);
-          border: 1px solid map-get($trivia, color4);
+          background-color: darken(map-get($xav, color4), 5%);
+          border: 1px solid darken(map-get($xav, color4), 5%);
           margin-left: .5rem;
 
           &:hover,
           &:focus,
           &:active {
-            background-color: #ef7c32;
-            border-color: #ef7c32;
+            background-color: map-get($xav, color4);
+            border-color: map-get($xav, color4);
           }
         }
 

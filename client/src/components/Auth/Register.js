@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { setAlert } from '../../actions/Alert';
-import { register } from '../../actions/Auth';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 import Layout from '../layout/Layout';
@@ -66,6 +66,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     const check = validate(formData);
 
     if (!check) {
+      console.log(check)
       return false;
     }
 

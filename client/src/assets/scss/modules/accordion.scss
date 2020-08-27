@@ -1,5 +1,5 @@
 .accordion {
-	background-color: map-get($trivia, color1);
+	background-color: map-get($xav, color1);
 	color: $white;
 	font-weight: 700;
 	cursor: pointer;
@@ -16,13 +16,13 @@
 .accordion:hover,
 .accordion:focus,
 .accordion:active {
-	background-color: map-get($trivia, color1);
+	background-color: map-get($xav, color1);
 }
 .panel {
 	padding: 0 1.5rem;
 	background-color: $alt-white;
-	border-left: 2px solid map-get($trivia, color1);
-	border-right: 2px solid map-get($trivia, color1);
+	border-left: 2px solid map-get($xav, color1);
+	border-right: 2px solid map-get($xav, color1);
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.2s ease-out;

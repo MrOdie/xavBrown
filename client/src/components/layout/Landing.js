@@ -16,8 +16,8 @@ const Landing = ({ isAuthenticated }) => {
       <section className={classes.landingPage}>
         <div className={classes.overlay}>
           <div className={classes.intro}>
-            <h1>Trivia</h1>
-            <h3>This is a Trivia Game, built using the MERN Stack</h3>
+            <h1>Xavier Brown</h1>
+            <h3>This is a Xavier Brown Game, built using the MERN Stack</h3>
             <div className={classes.buttons}>
               <Link to='/login' className={classes.login}>Login</Link>
               <Link to='/register' className={classes.register}>Register</Link>

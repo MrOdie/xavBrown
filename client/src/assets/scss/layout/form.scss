@@ -81,16 +81,16 @@
   .registerButton {
     padding: 0.75rem 0;
     outline: none;
-    background-color: map-get($trivia, color1);
-    border: 1px solid map-get($trivia, color1);
+    background-color: map-get($xav, color1);
+    border: 1px solid map-get($xav, color1);
     color: $white;
     transition: all 0.3s ease-in-out;
 
     &:hover,
     &:active,
     &:focus {
-      background-color: lighten(map-get($trivia, color1), 5%);
-      border-color: lighten(map-get($trivia, color1), 5%);
+      background-color: lighten(map-get($xav, color1), 5%);
+      border-color: lighten(map-get($xav, color1), 5%);
     }
 
     @include breakpoints(really_big large desktop sm_desktop) {
