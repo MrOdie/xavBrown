@@ -1,0 +1,176 @@
+@import '../misc/colors.scss';
+
+html {
+  font-size: 16px;
+  color: #333;
+}
+
+%h1 {
+  font-size: 3.25rem;
+  font-family: "Montserrat Bold", Georgia;
+  text-transform: capitalize;
+  margin-top: 0;
+  margin-bottom: .25rem;
+}
+
+%h2 {
+  font-size: 2.62671rem;
+  font-family: "Montserrat Bold", Georgia;
+  text-transform: capitalize;
+}
+
+%h3 {
+  font-size: 1.88316rem;
+  font-family: "Montserrat SemiBold", Georgia;
+}
+%h4 {
+  font-size: 1.5rem;
+  font-family: "Montserrat SemiBold", Georgia;
+}
+%h5 {
+  font-size: 1.25rem;
+  font-family: "Montserrat SemiBold", Georgia;
+}
+%h6 {
+  font-size: 0.78405rem;
+  font-family: "Montserrat Regular", Georgia;
+}
+%p {
+  font: 112.5%/1.45em "Montserrat Regular", Georgia;
+}
+
+small {
+  font-family: "Montserrat Regular", Georgia;
+}
+
+textarea,
+input,
+select,
+button,
+select,
+span,
+option {
+  @extend %p;
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: map-get($trivia, color1);
+}
+
+.h1,
+h1 {
+  @extend %h1;
+}
+.h2,
+h2 {
+  @extend %h2;
+}
+.h3,
+h3 {
+  @extend %h3;
+}
+.h4,
+h4 {
+  @extend %h4;
+}
+.h5,
+h5 {
+  @extend %h5;
+}
+.h6,
+h6 {
+  @extend %h6;
+}
+
+.p,
+p,
+li,
+a,
+label,
+blockquote,
+figure,
+figcaption {
+  @extend %p;
+}
+
+blockquote {
+  border-left: 5px solid map-get($trivia, color1);
+  padding-left: 2rem;
+}
+
+.col > h1:first-child,
+.col > h2:first-child,
+.col > h3:first-child,
+.col > h4:first-child,
+.col > h5:first-child,
+.col > h6:first-child {
+  margin-top: 0;
+}
+
+.text-white {
+  color: $white;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: capitalize;
+}
+
+main {
+  .list {
+    li:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    &.double {
+      @include breakpoints(really_big large desktop sm_desktop lg_tablet) {
+        column-count: 2;
+        column-gap: 2rem;
+      }
+    }
+  }
+}
+
+.btn {
+  padding: .5rem 1.75rem;
+  border-radius: 5px;
+  font-weight: 700;
+  border: 1px solid;
+
+  &.btn-primary {
+    background-color: map-get($trivia, color4);
+    border-color: map-get($trivia, color4);
+    color: $alt-white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: darken(map-get($trivia, color4), 5%);
+      border-color: darken(map-get($trivia, color4), 5%);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: map-get($trivia, color5);
+    border-color: map-get($trivia, color5);
+    color: $alt-white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: lighten(map-get($trivia, color5), 5%);
+      border-color: lighten(map-get($trivia, color5), 5%);
+    }
+  }
+
+  &.contain {
+    max-width: max-content;
+  }
+
+}

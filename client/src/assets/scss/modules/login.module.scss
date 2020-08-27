@@ -1,0 +1,73 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.login {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  position: relative;
+  padding-top: 9rem;
+
+  .loginContainer {
+    margin: 0 15px;
+    padding: 1rem;
+
+    @include breakpoints(really_big large desktop sm_desktop lg_tablet) {
+      width: 550px;
+    }
+    @include breakpoints(tablet nav mobile) {
+      width: 90%;
+    }
+
+    h1,
+    h4 {
+      margin: 0;
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .form {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-flow: column nowrap;
+
+      input {
+        margin-bottom: 1rem;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        outline: none;
+        font-size: 1.5rem;
+        padding: 0.25rem 1rem 0.25rem 0.5rem;
+      }
+
+      .loginButton {
+        padding: 0.75rem 0;
+        outline: none;
+        background-color: map-get($trivia, color1);
+        border: 1px solid map-get($trivia, color1);
+        color: $white;
+        transition: all 0.3s ease-in-out;
+
+        &:hover,
+        &:active,
+        &:focus {
+          box-shadow: 1px 2px 5px $text;
+        }
+
+        @include breakpoints(really_big large desktop sm_desktop) {
+          width: 125px;
+          margin: 0 auto;
+        }
+        @include breakpoints(lg_tablet tablet nav mobile) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import "./normalize.scss";
+html {
+  overflow: initial !important;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@import "./misc/misc.scss";
+@import "./mixins/mixins.scss";
+@import "./layout/layout.scss";
+
+@import "./modules/toggle.scss";
+@import "./modules/accordion.scss";
+@import "./parallax.scss";
+
+@import "./contact.scss";
+
+.App {
+  display: grid;
+}

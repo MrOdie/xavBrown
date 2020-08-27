@@ -1,0 +1,19 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.container {
+  display: grid;
+  // padding-top: 70px;
+  
+  @include breakpoints (really_big large desktop sm_desktop){
+    grid-template-columns: 1fr 950px 1fr;
+  }
+
+  @include breakpoints (lg_tablet tablet){
+    grid-template-columns: 1fr 675px 1fr;
+  }
+  
+  @include breakpoints (nav mobile){
+    grid-template-columns: 1rem 1fr 1rem;
+  }
+}

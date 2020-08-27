@@ -1,0 +1,75 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+/* Global Styles */
+:root {
+  --primary-color: #17a2b8;
+  --dark-color: #343a40;
+  --light-color: #f4f4f4;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+}
+
+.backdrop {
+  width: 100vw;
+  position: absolute;
+  z-index: 9;
+}
+.alert {
+  position: relative;
+  text-align: center;
+  top: 75px;
+  padding: 0.8rem;
+  margin: 0 auto;
+  color: #333;
+  font-weight: 600;
+
+  @include breakpoints(really_big large desktop sm_desktop){
+    width: 30%;
+  }
+
+  @include breakpoints(lg_tablet tablet nav mobile){
+    max-width: 450px;
+  }
+  
+  &.primary {
+    background: var(--primary-color);
+    color: #fff;
+  }
+  
+  &.light {
+    background: var(--light-color);
+    color: #333;
+  }
+  
+  &.dark {
+    background: var(--dark-color);
+    color: #fff;
+  }
+  
+  &.danger {
+    background: var(--danger-color);
+    color: #fff;
+  }
+  
+  &.success {
+    background: var(--success-color);
+    color: #fff;
+  }
+  
+  &.white {
+    background: #fff;
+    color: #333;
+    border: #ccc solid 1px;
+  }
+
+  h5 {
+    margin: 0;
+
+    .icon {
+      margin-right: .5rem;
+    }
+  }
+
+}  
+

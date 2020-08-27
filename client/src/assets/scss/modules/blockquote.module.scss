@@ -1,0 +1,39 @@
+.Blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #9B7653;
+  margin: 2rem 1rem;
+  padding: 0.5rem 1rem;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+.Blockquote:before {
+  color: #9B7653;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.Blockquote:after {
+  visibility: hidden;
+  content: close-quote;
+  position: absolute;
+}
+
+.Blockquote p:first-of-type {
+  display: inline;
+}
+
+
+.Caption {
+  margin-top: 0;
+  font-size: 90%;
+  text-align: right;
+  display: block;
+}
+
+// color1: #ebf4faff,
+// color2: #9B7653,
+// color1: #2b2d42ff,
+// color4: #595959ff,
+// color5: #7f7f7fff
