@@ -12,7 +12,7 @@ const checkObjectId = async (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(checkId)) {
       return res.status(400).json({
-        msg: 'Invalid ID'
+        msg: 'Invalid ID.'
       });
     }
 

@@ -14,14 +14,17 @@ const Landing = ({ isAuthenticated }) => {
   return (
     <Layout page="landingPage">
       <section className={classes.landingPage}>
-        <div className={classes.overlay}>
-          <div className={classes.intro}>
-            <h1>Xavier Brown</h1>
-            <h3>This is a Xavier Brown Game, built using the MERN Stack</h3>
-            <div className={classes.buttons}>
-              <Link to='/login' className={classes.login}>Login</Link>
-              <Link to='/register' className={classes.register}>Register</Link>
-            </div>
+        <div className={classes.overlay} />
+        <div className={classes.intro}>
+          <h2>
+            The
+            <br />Xavier Brown
+            <br />Chronicles
+          </h2>
+          <p><strong>This site represents a compilation of short stories and other works that have been produced by Xavier Brown.</strong></p>
+          <p><strong>While this is a passion project, it is the hope of the author that you enjoy your time here.</strong></p>
+          <div className={classes.buttons}>
+            <Link to='/stories/' className={classes.stories}>View Stories</Link>
           </div>
         </div>
       </section>

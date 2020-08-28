@@ -16,9 +16,9 @@ const Alert = ({ alerts }) => {
       <section key={alert.id} className={classes.backdrop}>
         <article className={`${classes.alert} ${classes[alert.alertType]}`}>
           <h5>
-            {alert.alertType === 'danger' ? <FontAwesomeIcon className={classes.icon} icon={faExclamationTriangle} /> : (
+            {alert.alertType === 'danger' ? <FontAwesomeIcon className={classes.icon} icon={faExclamationTriangle} />  : (
               alert.alertType === 'success' ?
-              <FontAwesomeIcon icon={faThumbsUp} /> : ''
+              <FontAwesomeIcon icon={faThumbsUp} className={classes.icon}/> : ''
             )}
             {alert.msg}
           </h5>

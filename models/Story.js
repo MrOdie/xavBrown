@@ -23,4 +23,4 @@ const StorySchema = new Schema({
 
 StorySchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('Story', StorySchema);
+module.exports = mongoose.model('story', StorySchema);

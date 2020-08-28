@@ -17,19 +17,18 @@ const Post = require('../../models/Post');
 // @access   Private
 router.get('/me', auth, async (req, res) => {
   try {
-    console.log('here we go')
     const profile = await Profile.findOne({
       user: req.user.id
-    }).populate('user', ['name', 'avatar']);
+    }).populate('user');
 
     if (!profile) {
-      return res.status(400).json({ msg: 'There is no profile for this user' });
+      return res.status(400).json({ msg: 'There is no profile for this user.' });
     }
 
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Server Error, Idiot.');
   }
 });
 
@@ -41,8 +40,8 @@ router.post(
   [
     auth,
     [
-      check('status', 'Status is required').not().isEmpty(),
-      check('skills', 'Skills is required').not().isEmpty()
+      check('status', 'Status is required.').not().isEmpty(),
+      check('skills', 'Skills is required.').not().isEmpty()
     ]
   ],
   async (req, res) => {
