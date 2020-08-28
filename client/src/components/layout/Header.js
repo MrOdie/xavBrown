@@ -46,7 +46,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
     <header id="Header" className={!scroll ? `${classes.mainHeader} ${classes.scrolled} ${classes[parent]}` : `${classes.mainHeader} ${classes[parent]}`} >
 
       <div className={classes.logo}>
-        <Link to="/"><h2 className="h1">XB</h2></Link>
+        <Link to="/"><h2 className="h1">XBC</h2></Link>
       </div>
 
       <input type="checkbox" id="menu-btn" className={classes.menuBtn} />
