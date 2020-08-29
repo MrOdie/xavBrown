@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import ProfileForm from '../profile-forms/ProfileForm';
 // import AddExperience from '../profile-forms/AddExperience';
 // import AddEducation from '../profile-forms/AddEducation';
+import IndividualStory from '../story/IndividualStory';
 import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Stories from '../story/Stories';
@@ -27,6 +28,7 @@ const Routes = props => {
         <Route exact path="/stories" component={Stories} />
         <Route exact path="/profiles" component={Profiles} />
         <Route exact path="/profile/:id" component={Profile} />
+        <Route exact path="/stories/:slug" component={IndividualStory} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />

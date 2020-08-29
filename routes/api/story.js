@@ -79,18 +79,16 @@ router.get('/', async (req, res) => {
 
 // @route Get api/stories/:slug
 // @desc Get Story by ID
-// @access Private
+// @access Public
 router.get(
-  '/s/:id',
-  [
-    auth,
-    roles,
-    checkObjectId
-  ], async (req, res) => {
+  '/s/:slug',
+  async (req, res) => {
 
     try {
-      const story = await Story.findById(req.params.id);
+      const getStory = await Story.find({ slug: req.params.slug });
+      const storyId = getStory[0]._id;
 
+      const story = await Story.findById(storyId);
       if (!story) {
         return res.status(404).json({
           msg: 'Story not found.'

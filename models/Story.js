@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { default: slugify } = require('slugify');
-var uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const StorySchema = new Schema({
@@ -8,6 +7,11 @@ const StorySchema = new Schema({
     type: Schema.Types.ObjectId
   },
   title: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  slug: {
     type: String,
     required: true,
     unique: true
@@ -21,6 +25,14 @@ const StorySchema = new Schema({
     timestamps: true,
   });
 
-StorySchema.plugin(uniqueValidator);
+StorySchema.pre("validate", function (next) {
+  const post = this;
+
+  if (post.title) {
+    post.slug = slugify(post.title, { lower: true, strict: true });
+  }
+
+  next();
+});
 
 module.exports = mongoose.model('story', StorySchema);

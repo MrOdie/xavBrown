@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { link } from 'react-router-dom';
-import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
+// import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { deletePost } from '../../actions/post';
 
 const Story = ({
   deletePost,
   auth,
-  post: { _id, owner, title, date },
+  post: { _id, owner, title, date, slug },
   showActions
 }) => {
   return (
-    <div>
-      <h1>{_id}</h1>
-      <h2>{owner}</h2>
-      <h3>{title}</h3>
-      <h4>{date}</h4>
+    <div className="content">
+      <div className="inner">
+        <Link to={`/stories/${slug}`}>
+          {title}
+        </Link>
+      </div>
     </div>
   )
 }

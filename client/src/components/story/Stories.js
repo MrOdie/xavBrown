@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPosts } from '../../actions/post';
@@ -15,7 +15,7 @@ const Stories = ({ getPosts, post: { posts } }) => {
   }, [getPosts])
 
   return (
-    <Layout page="Stories">
+    <Layout page="stories">
       <SingleColumn>
         <h1>Stories</h1>
         <div className={classes.stories}>
