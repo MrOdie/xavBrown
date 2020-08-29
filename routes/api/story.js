@@ -85,6 +85,7 @@ router.get(
   async (req, res) => {
 
     try {
+      console.log('here')
       const getStory = await Story.find({ slug: req.params.slug });
       const storyId = getStory[0]._id;
 
@@ -248,17 +249,38 @@ router.put(
   }
 );
 
+// @route GET api/s/:id/
+// @desc get posts for ID
+// @access Public
+router.get(
+  '/s/:id/posts',
+  async (req, res) => {
+    console.log('p')
+    try {
+      const story = await Story.findById(req.params.id);
+      const posts = await Post.find({ story: req.params.id })
+      console.log(posts);
+
+      // const posts = await Post.find().sort({ data: -1 })
+      res.json(posts);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ msg: "Server Error." });
+    }
+  }
+)
+
 // @route GET api/slug/post
 // @desc get post
 // @access Public
 router.get(
-  '/s/:id/:postId',
+  '/s/:id/p/:postId',
   async (req, res) => {
     try {
+      console.log('bbogae')
       //const post = new Post.find().sort({ data: -1 });
       const story = await Story.findById(req.params.id);
       const post = await Post.findById(req.params.postId);
-      console.log(post)
       if (!story) {
         return res.status(404).json({ msg: 'Cannot find the Story' });
       }
@@ -279,7 +301,7 @@ router.get(
 // @desc Delete a post
 // @access Private
 router.delete(
-  '/s/:id/:postId',
+  '/s/:id/p/:postId',
   [
     auth,
     roles

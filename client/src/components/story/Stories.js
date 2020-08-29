@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPosts } from '../../actions/post';
+import { getStories } from '../../actions/story';
 
 import Story from './Story';
 import Layout from '../layout/Layout';
@@ -9,10 +9,10 @@ import SingleColumn from '../layout/singleColumn';
 
 import classes from '../../assets/scss/modules/stories.module.scss';
 
-const Stories = ({ getPosts, post: { posts } }) => {
+const Stories = ({ getStories, story: { stories } }) => {
   useEffect(() => {
-    getPosts();
-  }, [getPosts])
+    getStories();
+  }, [getStories])
 
   return (
     <Layout page="stories">
@@ -20,8 +20,8 @@ const Stories = ({ getPosts, post: { posts } }) => {
         <h1>Stories</h1>
         <div className={classes.stories}>
           {
-            posts.map((post) => (
-              <Story key={post._id} post={post}/>
+            stories.map((story) => (
+              <Story key={story._id} story={story}/>
             ))
           }
         </div>
@@ -31,12 +31,12 @@ const Stories = ({ getPosts, post: { posts } }) => {
 }
 
 Stories.propTypes = {
-  getPosts: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  getStories: PropTypes.func.isRequired,
+  story: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  post: state.post
+  story: state.story
 });
 
-export default connect( mapStateToProps, { getPosts })(Stories);
+export default connect( mapStateToProps, { getStories })(Stories);

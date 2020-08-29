@@ -11,12 +11,9 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
   const scroll = useScrollHandler();
 
   const authLinks = (
-    <ul>
+    <Fragment>
       <li className={classes.navLink}>
         <Link to='/profiles'>Developers</Link>
-      </li>
-      <li className={classes.navLink}>
-        <Link to='/posts'>Posts</Link>
       </li>
       <li className={classes.navLink}>
         <Link to='/dashboard'>
@@ -28,18 +25,18 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
           <span className='hide-sm'>Logout</span>
         </a>
       </li>
-    </ul>
+    </Fragment>
   );
 
   const guestLinks = (
-    <ul>
+    <Fragment>
       <li className={classes.navLink}>
         <Link to='/register'>Register</Link>
       </li>
       <li className={classes.navLink}>
         <Link to='/login'>Login</Link>
       </li>
-    </ul>
+    </Fragment>
   );
 
   return (
@@ -56,7 +53,12 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
       <nav className={classes.navLinks}>
         {!loading && (
           <Fragment>
-            {isAuthenticated ? authLinks : guestLinks}
+            <ul>
+              <li className={classes.navLink}>
+                <Link to="/stories">Stories</Link>
+              </li>
+              {isAuthenticated ? authLinks : guestLinks}
+            </ul>
           </Fragment>
         )}
       </nav>
