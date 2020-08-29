@@ -13,7 +13,6 @@ const PostSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true
   },
   description: {
     type: String
@@ -26,10 +25,26 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  slug: {
-    type: String,
-    required: true,
-    unique: true
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
+  story: {
+    type: Schema.Types.ObjectId
   }
 },
   {
@@ -37,16 +52,6 @@ const PostSchema = new Schema({
   }
 );
 
-PostSchema.pre("validate", function (next) {
-  const post = this;
-
-  if (post.title) {
-    post.slug = slugify(post.title, { lower: true, strict: true });
-  }
-
-  next();
-})
-
 PostSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('post', PostSchema);

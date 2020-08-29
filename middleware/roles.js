@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   try {
     if (user.role !== 'admin'){
       return res.status(401).json({
-        msg: 'Access Restricted'
+        msg: 'Access Restricted.'
       });
     }
     console.log('is admin')

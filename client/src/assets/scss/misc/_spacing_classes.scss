@@ -1,0 +1,100 @@
+@for $i from 1 through 5 {
+    @if ($i <= 4) {
+        .pad-#{$i} {
+            padding: #{$i}rem;
+        }
+        .pad-top-#{$i} {
+            padding-top: #{$i}rem;
+        }
+        .pad-right-#{$i} {
+            padding-right: #{$i}rem;
+        }
+        .pad-bottom-#{$i} {
+            padding-bottom: #{$i}rem;
+        }
+        .pad-left-#{$i} {
+            padding-left: #{$i}rem;
+        }
+        .pad-vert-#{$i} {
+            padding-top: #{$i}rem;
+            padding-bottom: #{$i}rem;
+        }
+        .pad-horz-#{$i} {
+            padding-left: #{$i}rem;
+            padding-right: #{$i}rem;
+        }
+
+        .margin-#{$i} {
+            margin: #{$i}rem;
+        }
+        .margin-top-#{$i} {
+            margin-top: #{$i}rem;
+        }
+        .margin-right-#{$i} {
+            margin-right: #{$i}rem;
+        }
+        .margin-bottom-#{$i} {
+            margin-bottom: #{$i}rem;
+        }
+        .margin-left-#{$i} {
+            margin-left: #{$i}rem;
+        }
+        .margin-vert-#{$i} {
+            margin-top: #{$i}rem;
+            margin-bottom: #{$i}rem;
+        }
+        .margin-horz-#{$i} {
+            margin-left: #{$i}rem;
+            margin-right: #{$i}rem;
+        }
+    }
+    @else {
+        .pad-#{$i} {
+            padding: .5rem;
+        }
+        .pad-top-#{$i} {
+            padding-top: .5rem;
+        }
+        .pad-right-#{$i} {
+            padding-right: .5rem;
+        }
+        .pad-bottom-#{$i} {
+            padding-bottom: .5rem;
+        }
+        .pad-left-#{$i} {
+            padding-left: .5rem;
+        }
+        .pad-vert-#{$i} {
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+        }
+        .pad-horz-#{$i} {
+            padding-left: .5rem;
+            padding-right: .5rem;
+        }
+
+        .margin-#{$i} {
+            margin: .5rem;
+        }
+        .margin-top-#{$i} {
+            margin-top: .5rem;
+        }
+        .margin-right-#{$i} {
+            margin-right: .5rem;
+        }
+        .margin-bottom-#{$i} {
+            margin-bottom: .5rem;
+        }
+        .margin-left-#{$i} {
+            margin-left: .5rem;
+        }
+        .margin-vert-#{$i} {
+            margin-top: .5rem;
+            margin-bottom: .5rem;
+        }
+        .margin-horz-#{$i} {
+            margin-left: .5rem;
+            margin-right: .5rem;
+        }
+    }
+}

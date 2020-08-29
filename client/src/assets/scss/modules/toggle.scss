@@ -1,0 +1,63 @@
+.toggle {
+  &__content {
+    border-left: 5px solid map-get($xav, color5);
+    border-right: 5px solid map-get($xav, color5);
+    border-bottom: 5px solid map-get($xav, color5);
+  }
+  &__nav {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    li:not(:last-child) {
+      margin-bottom: 0;
+    }
+  }
+  &__title {
+    font-weight: 700;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    flex-grow: 1;
+    text-align: center;
+    color: $alt-white;
+    background-color: map-get($xav, color5);
+    border-top: 5px solid map-get($xav, color5);
+    border-bottom: 5px solid map-get($xav, color5);
+
+    &.active,
+    &:hover,
+    &:active,
+    &:focus {
+      border-bottom: 5px solid $alt-white;
+    }
+
+    &.active,
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $alt-white;
+      color: map-get($xav, color5);
+    }
+  }
+
+  &__body {
+    display: none;
+
+    &.visible {
+      & > h1,
+      & > h2,
+      & > h3,
+      & > h4,
+      & > h5,
+      & > h6 {
+        margin-top: 0;
+      }
+      background-color: $alt-white;
+
+      padding: 2rem;
+      display: block;
+    }
+  }
+}

@@ -22,7 +22,6 @@ module.exports = function (req, res, next) {
         });
       } else {
         req.user = decoded.user;
-        console.log('authorized');
         next();
       }
     });

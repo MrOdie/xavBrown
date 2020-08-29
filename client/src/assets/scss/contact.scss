@@ -1,0 +1,13 @@
+#contactPage {
+  background-color: $white;
+
+  #contactContent {
+    grid-row: 2;
+    z-index: 1;
+  }
+}
+
+.parallax-banner {
+  grid-column: 1/4;
+  
+}

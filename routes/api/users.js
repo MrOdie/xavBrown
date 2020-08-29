@@ -15,7 +15,7 @@ const User = require('../../models/User');
 // @desc Register User
 // @access Public
 router.post('/', [
-  check('name', 'Name is required').not().isEmpty().isAlpha(), // these checks come from express-validator
+  check('name', 'Name is required').not().isEmpty(), // these checks come from express-validator
   check('userName', 'Please include a user name with 8 or more characters').not().isEmpty().isLength({ min: 8 }),
   check('email', 'Please include a valid email').isEmail().normalizeEmail(),
   check('password', 'Please enter a password with 12 or more characters').not().isEmpty().isLength({ min: 6 }) //.matches(/^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&\'()*+,-.\/:;<=>?@[\]^_`{|}~])[\w\d!"#$%&\'()*+,-.\/:;<=>?@[\]^_`{|}~]{12,40}$/, 'i')
@@ -28,25 +28,22 @@ router.post('/', [
     });
   }
 
-  const { name, userName, email, password, role } = req.body;
-  if (role !== 'basic') {
-    return res.status(400).json({
-      errors: [{ msg: 'Request denied.'}]
-    })
-  }
-  
+  const { name, userName, email, password } = req.body;
+
   try {
-    let user = await User.findOne({ email });
+    let userEmail = await User.findOne({ email });
+    let userUsername = await User.findOne({ userName });
+    let role = 'basic';
 
-    if (user.role !== role && role !== 'basic') {
-      return res.status(400).json({
-        errors: [{ msg: 'Request denied.'}]
-      })
-    }
-
-    if (user) {
+    if (userEmail) {
       return res.status(400).json({
         errors: [{ msg: 'User already exists.' }]
+      });
+    }
+
+    if (userUsername) {
+      return res.status(400).json({
+        errors: [{ msg: 'Username already exists.' }]
       });
     }
 
@@ -55,7 +52,7 @@ router.post('/', [
       userName,
       email,
       password,
-      role: role || "basic"
+      role
     });
 
     const salt = await bcrypt.genSalt(10);

@@ -1,0 +1,22 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.dashboard,
+.create-profile,
+.posts,
+.stories,
+.storyPage {
+  display: grid;
+
+  grid-column: 2/3;
+  padding-top: 70px;
+  @include breakpoints(really_big large desktop sm_desktop) {
+    grid-template-columns: 1fr 950px 1fr;
+  }
+  @include breakpoints(lg_tablet tablet) {
+    grid-template-columns: 1fr 650px 1fr;
+  }
+  @include breakpoints(nav mobile) {
+    grid-template-columns: 1rem 1fr 1rem;
+  }
+}

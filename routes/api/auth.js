@@ -12,7 +12,7 @@ const User = require('../../models/User');
 // @route GET api/auth
 // @desc Get user by Token
 // @access Private
-router.get('/', [auth, roles], async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
@@ -26,7 +26,7 @@ router.get('/', [auth, roles], async (req, res) => {
 // @desc Authenticate user && get token
 // @access Public
 router.post('/', [
-  check('userName', 'Please enter your User Name').exists(),
+  check('email', 'Please enter your email').isEmail(),
   check('password', 'Password is required').exists()
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -36,10 +36,10 @@ router.post('/', [
       errors: errors.array()
     });
   }
-  const { userName, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ userName });
+    let user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({

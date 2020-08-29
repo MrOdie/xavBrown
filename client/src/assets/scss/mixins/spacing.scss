@@ -1,0 +1,42 @@
+@mixin spacing($type, $t: false, $r: false, $b: false, $l: false) {
+  @if $type == padding {
+    #{$type}: #{$t};
+  } @else if $type == margin {
+    #{$type}: #{$t};
+  } @else if $type == margin-top {
+    #{$type}: #{$t};
+  } @else if $type == margin-right {
+    #{$type}: #{$t};
+  } @else if $type == margin-left {
+    #{$type}: #{$t};
+  } @else if $type == margin-bottom {
+    #{$type}: #{$t};
+  } @else if $type == margin-vert {
+    margin-top: #{$t};
+    margin-bottom: #{$t};
+  } @else if $type == margin-horz {
+    margin-left: #{$t};
+    margin-right: #{$t};
+  } @else if $type == padding-top {
+    #{$type}: #{$t};
+  } @else if $type == padding-right {
+    #{$type}: #{$t};
+  } @else if $type == padding-left {
+    #{$type}: #{$t};
+  } @else if $type == padding-bottom {
+    #{$type}: #{$t};
+  } @else if $type == padding-vert {
+    padding-top: #{$t};
+    padding-bottom: #{$t};
+  } @else if $type == padding-horz {
+    padding-left: #{$t};
+    padding-right: #{$t};
+
+
+  } @else if $type == margin-two {
+    margin: #{$t} #{$r};
+  } @else if $type == padding-two {
+    padding: #{$t} #{$r};
+
+  }
+}

@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 const Story = require('../models/Story');
+const Post = require('../models/Post');
 
 const checkObjectId = async (req, res, next) => {
 
   try {
-    const story = await Story.find({ slug: req.params.slug })
-    const idToCheck = story[0]._id;
+    const getStory = await Story.findById(req.params.id);
+    const getPost = await Post.findById(req.params.id);
 
-    if (!mongoose.Types.ObjectId.isValid(idToCheck)) {
+    const checkId = getStory === null ? getPost._id : getStory._id;
+
+    if (!mongoose.Types.ObjectId.isValid(checkId)) {
       return res.status(400).json({
-        msg: 'Invalid ID'
+        msg: 'Invalid ID.'
       });
     }
 
