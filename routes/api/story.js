@@ -270,11 +270,18 @@ router.get(
 // @desc get post
 // @access Public
 router.get(
-  '/s/:id/p/:postId',
+  '/s/:slug/p/:postSlug',
   async (req, res) => {
     try {
-      const story = await Story.findById(req.params.id);
-      const post = await Post.findById(req.params.postId);
+      console.log(req.params.slug);
+      console.log(req.params.postSlug);
+      
+
+      const story = await Story.find({ slug: req.params.slug});
+      const post = await Post.find({ slug: req.params.postSlug});
+
+      const storyId = story[0]._id;
+      const postId = post[0]._id;
 
       if (!story) {
         return res.status(404).json({ msg: 'Cannot find the Story' });

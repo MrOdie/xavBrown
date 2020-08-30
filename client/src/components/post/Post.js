@@ -8,14 +8,15 @@ import { deletePost } from '../../actions/post';
 const Post = ({
   deletePost,
   auth,
-  post: { _id, owner, title, date, slug },
+  post: { _id, title, storySlug, slug, markdown },
   showActions
 }) => {
   return (
     <div className="content">
       <div className="inner">
-        <Link to={`/posts/${slug}`}>
+        <Link to={`/stories/${storySlug}/posts/${slug}`}>
           {title}
+          {markdown}
         </Link>
       </div>
     </div>

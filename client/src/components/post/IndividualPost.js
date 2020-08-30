@@ -9,8 +9,8 @@ import SingleColumn from '../layout/singleColumn';
 
 const IndividualPost = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
-    getPost(match.params.slug);
-  }, [getPost, match.params.slug])
+    getPost(match.params.slug, match.params.id);
+  }, [getPost, match.params.slug, match.params.id])
 
   return loading || post === null ? (
     <Layout page="postPage">
@@ -21,7 +21,10 @@ const IndividualPost = ({ getPost, post: { post, loading }, match }) => {
   ) : (
       <Layout page="postPage">
         <SingleColumn>
-          <h2>{post.title}</h2>
+          {console.log(post[0]._id)}
+          <h2>{post[0].title}</h2>
+          <p>{post[0].markdown}</p>
+          <p>hello there</p>
 
         </SingleColumn>
       </Layout>

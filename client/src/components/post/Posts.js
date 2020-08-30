@@ -24,7 +24,6 @@ const Posts = ({ getPosts, post: { posts, loading }, storyId }) => {
         ))
       }
       <p>{posts.name}</p>
-      {/* <Post /> */}
     </>
     )
 }
