@@ -1,33 +1,32 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
 import { getPosts } from '../../actions/post';
 
 import Post from './Post';
-import Layout from '../layout/Layout';
-import SingleColumn from '../layout/singleColumn';
 
-import classes from '../../assets/scss/modules/posts.module.scss';
+// import classes from '../../assets/scss/modules/posts.module.scss';
 
-const Posts = ({ getPosts, post: { posts } }) => {
+const Posts = ({ getPosts, post: { posts, loading }, storyId }) => {
   useEffect(() => {
-    getPosts();
-  }, [getPosts])
+    getPosts(storyId);
+  }, [getPosts, storyId])
 
-  return (
-    <Layout page="posts">
-      <SingleColumn>
-        <h1>Posts</h1>
-        <div className={classes.posts}>
-          {
-            posts.map((post) => (
-              <Post key={post._id} post={post}/>
-            ))
-          }
-        </div>
-      </SingleColumn>
-    </Layout>
-  )
+  return loading && posts !== null ? (
+    <Spinner />
+  ) : (
+    <>
+      <h2>{posts.title}</h2>
+      {
+        posts.map(post => (
+          <Post key={post._id} post={post} />
+        ))
+      }
+      <p>{posts.name}</p>
+      {/* <Post /> */}
+    </>
+    )
 }
 
 Posts.propTypes = {
@@ -39,4 +38,4 @@ const mapStateToProps = (state) => ({
   post: state.post
 });
 
-export default connect( mapStateToProps, { getPosts })(Posts);
+export default connect(mapStateToProps, { getPosts })(Posts);

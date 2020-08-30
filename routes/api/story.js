@@ -85,7 +85,6 @@ router.get(
   async (req, res) => {
 
     try {
-      console.log('here')
       const getStory = await Story.find({ slug: req.params.slug });
       const storyId = getStory[0]._id;
 
@@ -168,10 +167,10 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
       const story = await Story.findById(req.params.id);
+      const storySlug = story.slug;
       let getPosts = await Post.find();
 
       const storyId = story._id;
-      console.log(typeof (storyId));
 
       for (let i = 0; i < getPosts.length; i++) {
         if (JSON.stringify(getPosts[i].story) == JSON.stringify(storyId)) {
@@ -186,12 +185,13 @@ router.post(
       }
 
       const newPost = new Post({
-        story: story._id,
         owner: req.user.id,
         name: user.name,
         title: req.body.title,
         description: req.body.description,
-        markdown: req.body.markdown
+        markdown: req.body.markdown,
+        storyId: req.params.id,
+        storySlug: storySlug
       });
 
       await newPost.save();
@@ -255,13 +255,9 @@ router.put(
 router.get(
   '/s/:id/posts',
   async (req, res) => {
-    console.log('p')
     try {
-      const story = await Story.findById(req.params.id);
-      const posts = await Post.find({ story: req.params.id })
-      console.log(posts);
-
-      // const posts = await Post.find().sort({ data: -1 })
+      const posts = await Post.find({ storyId: req.params.id })
+      console.log('here?')
       res.json(posts);
     } catch (err) {
       console.error(err);
@@ -277,10 +273,9 @@ router.get(
   '/s/:id/p/:postId',
   async (req, res) => {
     try {
-      console.log('bbogae')
-      //const post = new Post.find().sort({ data: -1 });
       const story = await Story.findById(req.params.id);
       const post = await Post.findById(req.params.postId);
+
       if (!story) {
         return res.status(404).json({ msg: 'Cannot find the Story' });
       }

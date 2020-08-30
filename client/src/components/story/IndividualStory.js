@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getStory } from '../../actions/story';
 
+import Posts from '../post/Posts';
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
 
@@ -22,7 +23,7 @@ const IndividualStory = ({ getStory, story: { story, loading }, match }) => {
       <Layout page="storyPage">
         <SingleColumn>
           <h2>{story.title}</h2>
-
+          <Posts storyId={story._id}/>
         </SingleColumn>
       </Layout>
     )

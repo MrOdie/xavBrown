@@ -69,7 +69,7 @@ export const addStory = formData => async dispatch => {
 export const getStory = slug => async dispatch => {
   try {
     const res = await api.get(`stories/s/${slug}`);
-    console.log(res);
+
     dispatch({
       type: GET_STORY,
       payload: res.data
