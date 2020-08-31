@@ -21,9 +21,8 @@ const IndividualPost = ({ getPost, post: { post, loading }, match }) => {
   ) : (
       <Layout page="postPage">
         <SingleColumn>
-          {console.log(post[0]._id)}
-          <h2>{post[0].title}</h2>
-          <p>{post[0].markdown}</p>
+          <h2>{post.title}</h2>
+          <p>{post.markdown}</p>
           <p>hello there</p>
 
         </SingleColumn>

@@ -14,9 +14,9 @@ const Post = ({
   return (
     <div className="content">
       <div className="inner">
-        <Link to={`/stories/${storySlug}/posts/${slug}`}>
-          {title}
-          {markdown}
+        <Link to={`/stories/${storySlug}/${slug}`}>
+          <h3>{title}</h3>
+          <p>{markdown}</p>
         </Link>
       </div>
     </div>

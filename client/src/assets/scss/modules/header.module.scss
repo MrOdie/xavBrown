@@ -13,7 +13,7 @@
   z-index: 1;
   transition: 0.4s ease-out;
   z-index: 10;
-  background-color: map-get($xav, color1);
+  background-color: map-get($xav, color3);
 
   &.landingPage {
     background-color: transparent;
@@ -152,7 +152,7 @@
   &.scrolled {
     height: 60px;
     color: #fff;
-    background: map-get($xav, color1);
+    background: map-get($xav, color3);
 
     .menuIcon {
       &Line,
@@ -209,7 +209,7 @@
       width: 100vw;
       height: 100vh;
       color: #fff;
-      background: map-get($xav, color1);
+      background: map-get($xav, color3);
       transition: opacity 0.8s 0.5s, clip-path 1s 0.5s;
       clip-path: circle(200px at top right);
       margin-top: 0;

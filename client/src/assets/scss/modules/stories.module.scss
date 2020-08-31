@@ -1,2 +1,14 @@
 @import "../mixins/breakpoints.scss";
 @import "../misc/colors.scss";
+
+.storyBody {
+  .heading{
+    h1 {
+      text-align: center;
+    }
+  }
+
+  .stories {
+    background-color: map-get($xav, color4);
+  }
+}

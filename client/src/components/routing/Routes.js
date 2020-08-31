@@ -9,7 +9,7 @@ import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Stories from '../story/Stories';
 import IndividualStory from '../story/IndividualStory';
-import Posts from '../post/Posts';
+// import Posts from '../post/Posts';
 import IndividualPost from '../post/IndividualPost';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
@@ -25,8 +25,8 @@ const Routes = props => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/stories" component={Stories} />
         <Route exact path="/stories/:slug" component={IndividualStory} />
-        <Route exact path="/stories/:slug/posts" component={Posts} />
-        <Route exact path="/stories/:slug/posts/:id" component={IndividualPost} />
+        {/* <Route exact path="/stories/:slug/posts" component={Posts} /> */}
+        <Route exact path="/stories/:slug/:id" component={IndividualPost} />
         <Route exact path="/profiles" component={Profiles} />
         <Route exact path="/profile/:id" component={Profile} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
