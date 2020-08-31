@@ -1,0 +1,22 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.post {
+  .header {
+    text-align: center;
+    color: $alt-white;
+    margin-bottom: 2rem;
+  }
+
+  .posts {
+    display: grid;
+    grid-gap: 1rem;
+    
+    @include breakpoints(really_big large desktop sm_desktop){
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @include breakpoints(lg_tablet tablet nav){
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}

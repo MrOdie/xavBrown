@@ -11,9 +11,9 @@ import {
 } from './types';
 
 // Get posts
-export const getPosts = () => async dispatch => {
+export const getPosts = id => async dispatch => {
   try {
-    const res = await api.get('/stories');
+    const res = await api.get(`stories/s/${id}/posts`);
 
     dispatch({
       type: GET_POSTS,
@@ -66,10 +66,10 @@ export const addPost = formData => async dispatch => {
 };
 
 // Get post
-export const getPost = slug => async dispatch => {
+export const getPost = (slug, id) => async dispatch => {
   try {
-    const res = await api.get(`stories/s/${slug}`);
-    console.log(res);
+    const res = await api.get(`stories/s/${slug}/p/${id}`);
+
     dispatch({
       type: GET_POST,
       payload: res.data

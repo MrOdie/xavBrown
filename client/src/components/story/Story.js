@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { deletePost } from '../../actions/post';
+import { deleteStory } from '../../actions/story';
+
+import classes from '../../assets/scss/modules/story.module.scss';
 
 const Story = ({
-  deletePost,
+  deleteStory,
   auth,
-  post: { _id, owner, title, date, slug },
+  story: { _id, owner, title, description, date, slug },
   showActions
 }) => {
   return (
-    <div className="content">
-      <div className="inner">
-        <Link to={`/stories/${slug}`}>
-          {title}
-        </Link>
+    <Link className={classes.content} to={`/stories/${slug}`}>
+      <div className={classes.inner}>
+        <p className={`h3 ${classes.title}`}>{title}</p>
+        <p>{description}</p>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -27,9 +28,9 @@ Story.defaultProps = {
 };
 
 Story.propTypes = {
-  post: PropTypes.object.isRequired,
+  story: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  deletePost: PropTypes.func.isRequired,
+  deleteStory: PropTypes.func.isRequired,
   showActions: PropTypes.bool
 };
 
@@ -39,5 +40,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {deletePost}
-) (Story);
+  { deleteStory }
+)(Story);

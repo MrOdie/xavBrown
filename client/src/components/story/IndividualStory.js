@@ -1,42 +1,52 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import { getPost } from '../../actions/post';
+import { getStory } from '../../actions/story';
 
-import StoryInner from './StoryInner';
+import Posts from '../post/Posts';
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
 
-const IndividualStory = ({ getPost, post: { post, loading }, match }) => {
+import classes from '../../assets/scss/modules/individualStory.module.scss';
+
+const IndividualStory = ({ getStory, story: { story, loading }, match }) => {
   useEffect(() => {
-    getPost(match.params.slug);
-  }, [getPost, match.params.slug])
+    getStory(match.params.slug);
+  }, [getStory, match.params.slug])
 
-  return loading || post === null ? (
-    <Layout page="storyPage">
-      <SingleColumn>    
-        <Spinner />
-      </SingleColumn>
-    </Layout>
-  ) : (
-      <Layout page="storyPage">
+  return (
+    <>
+      <Layout page='storyPage'>
         <SingleColumn>
-          <h2>{post.title}</h2>
-
+          {
+            loading || story === null ? (
+              <Spinner />
+            ) : (
+                <section className={classes.post}>
+                  <article className={`h1 ${classes.header}`}>
+                    {story.title}
+                  </article>
+                  <article className={classes.posts}>
+                    <Posts storyId={story._id} />
+                  </article>
+                </section>
+              )
+          }
         </SingleColumn>
       </Layout>
-    )
+    </>
+  )
+
 }
 
 IndividualStory.propTypes = {
-  getPost: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  getStory: PropTypes.func.isRequired,
+  story: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  post: state.post
+  story: state.story
 })
 
-export default connect(mapStateToProps, { getPost })(IndividualStory);
+export default connect(mapStateToProps, { getStory })(IndividualStory);

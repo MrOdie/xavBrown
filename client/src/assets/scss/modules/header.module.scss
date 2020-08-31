@@ -9,11 +9,11 @@
   align-items: center;
   height: 70px;
   width: 100vw;
-  color: #fff;
+  color: $white;
   z-index: 1;
   transition: 0.4s ease-out;
   z-index: 10;
-  background-color: map-get($xav, color1);
+  background-color: map-get($xav, color3);
 
   &.landingPage {
     background-color: transparent;
@@ -105,7 +105,7 @@
     &Line {
       display: block;
       position: relative;
-      background: #fff;
+      background: $white;
       height: 3px;
       width: 30px;
       border-radius: 4px;
@@ -118,7 +118,7 @@
         height: 100%;
         width: 100%;
         border-radius: 4px;
-        background: #fff;
+        background: $white;
         transition: background 0.8s ease;
       }
 
@@ -151,14 +151,14 @@
 
   &.scrolled {
     height: 60px;
-    color: #fff;
-    background: map-get($xav, color1);
+    color: $white;
+    background: map-get($xav, color3);
 
     .menuIcon {
       &Line,
       &Line::before,
       &Line::after {
-        background: #fff;
+        background: $white;
       }
     }
   }
@@ -208,8 +208,8 @@
       padding: 10rem 0;
       width: 100vw;
       height: 100vh;
-      color: #fff;
-      background: map-get($xav, color1);
+      color: $white;
+      background: map-get($xav, color3);
       transition: opacity 0.8s 0.5s, clip-path 1s 0.5s;
       clip-path: circle(200px at top right);
       margin-top: 0;
@@ -274,16 +274,16 @@
       animation: pulse 1s;
 
       .menuIconLine {
-        background: #fff;
+        background: $white;
         animation: openMid 0.8s forwards;
 
         &::before {
-          background: #fff;
+          background: $white;
           animation: openTop 0.8s forwards;
         }
 
         &::after {
-          background: #fff;
+          background: $white;
           animation: openBtm 0.8s forwards;
         }
       }

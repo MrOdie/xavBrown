@@ -8,7 +8,7 @@ export default () => (
       justifyContent: 'center',
       alignContent: 'center',
       height: '100vh',
-      width: '100vw'
+      width: 'inherit'
     }}>
       <img
         src={spinner}
