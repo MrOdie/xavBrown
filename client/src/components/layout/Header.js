@@ -13,16 +13,8 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
   const authLinks = (
     <Fragment>
       <li className={classes.navLink}>
-        <Link to='/profiles'>Developers</Link>
-      </li>
-      <li className={classes.navLink}>
-        <Link to='/dashboard'>
-          <span className='hide-sm'>Dashboard</span>
-        </Link>
-      </li>
-      <li className={classes.navLink}>
         <a onClick={logout} href='/'>
-          <span className='hide-sm'>Logout</span>
+          Logout
         </a>
       </li>
     </Fragment>

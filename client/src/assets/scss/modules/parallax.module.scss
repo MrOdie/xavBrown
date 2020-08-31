@@ -1,7 +1,7 @@
 @import "../mixins/breakpoints.scss";
 @import "../misc/colors.scss";
 
-.storyHeading {
+.heading {
   grid-column: 1/4;
   position: relative;
 
@@ -33,35 +33,5 @@
   .headingImage {
     width: 100%;
     display: block;
-  }
-}
-
-.storyBody {
-  h4 {
-    color: $alt-white;
-    margin-top: 0;
-  }
-  .heading {
-    h1 {
-      text-align: center;
-      color: $white;
-    }
-    margin-bottom: 2rem;
-  }
-
-  .stories {
-    // display: flex;
-    // flex-flow: row wrap;
-    // justify-content: center;
-    // align-content: center;
-    display: grid;
-    grid-gap: 1rem;
-
-    @include breakpoints(really_big large desktop sm_desktop) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    @include breakpoints(lg_tablet tablet nav) {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 }

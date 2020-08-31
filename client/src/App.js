@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 // Components
 import Landing from './components/layout/Landing';
@@ -21,16 +22,18 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Switch>
-            <Route exact path='/' component={Landing} />
-            <Route component={Routes} />
-          </Switch>
-        </Fragment>
-      </Router>
-    </Provider>
+    <ParallaxProvider>
+      <Provider store={store}>
+        <Router>
+          <Fragment>
+            <Switch>
+              <Route exact path='/' component={Landing} />
+              <Route component={Routes} />
+            </Switch>
+          </Fragment>
+        </Router>
+      </Provider>
+    </ParallaxProvider>
   )
 }
 

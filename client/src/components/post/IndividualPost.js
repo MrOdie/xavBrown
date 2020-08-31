@@ -7,7 +7,7 @@ import { getPost } from '../../actions/post';
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
 
-import classes from '../../assets/scss/modules/individualPost.module.scss';
+// import classes from '../../assets/scss/modules/individualPost.module.scss';
 
 const IndividualPost = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
