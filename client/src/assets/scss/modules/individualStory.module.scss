@@ -1,20 +1,14 @@
 @import "../mixins/breakpoints.scss";
 @import "../misc/colors.scss";
 
-.storyBody {
-  .heading{
-    h1 {
-      text-align: center;
-      color: $white
-    }
+.post {
+  .header {
+    text-align: center;
+    color: $alt-white;
     margin-bottom: 2rem;
   }
 
-  .stories {
-    // display: flex;
-    // flex-flow: row wrap;
-    // justify-content: center;
-    // align-content: center;
+  .posts {
     display: grid;
     grid-gap: 1rem;
     

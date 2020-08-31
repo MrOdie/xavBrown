@@ -16,15 +16,13 @@ const Posts = ({ getPosts, post: { posts, loading }, storyId }) => {
   return loading && posts !== null ? (
     <Spinner />
   ) : (
-    <>
-      <h2>{posts.title}</h2>
-      {
-        posts.map(post => (
-          <Post key={post._id} post={post} />
-        ))
-      }
-      <p>{posts.name}</p>
-    </>
+      <>
+        {
+          posts.map(post => (
+            <Post key={post._id} post={post} />
+          ))
+        }
+      </>
     )
 }
 

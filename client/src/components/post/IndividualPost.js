@@ -7,6 +7,8 @@ import { getPost } from '../../actions/post';
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
 
+import classes from '../../assets/scss/modules/individualPost.module.scss';
+
 const IndividualPost = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
     getPost(match.params.slug, match.params.id);
@@ -21,10 +23,8 @@ const IndividualPost = ({ getPost, post: { post, loading }, match }) => {
   ) : (
       <Layout page="postPage">
         <SingleColumn>
-          <h2>{post.title}</h2>
+          <h2 className="h1">{post.title}</h2>
           <p>{post.markdown}</p>
-          <p>hello there</p>
-
         </SingleColumn>
       </Layout>
     )

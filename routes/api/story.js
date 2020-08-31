@@ -25,7 +25,8 @@ router.post(
     auth,
     roles,
     [
-      check('title', 'You must have a title').not().isEmpty()
+      check('title', 'You must have a title').not().isEmpty(),
+      check('description', 'Admin requires a description').not().isEmpty()
     ]
   ], async (req, res) => {
     const errors = validationResult(req);
@@ -49,10 +50,15 @@ router.post(
 
       const user = await User.findById(req.user.id).select('-password');
 
-      const newStory = new Story({
-        owner: req.user.id,
-        title: req.body.title
-      });
+      if (!user) {
+        return res.status(404).json({ msg: "User not found."})
+      }
+
+        const newStory = new Story({
+          owner: req.user.id || null,
+          description: req.body.description || null,
+          title: req.body.title || null
+        });
 
       const story = await newStory.save();
 
@@ -77,7 +83,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route Get api/stories/:slug
+// @route Get api/stories/s/:slug
 // @desc Get Story by ID
 // @access Public
 router.get(
@@ -143,11 +149,11 @@ router.delete(
 *
 */
 
-// @route api/stories/:id/
+// @route api/stories/s/:storyId/
 // @desc Create and update a post
 // @access Private
 router.post(
-  '/s/:id/',
+  '/s/:storyId/',
   [
     auth,
     roles,
@@ -166,14 +172,15 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-      const story = await Story.findById(req.params.id);
+      const story = await Story.findById(req.params.storyId);
       const storySlug = story.slug;
       let getPosts = await Post.find();
 
       const storyId = story._id;
 
       for (let i = 0; i < getPosts.length; i++) {
-        if (JSON.stringify(getPosts[i].story) == JSON.stringify(storyId)) {
+        if (JSON.stringify(getPosts[i].storyId) == JSON.stringify(storyId)) {
+
           if (getPosts[i].title === req.body.title) {
             return res.status(401).json({ msg: "Please choose a unique title" });
           }
@@ -185,13 +192,13 @@ router.post(
       }
 
       const newPost = new Post({
-        owner: req.user.id,
-        name: user.name,
-        title: req.body.title,
-        description: req.body.description,
-        markdown: req.body.markdown,
-        storyId: req.params.id,
-        storySlug: storySlug
+        owner: req.user.id || null,
+        name: user.name || null,
+        title: req.body.title || null,
+        description: req.body.description || null,
+        markdown: req.body.markdown || null,
+        storyId: req.params.storyId || null,
+        storySlug: storySlug || null
       });
 
       await newPost.save();
@@ -273,9 +280,9 @@ router.get(
   '/s/:slug/p/:postSlug',
   async (req, res) => {
     try {
-      const story = await Story.find({ slug: req.params.slug});
-      const post = await Post.find({ slug: req.params.postSlug});
-      
+      const story = await Story.find({ slug: req.params.slug });
+      const post = await Post.find({ slug: req.params.postSlug });
+
       const storyId = story[0]._id;
       const postId = post[0]._id;
 
@@ -349,9 +356,9 @@ router.post(
       const post = await Post.findById(req.params.id);
 
       const newComment = {
-        text: req.body.text,
-        name: user.name,
-        user: req.user.id
+        text: req.body.text || null,
+        name: user.name || null,
+        user: req.user.id || null
       };
 
       post.comments.unshift(newComment);

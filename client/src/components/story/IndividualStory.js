@@ -8,25 +8,36 @@ import Posts from '../post/Posts';
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
 
+import classes from '../../assets/scss/modules/individualStory.module.scss';
+
 const IndividualStory = ({ getStory, story: { story, loading }, match }) => {
   useEffect(() => {
     getStory(match.params.slug);
   }, [getStory, match.params.slug])
 
-  return loading || story === null ? (
-    <Layout page="storyPage">
-      <SingleColumn>    
-        <Spinner />
-      </SingleColumn>
-    </Layout>
-  ) : (
-      <Layout page="storyPage">
+  return (
+    <>
+      <Layout page='storyPage'>
         <SingleColumn>
-          <h2>{story.title}</h2>
-          <Posts storyId={story._id}/>
+          {
+            loading || story === null ? (
+              <Spinner />
+            ) : (
+                <section className={classes.post}>
+                  <article className={`h1 ${classes.header}`}>
+                    {story.title}
+                  </article>
+                  <article className={classes.posts}>
+                    <Posts storyId={story._id} />
+                  </article>
+                </section>
+              )
+          }
         </SingleColumn>
       </Layout>
-    )
+    </>
+  )
+
 }
 
 IndividualStory.propTypes = {

@@ -5,20 +5,21 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteStory } from '../../actions/story';
 
+import classes from '../../assets/scss/modules/story.module.scss';
+
 const Story = ({
   deleteStory,
   auth,
-  story: { _id, owner, title, date, slug },
+  story: { _id, owner, title, description, date, slug },
   showActions
 }) => {
   return (
-    <div className="content">
-      <div className="inner">
-        <Link to={`/stories/${slug}`}>
-          {title}
-        </Link>
+    <Link className={classes.content} to={`/stories/${slug}`}>
+      <div className={classes.inner}>
+        <p className={`h3 ${classes.title}`}>{title}</p>
+        <p>{description}</p>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -39,5 +40,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {deleteStory}
-) (Story);
+  { deleteStory }
+)(Story);

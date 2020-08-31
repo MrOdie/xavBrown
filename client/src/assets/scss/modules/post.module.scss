@@ -1,0 +1,13 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.content {
+  background-color: $alt-white;
+  display: block;
+
+  .inner {
+    margin:1rem; 
+    text-align: center;
+    color: $text;
+  }
+}

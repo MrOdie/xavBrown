@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deletePost } from '../../actions/post';
 
+import classes from '../../assets/scss/modules/post.module.scss';
+
 const Post = ({
   deletePost,
   auth,
@@ -12,14 +14,12 @@ const Post = ({
   showActions
 }) => {
   return (
-    <div className="content">
-      <div className="inner">
-        <Link to={`/stories/${storySlug}/${slug}`}>
-          <h3>{title}</h3>
-          <p>{markdown}</p>
-        </Link>
+    <Link className={classes.content} to={`/stories/${storySlug}/${slug}`}>
+      <div className={classes.inner}>
+        <h3>{title}</h3>
+        <p>{markdown}</p>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -40,5 +40,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {deletePost}
-) (Post);
+  { deletePost }
+)(Post);

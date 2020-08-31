@@ -3,14 +3,14 @@
 
 .dashboard,
 .create-profile,
-.posts,
 .stories,
+.posts,
 .storyPage,
 .postPage {
   display: grid;
-
-  grid-column: 2/3;
   padding-top: 70px;
+  margin-bottom: 12.8rem;
+
   @include breakpoints(really_big large desktop sm_desktop) {
     grid-template-columns: 1fr 950px 1fr;
   }
@@ -20,4 +20,23 @@
   @include breakpoints(nav mobile) {
     grid-template-columns: 1rem 1fr 1rem;
   }
+}
+
+// for basic, white background
+.dashboard,
+.create-profile,
+.posts,
+.postPage {
+  grid-column: 2/3;
+}
+
+// for full page color:
+.stories {
+  grid-column: 1/4;
+  background-color: map-get($xav, color5);
+}
+
+.storyPage {
+  grid-column: 1/4;
+  background-color: map-get($xav, color4);
 }
