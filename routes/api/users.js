@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const auth = require('../../middleware/auth');
+const roles = require('../../middleware/roles');
 const {
   check,
   validationResult
@@ -33,7 +35,7 @@ router.post('/', [
   try {
     let userEmail = await User.findOne({ email });
     let userUsername = await User.findOne({ userName });
-    let role = 'basic';
+    let role = null;
 
     if (userEmail) {
       return res.status(400).json({
@@ -82,5 +84,31 @@ router.post('/', [
     res.status(500).send('Server Error.');
   }
 });
+
+// @route GET api/users/all
+// @desc Get all users
+// @access Private
+router.get(
+  '/all',
+  [
+    auth,
+    roles
+  ], async (req, res) => {
+    try {
+      const checkUser = await User.findById(req.user.id);
+
+      if (checkUser.role !== 'admin') {
+        return res.status(401).json({ msg: "Permission Denied."})
+      }
+
+      const getUsers = await User.find().sort({ data: -1 }).select('-password');
+
+      res.json(getUsers);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error.');
+    }
+  }
+)
 
 module.exports = router;

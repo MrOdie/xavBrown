@@ -10,14 +10,14 @@ import classes from '../../assets/scss/modules/post.module.scss';
 const Post = ({
   deletePost,
   auth,
-  post: { _id, title, storySlug, slug, markdown },
+  post: { _id, title, storySlug, slug, markdown, description },
   showActions
 }) => {
   return (
     <Link className={classes.content} to={`/stories/${storySlug}/${slug}`}>
       <div className={classes.inner}>
         <h3>{title}</h3>
-        <p>{markdown}</p>
+        <p>{description}</p>
       </div>
     </Link>
   )

@@ -12,8 +12,9 @@
 
 .backdrop {
   width: 100vw;
-  position: absolute;
+  position: fixed;
   z-index: 9;
+  top: 5%;
 }
 .alert {
   position: relative;

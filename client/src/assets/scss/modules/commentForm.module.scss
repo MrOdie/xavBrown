@@ -1,0 +1,23 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.commentForm {
+
+  .comment {
+    width: 588px;
+    margin: 0 auto;
+    position: relative;
+
+    .commentTextArea {
+      border-radius: 5px;
+      border: 1px solid map-get($xav, color3);
+    }
+    .commentButton {
+      padding: .5rem;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-radius: 6px;
+    }
+  }
+}

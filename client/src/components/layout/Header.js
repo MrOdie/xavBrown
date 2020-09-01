@@ -13,6 +13,9 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
   const authLinks = (
     <Fragment>
       <li className={classes.navLink}>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
+      <li className={classes.navLink}>
         <a onClick={logout} href='/'>
           Logout
         </a>
@@ -32,7 +35,19 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
   );
 
   return (
-    <header id="Header" className={!scroll ? `${classes.mainHeader} ${classes.scrolled} ${classes[parent]}` : `${classes.mainHeader} ${classes[parent]}`} >
+    <header id="Header" className={parent !== undefined ? (
+      !scroll ? (
+        `${classes.mainHeader} ${classes.scrolled} ${classes[parent]}`
+      ) : (
+        `${classes.mainHeader} ${classes[parent]}`
+      )
+    ) : (
+      !scroll ? (
+        `${classes.mainHeader} ${classes.scrolled}`
+      ) : (
+        `${classes.mainHeader}`
+      )
+    )} >
 
       <div className={classes.logo}>
         <Link to="/"><h2 className="h1">XBC</h2></Link>

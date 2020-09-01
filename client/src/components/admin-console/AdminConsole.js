@@ -1,27 +1,47 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
 
-const AdminConsole = ({ auth: { user }}) => {
+import { getAllUsers } from '../../actions/admin';
+
+const AdminConsole = ({ getAllUsers, admin: { users, loading }, adminUser }) => {
   useEffect(() => {
-    
-  });
-  
-  return (
-    <div>
-      <h1>Admin Console</h1>
-    </div>
-  )
+    getAllUsers();
+  }, [getAllUsers]);
+
+  console.log('hello')
+
+  return loading || users === null ? (
+    <>
+      <Spinner />
+    </>
+  ) : (
+      <>
+        {console.log(loading)}
+      hello
+      </>
+    )
+  // return (
+  //   <div>
+  //     <h1>{adminUser.name}&#39;s Admin Console</h1>
+  //     {console.log(getAllUsers())}
+  //   </div>
+  // )
 }
 
 AdminConsole.propTypes = {
-  auth: PropTypes.object.isRequired
+  getAllUsers: PropTypes.func.isRequired,
+  admin: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  admin: state.users,
+  isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, { getAllUsers }
 )(AdminConsole);

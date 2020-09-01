@@ -40,3 +40,8 @@
   grid-column: 1/4;
   background-color: map-get($xav, color4);
 }
+
+.postPage {
+  grid-column: 1/4;
+  background-color: map-get($xav, color1);
+}

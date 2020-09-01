@@ -68,7 +68,7 @@ export const addPost = formData => async dispatch => {
 // Get post
 export const getPost = (slug, id) => async dispatch => {
   try {
-    const res = await api.get(`stories/s/${slug}/p/${id}`);
+    const res = await api.get(`/stories/s/${slug}/p/${id}`);
 
     dispatch({
       type: GET_POST,
@@ -86,7 +86,7 @@ export const getPost = (slug, id) => async dispatch => {
 // Add comment
 export const addComment = (postId, formData) => async dispatch => {
   try {
-    const res = await api.post(`/posts/comment/${postId}`, formData);
+    const res = await api.post(`/stories/c/comment/${postId}`, formData);
 
     dispatch({
       type: ADD_COMMENT,
@@ -94,6 +94,9 @@ export const addComment = (postId, formData) => async dispatch => {
     });
 
     dispatch(setAlert('Comment Added', 'success'));
+
+    // add a refresh here
+    
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -105,7 +108,7 @@ export const addComment = (postId, formData) => async dispatch => {
 // Delete comment
 export const deleteComment = (postId, commentId) => async dispatch => {
   try {
-    await api.delete(`/posts/comment/${postId}/${commentId}`);
+    await api.delete(`/stories/c/comment/${postId}/${commentId}`);
 
     dispatch({
       type: REMOVE_COMMENT,

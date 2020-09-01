@@ -6,6 +6,7 @@ import DashboardActions from './DashboardActions';
 
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
+import AdminConsole from '../admin-console/AdminConsole';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
@@ -22,26 +23,36 @@ const Dashboard = ({
     <Layout page="dashboard">
 
       <SingleColumn>
-
-        <h1 className="large text-primary">Dashboard</h1>
-        <p className="lead">
-          <i className="fas fa-user" /> Welcome {user && user.name}
-        </p>
         {profile !== null ? (
-          <Fragment>
-            <DashboardActions />
-            <div className="my-2">
-              <button className="btn btn-danger" onClick={() => deleteAccount()}>
-                <i className="fas fa-user-minus" /> Delete My Account
-            </button>
-            </div>
-          </Fragment>
+          user.role !== null ? (
+            <>
+              <AdminConsole adminUser={user} />
+              <div className="my-2">
+                <button className="btn btn btn-danger" onClick={() => deleteAccount()}>
+                  <i className="fas fa-user-minus" /> Delete My Account
+                </button>
+              </div>
+            </>
+          ) : (
+              <Fragment>
+                <h2 className="h1">Dashboard</h2>
+                <p className="lead">
+                  <i className="fas fa-user" /> Welcome {user && user.name}
+                </p>
+                <DashboardActions />
+                <div className="my-2">
+                  <button className="btn btn btn-danger" onClick={() => deleteAccount()}>
+                    <i className="fas fa-user-minus" /> Delete My Account
+                    </button>
+                </div>
+              </Fragment>
+            )
         ) : (
             <Fragment>
               <p>You have not yet setup a profile, please add some info</p>
               <Link to="/create-profile" className="btn btn-primary">
                 Create Profile
-          </Link>
+                      </Link>
             </Fragment>
           )}
       </SingleColumn>

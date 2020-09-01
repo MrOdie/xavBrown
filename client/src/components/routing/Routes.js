@@ -5,8 +5,6 @@ import Login from '../Auth/Login';
 import Alert from '../layout/Alert';
 import Dashboard from '../Dashboard/Dashboard';
 import ProfileForm from '../profile-forms/ProfileForm';
-import Profiles from '../profiles/Profiles';
-import Profile from '../profile/Profile';
 import Stories from '../story/Stories';
 import IndividualStory from '../story/IndividualStory';
 import IndividualPost from '../post/IndividualPost';
@@ -25,6 +23,7 @@ const Routes = props => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/stories" component={Stories} />
           <Route exact path="/stories/:slug" component={IndividualStory} />
+          <Route exact path="/stories/:slug/:id" component={IndividualPost} />
           <PrivateRoute exact path="/admin-console" component={AdminConsole} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/create-profile" component={ProfileForm} />

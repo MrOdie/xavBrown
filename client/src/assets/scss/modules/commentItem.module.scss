@@ -1,0 +1,39 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.post {
+  background-color: $alt-white;
+  margin: 15px;
+  padding: 25px;
+  position: relative;
+
+  .user {
+    margin: 0;
+
+    .userLink {
+      cursor: pointer;
+
+      h4 {
+        margin: 0;
+      }
+    }
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    .button {
+      cursor: pointer;
+      position: absolute;
+      display: block;
+      top: 5px;
+      right: 5px;
+      padding: 0px 6px;
+      border-radius: 0;
+    }
+  }
+
+  .button {
+    display: none;
+  }
+}
