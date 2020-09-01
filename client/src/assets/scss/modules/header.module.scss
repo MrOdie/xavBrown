@@ -15,9 +15,15 @@
   z-index: 10;
   background-color: map-get($xav, color3);
 
-  &.landingPage {
+  &.landingPage,
+  &.postPage {
     background-color: transparent;
+
+    &.scrolled {
+      background-color: map-get($xav, color1);
+    }
   }
+
 
   @include breakpoints(really_big large desktop tablet nav sm_desktop lg_tablet) {
     padding: 0 15vw;

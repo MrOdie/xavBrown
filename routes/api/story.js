@@ -150,7 +150,7 @@ router.delete(
 */
 
 // @route api/stories/s/:storyId/
-// @desc Create and update a post
+// @desc Create a post
 // @access Private
 router.post(
   '/s/:storyId/',
@@ -223,22 +223,12 @@ router.put(
 
     try {
       const story = await Story.findById(req.params.id);
-      let getPosts = await Post.find();
-      const storyId = story._id;
-
-      for (let i = 0; i < getPosts.length; i++) {
-        if (getPosts[i].story == storyId) {
-          if (getPosts[i].title === req.body.title) {
-            return res.status(401).json({ msg: "Please choose a unique title" });
-          }
-        }
-      }
+      const checkTitle = req.body.title;
 
       const post = await Post.findOneAndUpdate(
         { _id: req.params.postId },
         {
           $set: {
-            title: req.body.title,
             markdown: req.body.markdown
           }
         }, {

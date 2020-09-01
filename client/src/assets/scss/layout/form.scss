@@ -102,3 +102,16 @@
     }
   }
 }
+
+.btn-danger {
+  background-color: #dc3545;
+  color: $alt-white;
+  border-color: #dc3545;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: lighten(#dc3545, 5%);
+    border-color: lighten(#dc3545, 5%);
+  }
+}

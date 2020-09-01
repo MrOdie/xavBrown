@@ -8,10 +8,6 @@ html {
   padding: 0;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 @import "./misc/misc.scss";
 @import "./mixins/mixins.scss";
 @import "./layout/layout.scss";
@@ -24,4 +20,36 @@ html {
 
 .App {
   display: grid;
+}
+
+* {
+  box-sizing: border-box !important;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box !important;
+}
+
+html {
+  box-sizing: border-box !important;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit !important;
+}
+
+html {
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit !important;
+  -moz-box-sizing: inherit !important;
+  box-sizing: inherit !important;
 }

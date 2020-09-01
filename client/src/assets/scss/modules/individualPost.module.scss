@@ -1,6 +1,11 @@
 @import "../mixins/breakpoints.scss";
 @import "../misc/colors.scss";
 
-.postPage {
-  color: purple;
+.post {
+  color: $alt-white;
+}
+
+.comments {
+  max-width: 650px;
+  margin: 3rem auto 0rem;
 }
