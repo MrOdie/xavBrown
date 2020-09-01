@@ -32,7 +32,7 @@ const IndividualPost = ({ getPost, post: { post, loading }, isAuthenticated, mat
             <h2 className="h1">{post.title}</h2>
             <ReactMarkdown source={post.markdown} />
           </section>
-          <section className={classes.comments}>
+          <section className={classes.commentSection}>
             {
               isAuthenticated === true ? (
                 <CommentForm postId={post._id} />
@@ -40,7 +40,7 @@ const IndividualPost = ({ getPost, post: { post, loading }, isAuthenticated, mat
                   <h3>Comments:</h3>
                 )
             }
-            <div className="comments">
+            <div className={classes.comments}>
               {post.comments.map((comment) => (
                 <CommentItem key={comment._id} comment={comment} postId={post._id} />
               ))}

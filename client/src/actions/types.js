@@ -32,3 +32,7 @@ export const DELETE_STORY = 'DELETE_STORY';
 export const ADD_STORY = 'ADD_STORY';
 export const ADD_OG_COMMENT = 'ADD_OG_COMMENT';
 export const REMOVE_OG_COMMENT = 'REMOVE_OG_COMMENT';
+
+// for admin console
+export const GET_USERS = 'GET_USERS';
+export const ERROR_GET_USERS = 'ERROR_GET_USERS';

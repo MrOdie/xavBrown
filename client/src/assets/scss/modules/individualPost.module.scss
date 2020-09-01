@@ -5,7 +5,16 @@
   color: $alt-white;
 }
 
-.comments {
+.commentSection {
   max-width: 650px;
   margin: 3rem auto 0rem;
+  padding: 1rem;
+  background-color: map-get($xav, color4);
+
+  h3 {
+    margin-top: 0;
+    margin-left: .8rem;
+    color: $alt-white;
+
+  }
 }

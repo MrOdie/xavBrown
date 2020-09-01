@@ -65,7 +65,7 @@
   select,
   option {
     border-bottom: 2px solid #767676;
-    padding: .25rem 1rem .25rem .5rem;
+    padding: 0.25rem 1rem 0.25rem 0.5rem;
 
     &::placeholder {
       color: #767676;
@@ -75,7 +75,7 @@
 
   textarea {
     resize: none;
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   .registerButton {
@@ -100,18 +100,5 @@
     @include breakpoints(lg_tablet tablet nav mobile) {
       width: 100%;
     }
-  }
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: $alt-white;
-  border-color: #dc3545;
-
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: lighten(#dc3545, 5%);
-    border-color: lighten(#dc3545, 5%);
   }
 }

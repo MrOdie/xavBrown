@@ -18,7 +18,6 @@ const Story = require('../../models/Story');
 // @route Post api/stories
 // @desc Create a story
 // @Private
-
 router.post(
   '/',
   [
@@ -39,6 +38,7 @@ router.post(
 
     try {
       const stories = await Story.find();
+      const description = req.body.description;
 
       for (let i = 0; i < stories.length; i++) {
         if (req.body.title === stories[i].title) {
@@ -48,17 +48,23 @@ router.post(
         }
       }
 
+      if (description && description.length > 250) {
+        return res.status(401).json({ msg: "The description of the story must be less than 250 characters in length." });
+      }
+      
+      console.log(description.length);
+
       const user = await User.findById(req.user.id).select('-password');
 
       if (!user) {
-        return res.status(404).json({ msg: "User not found."})
+        return res.status(404).json({ msg: "User not found." })
       }
 
-        const newStory = new Story({
-          owner: req.user.id || null,
-          description: req.body.description || null,
-          title: req.body.title || null
-        });
+      const newStory = new Story({
+        owner: req.user.id || null,
+        description: req.body.description || null,
+        title: req.body.title || null
+      });
 
       const story = await newStory.save();
 
@@ -79,7 +85,7 @@ router.get('/', async (req, res) => {
     res.json(stories);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error.')
+    res.status(500).send('Server Error.');
   }
 });
 
@@ -174,6 +180,7 @@ router.post(
       const user = await User.findById(req.user.id).select('-password');
       const story = await Story.findById(req.params.storyId);
       const storySlug = story.slug;
+      const description = req.body.description;
       let getPosts = await Post.find();
 
       const storyId = story._id;
@@ -191,11 +198,15 @@ router.post(
         return res.status(400).json({ msg: 'Story or User not found.' });
       }
 
+      if (description && description.length > 250) {
+        return res.status(401).json({ msg: "The description of the story must be less than 250 characters in length." });
+      }
+
       const newPost = new Post({
         owner: req.user.id || null,
         name: user.name || null,
         title: req.body.title || null,
-        description: req.body.description || null,
+        description: description || null,
         markdown: req.body.markdown || null,
         storyId: req.params.storyId || null,
         storySlug: storySlug || null
@@ -223,13 +234,19 @@ router.put(
 
     try {
       const story = await Story.findById(req.params.id);
+      const description = req.body.description;
       const checkTitle = req.body.title;
+
+      if (description && description.length > 250) {
+        return res.status(401).json({ msg: "The description of the story must be less than 250 characters in length." });
+      }
 
       const post = await Post.findOneAndUpdate(
         { _id: req.params.postId },
         {
           $set: {
-            markdown: req.body.markdown
+            markdown: req.body.markdown,
+            description: description
           }
         }, {
         new: true,
@@ -241,7 +258,7 @@ router.put(
 
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: "Server Error." });
+      res.status(500).send('Server Error.')
     }
   }
 );
@@ -258,7 +275,7 @@ router.get(
       res.json(posts);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: "Server Error." });
+      res.status(500).send('Server Error.')
     }
   }
 )
@@ -290,7 +307,7 @@ router.get(
       res.json(getPost)
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: 'Server Error.' });
+      res.status(500).send('Server Error.')
     }
   }
 )
@@ -320,7 +337,7 @@ router.delete(
       res.json({ msg: "Post removed" });
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: "Server Error." })
+      res.status(500).send('Server Error.')
     }
   }
 );
@@ -358,7 +375,7 @@ router.post(
       res.json(post.comments);
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ msg: 'Server Error.' });
+      res.status(500).send('Server Error.')
     }
   }
 );
@@ -397,7 +414,7 @@ router.delete(
       return res.json(post.comments);
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ msg: 'Server Error.' });
+      res.status(500).send('Server Error.');
     }
   }
 );

@@ -35,7 +35,7 @@ const CommentItem = ({
             <button
               onClick={() => deleteComment(postId, _id)}
               type='button'
-              className={`btn-danger ${classes.button}`}
+              className={`btn btn-danger no-padding no-font-weight ${classes.button}`}
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
