@@ -6,17 +6,15 @@ import {
 } from './types';
 
 export const getAllUsers = () => async dispatch => {
-  console.log('hello')
   try {
     const res = await api.get('/users/all');
-    console.log(res);
+
     dispatch({
       type: GET_USERS,
       payload: res.data
     })
     
   } catch (err) {
-    console.log('no, here')
     const errors = err.response.data.errors;
 
     if (errors) {

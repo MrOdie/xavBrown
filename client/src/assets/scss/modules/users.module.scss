@@ -1,0 +1,12 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.users {
+  display: grid;
+  background-color: map-get($xav, color4);
+
+  h4 {
+    margin: 0;
+    color: $alt-white;
+  }
+}

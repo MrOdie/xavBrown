@@ -8,7 +8,6 @@ import ProfileForm from '../profile-forms/ProfileForm';
 import Stories from '../story/Stories';
 import IndividualStory from '../story/IndividualStory';
 import IndividualPost from '../post/IndividualPost';
-import AdminConsole from '../admin-console/AdminConsole';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
@@ -24,7 +23,6 @@ const Routes = props => {
           <Route exact path="/stories" component={Stories} />
           <Route exact path="/stories/:slug" component={IndividualStory} />
           <Route exact path="/stories/:slug/:id" component={IndividualPost} />
-          <PrivateRoute exact path="/admin-console" component={AdminConsole} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/create-profile" component={ProfileForm} />
           <PrivateRoute exact path="/edit-profile" component={ProfileForm} />

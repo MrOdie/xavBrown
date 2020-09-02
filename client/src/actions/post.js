@@ -69,6 +69,7 @@ export const addPost = formData => async dispatch => {
 export const getPost = (slug, id) => async dispatch => {
   try {
     const res = await api.get(`/stories/s/${slug}/p/${id}`);
+    console.log(res);
 
     dispatch({
       type: GET_POST,

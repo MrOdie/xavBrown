@@ -22,7 +22,7 @@ const store = createStore(
 let currentState = store.getState();
 
 store.subscribe(() => {
-  // keep trakc of the previous and current state to compare changes
+  // keep track of the previous and current state to compare changes
   let previousState = currentState;
   currentState = store.getState();
 

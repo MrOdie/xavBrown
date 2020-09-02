@@ -1,0 +1,17 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.user {
+  background-color: $alt-white;
+  width: 90%;
+  margin: 0 auto;
+  
+  .inner {
+    display: flex;
+    justify-content: space-around;
+
+    p {
+      margin: 0;
+    }
+  }
+}
