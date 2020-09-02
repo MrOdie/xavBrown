@@ -2,12 +2,12 @@ import React from "react";
 import ToggleTitle from "./ToggleTitle";
 import ToggleContent from "./ToggleContent";
 
-import { toggle } from '../../assets/js/toggle';
+//import { toggle } from '../../assets/js/toggle';
 import {classes } from '../../../assets/scss/modules/toggle.module.scss';
 
 class ToggleComponent extends React.Component {
 	componentDidMount() {
-		toggle();
+		//toggle();
 	}
 
 	render() {

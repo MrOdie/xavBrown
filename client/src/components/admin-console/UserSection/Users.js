@@ -5,6 +5,7 @@ import Spinner from '../../layout/Spinner';
 import { getAllUsers } from '../../../actions/admin';
 
 import User from './User';
+import AccordionComponent from '../../layout/Accordion/AccordionComponent';
 import classes from '../../../assets/scss/modules/users.module.scss';
 
 const Users = ({ getAllUsers, admin: { users, loading } }) => {
@@ -16,7 +17,9 @@ const Users = ({ getAllUsers, admin: { users, loading } }) => {
     <Spinner />
   ) : (
     <section className={classes.users}>
+
       <h4>Users</h4>
+      <AccordionComponent labels={users} />
       {
         users.map((user) => (
           <User key={user._id} user={user} />

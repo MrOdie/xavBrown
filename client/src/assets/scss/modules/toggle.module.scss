@@ -1,3 +1,6 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
 .toggle {
   &__content {
     border-left: 5px solid map-get($xav, color5);
