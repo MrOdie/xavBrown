@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -34,7 +34,7 @@ const Dashboard = ({
               </div>
             </>
           ) : (
-              <Fragment>
+              <>
                 <h2 className="h1">Dashboard</h2>
                 <p className="lead">
                   <i className="fas fa-user" /> Welcome {user && user.name}
@@ -45,15 +45,15 @@ const Dashboard = ({
                     <i className="fas fa-user-minus" /> Delete My Account
                     </button>
                 </div>
-              </Fragment>
+              </>
             )
         ) : (
-            <Fragment>
+            <>
               <p>You have not yet setup a profile, please add some info</p>
               <Link to="/create-profile" className="btn btn-primary">
                 Create Profile
                       </Link>
-            </Fragment>
+            </>
           )}
       </SingleColumn>
     </Layout>

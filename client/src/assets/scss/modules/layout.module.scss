@@ -23,11 +23,15 @@
 }
 
 // for basic, white background
-.dashboard,
 .create-profile,
 .posts,
 .postPage {
   grid-column: 2/3;
+}
+
+.dashboard {
+  grid-column: 1/4;
+  background-color: $alt-white;
 }
 
 // for full page color:
