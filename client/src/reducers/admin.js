@@ -4,22 +4,19 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  token: localStorage.getItem('token'),
-  isAuthenticated: null,
   loading: true,
   users: [],
   user: null,
   error: {}
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action){
   const { type, payload } = action;
 
   switch (type){
     case GET_USERS:
       return {
         ...state,
-        isAuthenticated: true,
         users: payload,
         loading: false
       };

@@ -4,42 +4,34 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 
 import { getAllUsers } from '../../actions/admin';
+import Users from './UserSection/Users';
 
-const AdminConsole = ({ getAllUsers, admin: { users, loading }, adminUser }) => {
+const AdminConsole = ({ getAllUsers, admin: {users, loading}, adminUser }) => {
   useEffect(() => {
     getAllUsers();
   }, [getAllUsers]);
 
-  console.log('hello')
-
-  return loading || users === null ? (
-    <>
-      <Spinner />
-    </>
+  return loading && users !== null ? (
+    <Spinner />
   ) : (
       <>
-        {console.log(loading)}
-      hello
+        {
+          users.map((user) => (
+            <Users key={user._id} user={user}/>
+            ))
+        }
+        <h2 className="h1"> {adminUser.name}&#39;s Admin Console</h2>
       </>
     )
-  // return (
-  //   <div>
-  //     <h1>{adminUser.name}&#39;s Admin Console</h1>
-  //     {console.log(getAllUsers())}
-  //   </div>
-  // )
 }
 
 AdminConsole.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
-  admin: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool
+  admin: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  admin: state.users,
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  admin: state.admin
 })
 
 export default connect(

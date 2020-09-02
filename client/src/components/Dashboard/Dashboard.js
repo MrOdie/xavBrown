@@ -6,7 +6,7 @@ import DashboardActions from './DashboardActions';
 
 import Layout from '../layout/Layout';
 import SingleColumn from '../layout/singleColumn';
-import AdminConsole from '../admin-console/AdminConsole';
+import AdminConsole from '../Admin-Console/AdminConsole';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
