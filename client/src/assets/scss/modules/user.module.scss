@@ -3,12 +3,32 @@
 
 .user {
   background-color: $alt-white;
-  width: 90%;
-  margin: 0 auto;
-  
-  .inner {
-    display: flex;
-    justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  // max-height: inherit;
+  position: relative;
+  overflow-y: scroll;
+
+  .titleRow {
+    background-color: map-get($xav, color5);
+    color: $alt-white;
+  }
+
+  .titleRow,
+  .row {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+  }
+
+  .row {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+
+    &:nth-child(odd) {
+      background-color: $white-hover;
+    }
 
     p {
       margin: 0;
