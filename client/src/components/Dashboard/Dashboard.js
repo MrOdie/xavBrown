@@ -52,7 +52,7 @@ const Dashboard = ({
               <p>You have not yet setup a profile, please add some info</p>
               <Link to="/create-profile" className="btn btn-primary">
                 Create Profile
-                      </Link>
+              </Link>
             </>
           )}
       </SingleColumn>

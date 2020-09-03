@@ -20,6 +20,11 @@ export const loadUser = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    const error = err.response;
+
+    if (error) {
+      dispatch(setAlert(error.data.msg, 'danger'))
+    }
     dispatch({
       type: AUTH_ERROR
     })
@@ -62,12 +67,16 @@ export const login = (email, password) => async dispatch => {
 
     dispatch(loadUser());
   } catch (err) {
+    console.log(err.response);
+    const error = err.response;
+    const errorMessage = err.response.statusText;
+    const errorStatus = err.response.status;
+    const altMsg = `Could not log in`
 
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      console.log(errors);
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    if (error && errorStatus === 500) {
+      dispatch(setAlert(altMsg, 'danger'));
+    } else {
+      dispatch(setAlert(errorMessage, 'danger'));
     }
 
     dispatch({

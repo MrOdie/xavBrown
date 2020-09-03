@@ -95,7 +95,7 @@ router.get(
     roles
   ], async (req, res) => {
     try {
-      const checkUser = await User.findById(req.user.id);
+      const checkUser = await User.findById(req.user.id).select('-password');
 
       if (checkUser.role !== 'admin') {
         return res.status(401).json({ msg: "Permission Denied."})

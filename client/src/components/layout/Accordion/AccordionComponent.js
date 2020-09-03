@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-// import { accordion } from "../../assets/js/accordion";
-//import ReactHtmlParser from 'react-html-parser';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
-
 import classes from "../../../assets/scss/modules/accordionComponent.module.scss";
-import userClasses from '../../../assets/scss/modules/user.module.scss';
+
+import Posts from "../../post/Posts";
+import accordionInnerClasses from '../../../assets/scss/modules/user.module.scss';
 
 
 const AccordionComponent = ({ title, comp, content }) => {
@@ -14,25 +14,22 @@ const AccordionComponent = ({ title, comp, content }) => {
     const panel = useRef(null);
 
     const accordionHeight = (arg) => {
-        console.log('here');
         // Gets the inner portion of the accordion in order to set max-height;
         const accordionInner = arg.childNodes[0];
         const heightConstraint = 350;
 
-        if (accordionInner.scrollHeight > heightConstraint){
+        if (accordionInner.scrollHeight > heightConstraint) {
             accordionInner.style.maxHeight = heightConstraint + "px";
         } else {
             accordionInner.style.overflowY = 'auto';
         }
 
-        console.log(accordionInner.scrollHeight);
-
-		if (arg.style.maxHeight) {
-			arg.style.maxHeight = null;
-		} else {
-			arg.style.maxHeight = arg.scrollHeight + "px";
+        if (arg.style.maxHeight) {
+            arg.style.maxHeight = null;
+        } else {
+            arg.style.maxHeight = arg.scrollHeight + "px";
         }
-        
+
         return
 
     };
@@ -61,29 +58,80 @@ const AccordionComponent = ({ title, comp, content }) => {
     return (
 
         <section className={classes.accordion__component}>
-            <button className={classes.accordion} onClick={accordion} ref={button}>
-                {title}
-                <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
-            </button>
-            <article className={classes.panel} ref={panel}>
-                <div className={userClasses.user}>
-                    <div className={userClasses.titleRow}>
-                        <p><strong>Name</strong></p>
-                        <p><strong>UserName</strong></p>
-                        <p><strong>Role</strong></p>
-                    </div>
-
-                    {
-                        content.map(item => (
-                            <div key={item._id} className={userClasses.row}>
-                                <p>{item.name}</p>
-                                <p>{item.userName}</p>
-                                <p>{item.role}</p>
+            {
+                comp === 'Users' ? (
+                    <>
+                        <button className={`${classes.accordion} ${comp}`} onClick={accordion} ref={button}>
+                            {comp}
+                            <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
+                        </button>
+                        <article className={classes.panel} ref={panel}>
+                            <div className={accordionInnerClasses.user}>
+                                <div className={accordionInnerClasses.titleRow}>
+                                    <p><strong>Name</strong></p>
+                                    <p><strong>UserName</strong></p>
+                                    <p><strong>Role</strong></p>
+                                </div>
+                                {
+                                    content.map(item => (
+                                        <div key={item._id} className={accordionInnerClasses.row}>
+                                            <p>{item.name}</p>
+                                            <p>{item.userName}</p>
+                                            <p>{item.role}</p>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                        ))
-                    }
-                </div>
-            </article>
+                        </article>
+                    </>
+                ) : (
+                        comp === 'Stories' ? (
+                            <>
+                                <button className={`${classes.accordion} ${comp}`} onClick={accordion} ref={button}>
+                                    {comp}
+                                    <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
+                                </button>
+                                <article className={classes.panel} ref={panel}>
+                                    <div className={accordionInnerClasses.user}>
+                                        <div className={accordionInnerClasses.titleRow}>
+                                            <p><strong>Title</strong></p>
+                                        </div>
+                                        {
+                                            content.map(item => (
+                                                <div key={item._id} className={accordionInnerClasses.row}>
+                                                    <p>{item.title}</p>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </article>
+                            </>
+                        ) : (
+                                comp === 'Posts' ? (
+                                    <>
+                                        <button className={`${classes.accordion} ${comp}`} onClick={accordion} ref={button}>
+                                            {comp}
+                                            <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
+                                        </button>
+                                        <article className={classes.panel} ref={panel}>
+                                            <div className={accordionInnerClasses.user}>
+                                                <div className={accordionInnerClasses.titleRow}>
+                                                    <p><strong>Title</strong></p>
+                                                </div>
+                                                {
+                                                    content.map(item => (
+                                                        <div key={item._id} className={accordionInnerClasses.row}>
+                                                            <p>{item.title}</p>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </article>
+                                    </>
+                                ) : ''
+                            )
+                    )
+            }
         </section>
     );
 }

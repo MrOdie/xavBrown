@@ -5,9 +5,8 @@ import Spinner from '../../layout/Spinner';
 import { getAllUsers } from '../../../actions/admin';
 
 import AccordionComponent from '../../layout/Accordion/AccordionComponent';
-import classes from '../../../assets/scss/modules/users.module.scss';
 
-const Users = ({ getAllUsers, admin: { users, loading } }) => {
+const UsersImport = ({ getAllUsers, admin: { users, loading } }) => {
   useEffect(() => {
     getAllUsers()
   }, [getAllUsers])
@@ -19,7 +18,7 @@ const Users = ({ getAllUsers, admin: { users, loading } }) => {
     )
 }
 
-Users.propTypes = {
+UsersImport.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
   admin: PropTypes.object.isRequired
 };
@@ -30,4 +29,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps, { getAllUsers }
-)(Users);
+)(UsersImport);

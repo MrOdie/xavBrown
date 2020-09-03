@@ -81,7 +81,7 @@ router.post(
 // @Public
 router.get('/', async (req, res) => {
   try {
-    const stories = await Story.find().sort({ data: -1 })
+    const stories = await Story.find().sort({ data: -1 });
     res.json(stories);
   } catch (err) {
     console.error(err);
@@ -177,6 +177,7 @@ router.post(
     }
 
     try {
+
       const user = await User.findById(req.user.id).select('-password');
       const story = await Story.findById(req.params.storyId);
       const storySlug = story.slug;
@@ -184,6 +185,8 @@ router.post(
       let getPosts = await Post.find();
 
       const storyId = story._id;
+
+      console.log('here?')
 
       for (let i = 0; i < getPosts.length; i++) {
         if (JSON.stringify(getPosts[i].storyId) == JSON.stringify(storyId)) {
@@ -256,6 +259,26 @@ router.put(
 
       res.json(post);
 
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server Error.')
+    }
+  }
+);
+
+// @route GET api/posts
+// @desc Get all posts
+// @Private
+router.get(
+  '/posts',
+  [
+    auth,
+    roles
+  ], async (req, res) => {
+    try {
+      const posts = await Post.find().sort({ data: -1 });
+
+      res.json(posts);
     } catch (err) {
       console.error(err);
       res.status(500).send('Server Error.')
@@ -387,7 +410,7 @@ router.delete(
   '/c/comment/:id/:comment_id',
   auth, async (req, res) => {
     try {
-      const user = await User.findById(req.user.id);
+      const user = await User.findById(req.user.id).select('-password');
       const post = await Post.findById(req.params.id);
 
       // Pull out comment
