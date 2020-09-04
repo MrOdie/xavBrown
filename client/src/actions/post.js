@@ -27,6 +27,24 @@ export const getPosts = id => async dispatch => {
   }
 }
 
+// Get All Posts
+export const getAllPosts = () => async dispatch => {
+  try {
+    const res = await api.get('/stories/posts');
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data
+    })
+
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status}
+    })
+  }
+}
+
 // Delete post
 export const deletePost = id => async dispatch => {
   try {
@@ -97,7 +115,7 @@ export const addComment = (postId, formData) => async dispatch => {
     dispatch(setAlert('Comment Added', 'success'));
 
     // add a refresh here
-    
+
   } catch (err) {
     dispatch({
       type: POST_ERROR,

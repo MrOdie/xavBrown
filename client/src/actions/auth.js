@@ -1,3 +1,6 @@
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+
 import api from '../utils/api';
 import { setAlert } from './alert';
 import {
@@ -10,6 +13,23 @@ import {
   LOGOUT
 } from './types';
 
+// Initial Load
+export const initLoadUser = () => async dispatch => {
+  try {
+    const res = await api.get('/auth');
+    console.log(res)
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    const error = err.response;
+
+    if (error) {
+      return <Redirect to="/stories" />
+    }
+  }
+}
 // Load User
 export const loadUser = () => async dispatch => {
   try {
@@ -20,6 +40,11 @@ export const loadUser = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    const error = err.response;
+
+    if (error) {
+      dispatch(setAlert(error.data.msg, 'danger'))
+    }
     dispatch({
       type: AUTH_ERROR
     })
@@ -62,11 +87,16 @@ export const login = (email, password) => async dispatch => {
 
     dispatch(loadUser());
   } catch (err) {
+    console.log(err.response);
+    const error = err.response;
+    const errorMessage = err.response.statusText;
+    const errorStatus = err.response.status;
+    const altMsg = `Could not log in`
 
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    if (error && errorStatus === 500) {
+      dispatch(setAlert(altMsg, 'danger'));
+    } else {
+      dispatch(setAlert(errorMessage, 'danger'));
     }
 
     dispatch({

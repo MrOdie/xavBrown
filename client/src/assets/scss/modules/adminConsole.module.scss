@@ -1,0 +1,14 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.adminButtons {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+
+  .buttons {
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}

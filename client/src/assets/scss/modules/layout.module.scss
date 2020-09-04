@@ -29,7 +29,8 @@
   grid-column: 2/3;
 }
 
-.dashboard {
+.dashboard,
+.login {
   grid-column: 1/4;
   background-color: $alt-white;
 }

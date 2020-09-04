@@ -20,6 +20,7 @@ export const getStories = () => async dispatch => {
       payload: res.data
     })
   } catch (err) {
+    console.log(err)
     dispatch({
       type: STORY_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -75,7 +76,7 @@ export const getStory = slug => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-
+    console.log(err);
     dispatch({
       type: STORY_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

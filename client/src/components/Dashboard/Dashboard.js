@@ -25,14 +25,7 @@ const Dashboard = ({
       <SingleColumn>
         {profile !== null ? (
           user.role !== null ? (
-            <>
-              <AdminConsole adminUser={user} />
-              <div className="my-2">
-                <button className="btn btn btn-danger" onClick={() => deleteAccount()}>
-                  <i className="fas fa-user-minus" /> Delete My Account
-                </button>
-              </div>
-            </>
+            <AdminConsole adminUser={user} />
           ) : (
               <>
                 <h2 className="h1">Dashboard</h2>
@@ -52,7 +45,7 @@ const Dashboard = ({
               <p>You have not yet setup a profile, please add some info</p>
               <Link to="/create-profile" className="btn btn-primary">
                 Create Profile
-                      </Link>
+              </Link>
             </>
           )}
       </SingleColumn>
