@@ -1,0 +1,69 @@
+@import "../mixins/breakpoints.scss";
+@import "../misc/colors.scss";
+
+.Users,
+.Stories,
+.Posts {
+  background-color: $alt-white;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  // max-height: inherit;
+  position: relative;
+  overflow-y: scroll;
+
+  .StoriesTitleRow,
+  .PostsTitleRow,
+  .UsersTitleRow {
+    background-color: map-get($xav, color5);
+    color: $alt-white;
+  }
+
+  .UsersTitleRow {
+    .TitleRowInner {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      justify-items: start;
+      grid-column: 2/3;
+      justify-self: stretch;
+    }
+  }
+
+  .UsersTitleRow,
+  .UsersRow {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+  }
+  .StoriesTitleRow,
+  .StoriesRow {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+
+  .PostsTitleRow,
+  .PostsRow {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+
+  .UsersRow,
+  .StoriesRow,
+  .PostsRow {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+
+    &:nth-child(odd) {
+      background-color: $white-hover;
+    }
+
+    p {
+      margin: 0;
+      justify-self: start;
+    }
+  }
+}

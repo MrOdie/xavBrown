@@ -180,7 +180,9 @@ router.post(
 
       const user = await User.findById(req.user.id).select('-password');
       const story = await Story.findById(req.params.storyId);
+      console.log(story);
       const storySlug = story.slug;
+      const storyTitle = story.title;
       const description = req.body.description;
       let getPosts = await Post.find();
 
@@ -212,7 +214,8 @@ router.post(
         description: description || null,
         markdown: req.body.markdown || null,
         storyId: req.params.storyId || null,
-        storySlug: storySlug || null
+        storySlug: storySlug || null,
+        storyTitle: storyTitle || null,
       });
 
       await newPost.save();

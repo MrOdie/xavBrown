@@ -19,11 +19,11 @@ const PostImport = ({ getAllPosts, post: { posts, loading } }) => {
 
 PostImport.propTypes = {
   getAllPosts: PropTypes.func.isRequired,
-  story: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  story: state.story
+  post: state.post
 });
 
 export default connect(mapStateToProps, { getAllPosts })(PostImport);

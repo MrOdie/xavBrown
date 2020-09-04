@@ -53,6 +53,9 @@ const PostSchema = new Schema({
   },
   storySlug: {
     type: String
+  },
+  storyTitle: {
+    type: String
   }
 },
   {
