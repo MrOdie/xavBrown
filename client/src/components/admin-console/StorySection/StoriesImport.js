@@ -6,7 +6,7 @@ import { getStories } from '../../../actions/story';
 
 import AccordionComponent from '../../layout/Accordion/AccordionComponent';
 
-const StoriesImport = ({ getStories, story: { stories, loading } }) => {
+const StoriesImport = ({ getStories, story: { stories, loading }, getElement }) => {
   useEffect(() => {
     getStories()
   }, [getStories]);
@@ -15,7 +15,7 @@ const StoriesImport = ({ getStories, story: { stories, loading } }) => {
     <Spinner />
   ) : (
       <>
-        <AccordionComponent title="Stories" comp="Stories" content={stories} />
+        <AccordionComponent title="Stories" comp="Stories" content={stories} getElem={getElement} />
       </>
     )
 

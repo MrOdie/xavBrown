@@ -46,13 +46,13 @@ export const getAllPosts = () => async dispatch => {
 }
 
 // Delete post
-export const deletePost = id => async dispatch => {
+export const deletePost = (storyId, postId) => async dispatch => {
   try {
-    await api.delete(`/posts/${id}`);
+    await api.delete(`/stories/s/${storyId}/p/${postId}`);
 
     dispatch({
       type: DELETE_POST,
-      payload: id
+      payload: postId
     });
 
     dispatch(setAlert('Post Removed', 'success'));
