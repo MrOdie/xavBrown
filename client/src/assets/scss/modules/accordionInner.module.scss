@@ -7,7 +7,6 @@
   background-color: $alt-white;
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
-  // max-height: inherit;
   position: relative;
   overflow-y: scroll;
 
@@ -18,45 +17,9 @@
     color: $alt-white;
   }
 
-  .UsersTitleRow {
-    .TitleRowInner {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      justify-items: start;
-      grid-column: 2/3;
-      justify-self: stretch;
-    }
-  }
-
-  .UsersTitleRow,
-  .UsersRow {
-    grid-column: 1/4;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
-  }
-  .StoriesTitleRow,
-  .StoriesRow {
-    grid-column: 1/4;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-  }
-
-  .PostsTitleRow,
-  .PostsRow {
-    grid-column: 1/4;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-  }
-
   .UsersRow,
   .StoriesRow,
   .PostsRow {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-
     &:nth-child(odd) {
       background-color: $white-hover;
     }
@@ -64,6 +27,123 @@
     p {
       margin: 0;
       justify-self: start;
+    }
+  }
+}
+
+.Users {
+  .UsersTitleRow {
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-column: 1/4;
+    display: grid;
+    .TitleRowInner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: start;
+      grid-column: 2/3;
+      justify-self: stretch;
+      gap: 1.5rem;
+    }
+  }
+  .UsersRow {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-items: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &.selected {
+      background-color: lighten(map-get($xav, color1), 15%);
+      color: $alt-white;
+    }
+
+    .Inner {
+      grid-column: 2/3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-self: stretch;
+      gap: 1.5rem;
+    }
+  }
+}
+
+.Stories {
+  .StoriesTitleRow {
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-column: 1/4;
+    display: grid;
+    .TitleRowInner {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: start;
+      grid-column: 2/3;
+      justify-self: stretch;
+      gap: 1.5rem;
+    }
+  }
+  .StoriesRow {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    justify-items: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &.selected {
+      background-color: lighten(map-get($xav, color1), 15%);
+      color: $alt-white;
+    }
+
+    .Inner {
+      grid-column: 2/3;
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-self: stretch;
+      gap: 1.5rem;
+    }
+  }
+}
+
+.Posts {
+  .PostsTitleRow {
+    grid-template-columns: 1fr 6fr 1fr;
+    grid-column: 1/4;
+    display: grid;
+    .TitleRowInner {
+      display: grid;
+      grid-template-columns: 1fr 3fr 0.5fr;
+      justify-items: start;
+      grid-column: 2/3;
+      justify-self: stretch;
+      gap: 1.5rem;
+    }
+  }
+  .PostsRow {
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    justify-items: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &.selected {
+      background-color: lighten(map-get($xav, color1), 15%);
+      color: $alt-white;
+    }
+
+    .Inner {
+      grid-column: 2/3;
+      display: grid;
+      grid-template-columns: 1fr 3fr 0.5fr;
+      justify-self: stretch;
+      gap: 1.5rem;
     }
   }
 }

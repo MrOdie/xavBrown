@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadUser } from './actions/auth';
+import { loadUser, initLoadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import { ParallaxProvider } from 'react-scroll-parallax';
 
@@ -18,7 +18,7 @@ import './assets/font/typography.css';
 const App = () => {
   useEffect(() => {
     setAuthToken(localStorage.token);
-    store.dispatch(loadUser());
+    store.dispatch(initLoadUser());
   }, []);
 
   return (

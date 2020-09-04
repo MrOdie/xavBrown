@@ -1,3 +1,6 @@
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+
 import api from '../utils/api';
 import { setAlert } from './alert';
 import {
@@ -10,6 +13,23 @@ import {
   LOGOUT
 } from './types';
 
+// Initial Load
+export const initLoadUser = () => async dispatch => {
+  try {
+    const res = await api.get('/auth');
+    console.log(res)
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    const error = err.response;
+
+    if (error) {
+      return <Redirect to="/stories" />
+    }
+  }
+}
 // Load User
 export const loadUser = () => async dispatch => {
   try {

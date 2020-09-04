@@ -32,8 +32,6 @@ export const getAllPosts = () => async dispatch => {
   try {
     const res = await api.get('/stories/posts');
 
-    console.log(res);
-
     dispatch({
       type: GET_POSTS,
       payload: res.data

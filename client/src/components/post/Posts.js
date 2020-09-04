@@ -19,9 +19,7 @@ const Posts = ({ getPosts, post: { posts, loading }, storyId }) => {
       <>
         {
           posts.map(post => (
-            <>
-              <Post key={post._id} post={post} />
-            </>
+            <Post key={post._id} post={post} />
           ))
         }
       </>
