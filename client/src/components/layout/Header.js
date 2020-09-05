@@ -39,15 +39,15 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
       !scroll ? (
         `${classes.mainHeader} ${classes.scrolled} ${classes[parent]}`
       ) : (
-        `${classes.mainHeader} ${classes[parent]}`
-      )
+          `${classes.mainHeader} ${classes[parent]}`
+        )
     ) : (
-      !scroll ? (
-        `${classes.mainHeader} ${classes.scrolled}`
-      ) : (
-        `${classes.mainHeader}`
-      )
-    )} >
+        !scroll ? (
+          `${classes.mainHeader} ${classes.scrolled}`
+        ) : (
+            `${classes.mainHeader}`
+          )
+      )} >
 
       <div className={classes.logo}>
         <Link to="/"><h2 className="h1">XBC</h2></Link>
@@ -58,7 +58,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
         <span className={classes.menuIconLine}></span>
       </label>
       <nav className={classes.navLinks}>
-        {!loading && (
+        {/* {!loading && (
           <Fragment>
             <ul>
               <li className={classes.navLink}>
@@ -67,7 +67,25 @@ const Header = ({ auth: { isAuthenticated, loading }, logout, parent }) => {
               {isAuthenticated ? authLinks : guestLinks}
             </ul>
           </Fragment>
-        )}
+        )} */}
+        {
+          !loading && isAuthenticated ? (
+            <ul>
+              <li className={classes.navLink}>
+                <Link to="/stories">Stories</Link>
+              </li>
+              {authLinks}
+            </ul>
+
+          ) : (
+              <ul>
+                <li className={classes.navLink}>
+                  <Link to="/stories">Stories</Link>
+                </li>
+                {guestLinks}
+              </ul>
+            )
+        }
       </nav>
 
     </header>

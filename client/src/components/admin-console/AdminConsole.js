@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 
 import UsersImport from './UserSection/UsersImport';
 import StoriesImport from './StorySection/StoriesImport';
@@ -16,11 +17,24 @@ import { setAlert } from '../../actions/alert';
 // probably a better way, but this is what i've got for now
 import accordionInnerClasses from '../../assets/scss/modules/accordionInner.module.scss';
 
+// MODAL CODE
+Modal.setAppElement('#root');
+Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,.7)';
+const customStyles = {
+  top                   : '50%',
+  left                  : '50%',
+  right                 : 'auto',
+  bottom                : 'auto',
+  marginRight           : '-50%',
+  transform             : 'translate(-50%, -50%)'
+}
+// MODAL CODE
+
 const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, adminUser }) => {
 
   const [selected, setSelected] = useState(false);
   const [info, setInfo] = useState();
-  
+
   const getElem = (e) => {
     // get element from accordion, which is the child of the child element here
     e.preventDefault();
@@ -41,9 +55,9 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         el.classList.remove(accordionInnerClasses.selected);
       })
       elem.classList.toggle(accordionInnerClasses.selected);
-      
+
       // Currently do not want to delete users
-      if (elemType !== 'Users'){
+      if (elemType !== 'Users') {
         setSelected(true);
 
         // if it's a post item, we will have a elemParent value
@@ -81,9 +95,23 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const edit = (e) => {
     console.log(e);
   }
-  const add = (e) => {
-    console.log(e);
+
+  // MODAL CODE
+  var subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
   }
+  const afterOpenModal = () => {
+    subtitle.style.color = '#f00';
+  }
+
+  const closeModal = () => {
+    setIsOpen(false);
+  }
+  // MODAL CODE
+
 
   return (
     <>
@@ -103,9 +131,27 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
               </>
             ) : ''
           }
-          <button className="btn btn-dark-alt" onClick={add}>Add</button>
+          <button className="btn btn-dark-alt" onClick={openModal}>Add</button>
         </article>
       </section>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal">
+        <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
+        <form>
+          <input />
+          <button>tab navigation</button>
+          <button>stays</button>
+          <button>inside</button>
+          <button>the modal</button>
+        </form>
+      </Modal>
     </>
   )
 }
