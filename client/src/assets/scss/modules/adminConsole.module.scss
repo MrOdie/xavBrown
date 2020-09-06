@@ -13,3 +13,25 @@
     gap: 1rem;
   }
 }
+
+.Modal {
+  position: relative;
+  z-index: 99;
+
+  .closeBtn {
+    padding: .25rem .45rem !important;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .type {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}

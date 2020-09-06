@@ -6,6 +6,8 @@ import Modal from 'react-modal';
 import UsersImport from './UserSection/UsersImport';
 import StoriesImport from './StorySection/StoriesImport';
 import PostImport from './PostSection/PostImport';
+import AddNewStory from './AddNew/AddNewStory';
+import AddNewPost from './AddNew/AddNewPost';
 
 import classes from '../../assets/scss/modules/adminConsole.module.scss';
 
@@ -20,14 +22,6 @@ import accordionInnerClasses from '../../assets/scss/modules/accordionInner.modu
 // MODAL CODE
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,.7)';
-const customStyles = {
-  top                   : '50%',
-  left                  : '50%',
-  right                 : 'auto',
-  bottom                : 'auto',
-  marginRight           : '-50%',
-  transform             : 'translate(-50%, -50%)'
-}
 // MODAL CODE
 
 const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, adminUser }) => {
@@ -97,14 +91,10 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   }
 
   // MODAL CODE
-  var subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
     setIsOpen(true);
-  }
-  const afterOpenModal = () => {
-    subtitle.style.color = '#f00';
   }
 
   const closeModal = () => {
@@ -131,26 +121,24 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
               </>
             ) : ''
           }
-          <button className="btn btn-dark-alt" onClick={openModal}>Add</button>
+          <button className="btn btn-dark-alt" onClick={openModal}>Create</button>
         </article>
       </section>
 
       <Modal
+        portalClassName={classes.Modal}
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
+        // onAfterOpen={afterOpenModal}
+        shouldCloseOnOverlayClick={true}
         onRequestClose={closeModal}
-        style={customStyles}
         contentLabel="Example Modal">
-        <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <button className={`btn btn-danger ${classes.closeBtn}`} onClick={closeModal}>X</button>
+        <h3>Create</h3>
+
+        <section className={classes.type}>
+          <button className="btn btn-dark-alt">New Story</button>
+          <button className="btn btn-dark-alt">New Post</button>
+        </section>
       </Modal>
     </>
   )
