@@ -24,7 +24,8 @@ export const initLoadUser = () => async dispatch => {
     });
   } catch (err) {
     const error = err.response;
-
+    console.log('here?')
+    console.log(error)
     if (error) {
       return <Redirect to="/stories" />
     }

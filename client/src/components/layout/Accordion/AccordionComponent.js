@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
@@ -6,8 +7,7 @@ import classes from "../../../assets/scss/modules/accordionComponent.module.scss
 
 import accordionInnerClasses from '../../../assets/scss/modules/accordionInner.module.scss';
 
-
-const AccordionComponent = ({ comp, content }) => {
+const AccordionComponent = ({ comp, content, getElem }) => {
 
     const accordionHeight = (arg) => {
         // Gets the inner portion of the accordion in order to set max-height;
@@ -53,26 +53,7 @@ const AccordionComponent = ({ comp, content }) => {
 
     }
 
-    const getElem = (e) => {
-        e.preventDefault();
-        const elem = e.currentTarget;
-        let elemClasses = document.querySelectorAll(`.${accordionInnerClasses.selected}`)
-
-        if (elem.classList.contains(accordionInnerClasses.selected)){
-            elem.classList.remove(accordionInnerClasses.selected);
-        } else {
-            elemClasses.forEach(el => {
-                el.classList.remove(accordionInnerClasses.selected);
-            })
-
-            elem.classList.toggle(accordionInnerClasses.selected);
-        }
-
-        // elem.classList.add(accordionInnerClasses.selected);
-        console.log(elem)
-    }
     return (
-
         <section className={classes.accordion__component}>
             {
                 comp === 'Users' ? (
@@ -81,7 +62,7 @@ const AccordionComponent = ({ comp, content }) => {
                             {comp}
                             <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
                         </button>
-                        <article className={classes.panel}>
+                        <article className={classes.panel} id={comp}>
                             <div className={accordionInnerClasses.Users}>
                                 <div className={accordionInnerClasses.UsersTitleRow}>
                                     <div className={accordionInnerClasses.TitleRowInner}>
@@ -111,7 +92,7 @@ const AccordionComponent = ({ comp, content }) => {
                                     {comp}
                                     <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
                                 </button>
-                                <article className={classes.panel}>
+                                <article className={classes.panel} id={comp}>
                                     <div className={accordionInnerClasses.Stories}>
                                         <div className={accordionInnerClasses.StoriesTitleRow}>
                                             <div className={accordionInnerClasses.TitleRowInner}>
@@ -137,7 +118,7 @@ const AccordionComponent = ({ comp, content }) => {
                                             {comp}
                                             <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
                                         </button>
-                                        <article className={classes.panel}>
+                                        <article className={classes.panel} id={comp}>
                                             <div className={accordionInnerClasses.Posts}>
                                                 <div className={accordionInnerClasses.PostsTitleRow}>
                                                     <div className={accordionInnerClasses.TitleRowInner}>
@@ -148,7 +129,7 @@ const AccordionComponent = ({ comp, content }) => {
                                                 </div>
                                                 {
                                                     content.map(item => (
-                                                        <div key={item._id} className={accordionInnerClasses.PostsRow} id={item._id} onClick={getElem}>
+                                                        <div key={item._id} className={accordionInnerClasses.PostsRow} id={item._id} data-parent={item.storyId} onClick={getElem}>
                                                             <div className={accordionInnerClasses.Inner}>
                                                                 <p>{item.storyTitle}</p>
                                                                 <p>{item.title}</p>
@@ -166,5 +147,11 @@ const AccordionComponent = ({ comp, content }) => {
             }
         </section>
     );
+}
+
+AccordionComponent.propTypes = {
+    comp: PropTypes.string.isRequired,
+    content: PropTypes.array.isRequired,
+    getElem: PropTypes.func.isRequired
 }
 export default AccordionComponent;

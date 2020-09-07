@@ -31,7 +31,7 @@ export const getStories = () => async dispatch => {
 // Delete story
 export const deleteStory = id => async dispatch => {
   try {
-    await api.delete(`/storys/${id}`);
+    await api.delete(`/stories/s/${id}`);
 
     dispatch({
       type: DELETE_STORY,

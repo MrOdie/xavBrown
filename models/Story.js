@@ -23,6 +23,10 @@ const StorySchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  isPublished: {
+    type: Boolean,
+    required: true
   }
 },
   {

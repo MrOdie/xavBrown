@@ -6,7 +6,7 @@ import { getAllUsers } from '../../../actions/admin';
 
 import AccordionComponent from '../../layout/Accordion/AccordionComponent';
 
-const UsersImport = ({ getAllUsers, admin: { users, loading } }) => {
+const UsersImport = ({ getAllUsers, admin: { users, loading }, getElement }) => {
   useEffect(() => {
     getAllUsers()
   }, [getAllUsers])
@@ -14,7 +14,7 @@ const UsersImport = ({ getAllUsers, admin: { users, loading } }) => {
   return loading && users !== null ? (
     <Spinner />
   ) : (
-      <AccordionComponent title="Users" comp="Users" content={users} />
+      <AccordionComponent title="Users" comp="Users" content={users} getElem={getElement}/>
     )
 }
 

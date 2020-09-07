@@ -2,6 +2,7 @@
 @import "../misc/colors.scss";
 
 .adminButtons {
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
 
@@ -10,5 +11,31 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
+  }
+}
+
+.Modal {
+  position: relative;
+  z-index: 99;
+
+  .ReactModal__Overlay {
+    background-color: green;
+  }
+
+  .closeBtn {
+    padding: .25rem .45rem !important;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .type {
+    display: flex;
+    justify-content: space-evenly;
   }
 }

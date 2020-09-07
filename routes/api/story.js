@@ -51,8 +51,6 @@ router.post(
       if (description && description.length > 250) {
         return res.status(401).json({ msg: "The description of the story must be less than 250 characters in length." });
       }
-      
-      console.log(description.length);
 
       const user = await User.findById(req.user.id).select('-password');
 
@@ -127,6 +125,7 @@ router.delete(
 ], async (req, res) => {
   try {
     const story = await Story.findById(req.params.id);
+    const posts = await Post.find({ storyId: req.params.id });
 
     if (!story) {
       return res.status(404).json({ msg: 'Story not found.' });
@@ -135,6 +134,15 @@ router.delete(
     // Check user
     if (story.owner != req.user.id) {
       return res.status(401).json({ msg: 'User not authorized.' });
+    }
+
+    // remove all posts associated 
+    if (posts.length > 0) {
+      for (let i = 0; i < posts.length; i++) {
+        if (JSON.stringify(posts[i].storyId) === JSON.stringify(story._id)) {
+          await posts[i].remove();
+        }
+      }
     }
 
     // BC I'm looking up based on the slug, can only delete by adding '[0]' after story, because the story variable at the top, returns an array with a single object. So, gotta use the [0] to reference the object's place in the array otherwise it returns undefined. 
@@ -180,15 +188,13 @@ router.post(
 
       const user = await User.findById(req.user.id).select('-password');
       const story = await Story.findById(req.params.storyId);
-      console.log(story);
+
       const storySlug = story.slug;
       const storyTitle = story.title;
       const description = req.body.description;
       let getPosts = await Post.find();
 
       const storyId = story._id;
-
-      console.log('here?')
 
       for (let i = 0; i < getPosts.length; i++) {
         if (JSON.stringify(getPosts[i].storyId) == JSON.stringify(storyId)) {

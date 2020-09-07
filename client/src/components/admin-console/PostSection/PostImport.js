@@ -6,14 +6,14 @@ import Spinner from '../../layout/Spinner';
 import { getAllPosts } from '../../../actions/post';
 import AccordionComponent from '../../layout/Accordion/AccordionComponent';
 
-const PostImport = ({ getAllPosts, post: { posts, loading } }) => {
+const PostImport = ({ getAllPosts, post: { posts, loading }, getElement }) => {
   useEffect(() => {
     getAllPosts()
   }, [getAllPosts])
   return loading || posts === null ? (
     <Spinner />
   ) : (
-    <AccordionComponent title="Posts" comp="Posts" content={posts} />
+    <AccordionComponent title="Posts" comp="Posts" content={posts} getElem={getElement} />
   )
 }
 

@@ -25,6 +25,10 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  isPublished: {
+    type: Boolean,
+    required: true
+  },
   slug: {
     type: String,
     required: true,
