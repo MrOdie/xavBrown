@@ -18,6 +18,10 @@
   position: relative;
   z-index: 99;
 
+  .ReactModal__Overlay {
+    background-color: green;
+  }
+
   .closeBtn {
     padding: .25rem .45rem !important;
     position: absolute;

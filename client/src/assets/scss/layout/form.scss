@@ -44,6 +44,21 @@
     }
   }
 
+  .radioGroup {
+    margin-left: 1rem;
+
+    .radioSubGroup {
+      cursor: pointer;
+      .radioInput {
+        margin-right: 0.5rem;
+        cursor: pointer;
+      }
+      .radioLabel {
+        cursor: pointer;
+      }
+    }
+  }
+
   select {
     outline: none;
     border: none;

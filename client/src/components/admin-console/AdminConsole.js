@@ -22,6 +22,18 @@ import accordionInnerClasses from '../../assets/scss/modules/accordionInner.modu
 // MODAL CODE
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,.7)';
+const customStyles = {
+  content : {
+
+    top                   : '50%',
+    left                  : '25%',
+    right                 : '25%',
+    bottom                : 'auto',
+    marginRight           : '0',
+    transform             : 'translate(0%, -50%)'
+  }
+};
+
 // MODAL CODE
 
 const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, adminUser }) => {
@@ -121,7 +133,11 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
               </>
             ) : ''
           }
-          <button className="btn btn-dark-alt" onClick={openModal}>Create</button>
+          <button className="btn btn-dark-alt" onClick={openModal}>
+            {
+              selected === false ? (`Create a Story`) : (`Create a Post`)
+            }
+          </button>
         </article>
       </section>
 
@@ -129,16 +145,20 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         portalClassName={classes.Modal}
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
+        style={customStyles}
         shouldCloseOnOverlayClick={true}
         onRequestClose={closeModal}
         contentLabel="Example Modal">
         <button className={`btn btn-danger ${classes.closeBtn}`} onClick={closeModal}>X</button>
-        <h3>Create</h3>
-
-        <section className={classes.type}>
-          <button className="btn btn-dark-alt">New Story</button>
-          <button className="btn btn-dark-alt">New Post</button>
-        </section>
+          <h3>Create { selected === false ? (`Your Next Story`) : (`Your Next Post`)}</h3>
+          
+        {
+          selected === false ? (
+            <AddNewStory />
+          ) : (
+            <AddNewPost />
+          )
+        }
       </Modal>
     </>
   )
