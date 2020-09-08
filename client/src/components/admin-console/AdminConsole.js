@@ -30,7 +30,7 @@ const customStyles = {
     right                 : '25%',
     bottom                : 'auto',
     marginRight           : '0',
-    transform             : 'translate(0%, -50%)'
+    transform             : 'translate(2%, -50%)'
   }
 };
 
@@ -154,7 +154,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
           
         {
           selected === false ? (
-            <AddNewStory />
+            <AddNewStory closeModal={closeModal} />
           ) : (
             <AddNewPost />
           )

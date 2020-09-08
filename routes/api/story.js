@@ -61,7 +61,8 @@ router.post(
       const newStory = new Story({
         owner: req.user.id || null,
         description: req.body.description || null,
-        title: req.body.title || null
+        title: req.body.title || null,
+        isPublished: req.body.isPublished || false
       });
 
       const story = await newStory.save();

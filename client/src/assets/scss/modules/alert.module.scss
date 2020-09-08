@@ -13,7 +13,7 @@
 .backdrop {
   width: 100vw;
   position: fixed;
-  z-index: 9;
+  z-index: 999;
   top: 5%;
 }
 .alert {
@@ -30,7 +30,7 @@
   }
 
   @include breakpoints(lg_tablet tablet nav mobile){
-    max-width: 450px;
+    max-width: 500px;
   }
   
   &.primary {
