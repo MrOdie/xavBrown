@@ -18,7 +18,7 @@ const Posts = ({ getPosts, post: { posts, loading }, storyId }) => {
   ) : (
       <>
         {
-          posts.map(post => (
+          posts.filter(post => post.isPublished === true).map(post => (
             <Post key={post._id} post={post} />
           ))
         }

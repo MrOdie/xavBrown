@@ -43,7 +43,7 @@ router.post(
       for (let i = 0; i < stories.length; i++) {
         if (req.body.title === stories[i].title) {
           return res.status(400).json({
-            msg: 'Please Create a Unigue Story'
+            msg: 'Please Create a Unique Story'
           })
         }
       }
@@ -61,7 +61,8 @@ router.post(
       const newStory = new Story({
         owner: req.user.id || null,
         description: req.body.description || null,
-        title: req.body.title || null
+        title: req.body.title || null,
+        isPublished: req.body.isPublished || false
       });
 
       const story = await newStory.save();
@@ -173,6 +174,7 @@ router.post(
     roles,
     [
       check('title', 'Admin requires a Title').not().isEmpty(),
+      check('description', 'Admin requires a description').not().isEmpty(),
       check('markdown', 'Admin requires a body').not().isEmpty()
     ]
   ], async (req, res) => {
@@ -222,6 +224,7 @@ router.post(
         storyId: req.params.storyId || null,
         storySlug: storySlug || null,
         storyTitle: storyTitle || null,
+        isPublished: req.body.isPublished || false
       });
 
       await newPost.save();

@@ -29,12 +29,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     dataArr = [];
     validateArr = [];
 
+    // convert obj to array if the obj key or value is empty
     for (const prop in param) {
       if (param[prop] === '') {
         dataArr.push(prop);
       }
     }
 
+    // add error messages for each error
     for (i = 0; i < dataArr.length; i++) {
       if (dataArr[i] === 'name') {
         validateArr.push(' your Name');
@@ -66,7 +68,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     const check = validate(formData);
 
     if (!check) {
-      console.log(check)
       return false;
     }
 

@@ -65,9 +65,9 @@ export const deletePost = (storyId, postId) => async dispatch => {
 };
 
 // Add post
-export const addPost = formData => async dispatch => {
+export const addPost = (storyId, formData) => async dispatch => {
   try {
-    const res = await api.post('/posts/', formData);
+    const res = await api.post(`/stories/s/${storyId}`, formData);
 
     dispatch({
       type: ADD_POST,

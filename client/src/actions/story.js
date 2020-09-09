@@ -50,7 +50,7 @@ export const deleteStory = id => async dispatch => {
 // Add story
 export const addStory = formData => async dispatch => {
   try {
-    const res = await api.post('/storys/', formData);
+    const res = await api.post('/stories/', formData);
 
     dispatch({
       type: ADD_STORY,
@@ -63,6 +63,7 @@ export const addStory = formData => async dispatch => {
       type: STORY_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
+    dispatch(setAlert(err.response.statusText, 'danger'))
   }
 };
 
