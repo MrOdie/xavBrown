@@ -44,6 +44,16 @@
     }
   }
 
+  .addStoryDesc,
+  .addPostDesc,
+  .addPostMarkdown {
+    border-bottom: 2px solid #767676;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    margin-bottom: 1rem;
+  }
+
   .radioGroup {
     margin-left: 1rem;
     margin-bottom: 1rem;
@@ -116,5 +126,12 @@
     @include breakpoints(lg_tablet tablet nav mobile) {
       width: 100%;
     }
+  }
+}
+
+#createPost, #createStory {
+  .btn {
+    max-width: 150px;
+    margin: 0 auto;
   }
 }

@@ -31,10 +31,10 @@ const Stories = ({ getStories, story: { stories, loading } }) => {
         </Parallax>
         <SingleColumn>
           <section className={classes.storyBody}>
-              <h4 className="h2">Peruse the selection, pick one, get comfortable &amp; go on an adventure.</h4>
+            <h4 className="h2">Peruse the selection, pick one, get comfortable &amp; go on an adventure.</h4>
             <article className={classes.stories}>
               {
-                stories.map((story) => (
+                stories.filter(story => story.isPublished === true).map(story => (
                   <Story key={story._id} story={story} />
                 ))
               }

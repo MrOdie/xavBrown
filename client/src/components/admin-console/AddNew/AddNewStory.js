@@ -61,7 +61,7 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
   return (
     <section>
       <article>
-        <form className="form" onSubmit={onSubmit}>
+        <form id="createStory" className="form" onSubmit={onSubmit}>
           <input
             type="text"
             id="title"
@@ -69,7 +69,8 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
             name="title"
             value={title}
             onChange={onChange} />
-          <input
+          <textarea
+            className="addStoryDesc"
             type="text"
             id="description"
             name="description"

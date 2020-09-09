@@ -17,15 +17,13 @@ import {
 export const initLoadUser = () => async dispatch => {
   try {
     const res = await api.get('/auth');
-    console.log(res)
+
     dispatch({
       type: USER_LOADED,
       payload: res.data
     });
   } catch (err) {
     const error = err.response;
-    console.log('here?')
-    console.log(error)
     if (error) {
       return <Redirect to="/stories" />
     }

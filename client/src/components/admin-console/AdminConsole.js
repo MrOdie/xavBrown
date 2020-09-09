@@ -23,14 +23,19 @@ import accordionInnerClasses from '../../assets/scss/modules/accordionInner.modu
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,.7)';
 const customStyles = {
-  content : {
-
-    top                   : '50%',
-    left                  : '25%',
-    right                 : '25%',
-    bottom                : 'auto',
-    marginRight           : '0',
-    transform             : 'translate(2%, -50%)'
+  content: {
+    position: 'relative',
+    display: 'flex',
+    flexFlow: 'column',
+    padding: '30px',
+    inset: '0',
+    gridColumn: '2/3'
+  },
+  overlay: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 3fr 1fr',
+    justifyItems: 'stretch',
+    alignContent: 'center',
   }
 };
 
@@ -39,16 +44,17 @@ const customStyles = {
 const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, adminUser }) => {
 
   const [selected, setSelected] = useState(false);
-  const [info, setInfo] = useState();
+  const [info, setInfo] = useState('');
+  const [storyName, setStoryName] = useState('');
+  const [story, setStory] = useState('');
 
-  const getElem = (e) => {
+  const getElem = (e, arg) => {
     // get element from accordion, which is the child of the child element here
     e.preventDefault();
     const elem = e.currentTarget;
     const elemType = elem.parentNode.parentNode.id;
     const elemId = elem.id;
     const elemParent = elem.dataset.parent || null;
-    console.log(elemParent);
     const elemClasses = document.querySelectorAll(`.${accordionInnerClasses.selected}`)
 
     // getting the info from the g-child
@@ -56,6 +62,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
       elem.classList.remove(accordionInnerClasses.selected);
       setSelected(false);
       setInfo('');
+      setStory('');
     } else {
       elemClasses.forEach(el => {
         el.classList.remove(accordionInnerClasses.selected);
@@ -68,12 +75,15 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
         // if it's a post item, we will have a elemParent value
         // if not, we won't. that value, though, will dictate whether it's a
-        // story or a post... So the delete action will obviously be different.
+        // storyName or a post... So the delete action will obviously be different.
         if (elemParent !== null) {
           const info = getContent(elemType, elemId, elemParent);
           setInfo(info);
         } else {
           const info = getContent(elemType, elemId);
+
+          setStoryName(arg);
+          setStory(elem.id);
           setInfo(info);
         }
       }
@@ -88,7 +98,6 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const del = (e) => {
     const id = info[1];
     const postParent = info[2];
-    console.log(info)
 
     if (info.length === 2) {
       deleteStory(id);
@@ -97,6 +106,10 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     if (info.length === 3) {
       deletePost(postParent, id);
     }
+
+    setStory('');
+    setStoryName('');
+    setInfo('');
   }
   const edit = (e) => {
     console.log(e);
@@ -111,9 +124,11 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
   const closeModal = () => {
     setIsOpen(false);
+    setStory('');
+    setStoryName('');
+    setInfo('');
   }
   // MODAL CODE
-
 
   return (
     <>
@@ -135,7 +150,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
           }
           <button className="btn btn-dark-alt" onClick={openModal}>
             {
-              selected === false ? (`Create a Story`) : (`Create a Post`)
+              selected === false || info[0] !== 'Stories' ? (`Create a Story`) : (`Create a Post`)
             }
           </button>
         </article>
@@ -150,14 +165,16 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         onRequestClose={closeModal}
         contentLabel="Example Modal">
         <button className={`btn btn-danger ${classes.closeBtn}`} onClick={closeModal}>X</button>
-          <h3>Create { selected === false ? (`Your Next Story`) : (`Your Next Post`)}</h3>
-          
+        <h3>Create {selected === false ? (`Your Next Story`) : (`Your Next Post`)}</h3>
+        {
+          storyName !== '' ? (<h4>{storyName}</h4>) : ''
+        }
         {
           selected === false ? (
             <AddNewStory closeModal={closeModal} />
           ) : (
-            <AddNewPost />
-          )
+              <AddNewPost closeModal={closeModal} story={story} />
+            )
         }
       </Modal>
     </>

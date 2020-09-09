@@ -97,13 +97,15 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                         <div className={accordionInnerClasses.StoriesTitleRow}>
                                             <div className={accordionInnerClasses.TitleRowInner}>
                                                 <p><strong>Story</strong></p>
+                                                <p><strong>Status</strong></p>
                                             </div>
                                         </div>
                                         {
                                             content.map(item => (
-                                                <div key={item._id} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={getElem}>
+                                                <div key={item._id} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={(e) => getElem(e, item.title)}>
                                                     <div className={accordionInnerClasses.Inner}>
                                                         <p>{item.title}</p>
+                                                        <p>{item.isPublished === true ? 'Published' : 'Draft'}</p>
                                                     </div>
                                                 </div>
                                             ))
@@ -124,6 +126,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                     <div className={accordionInnerClasses.TitleRowInner}>
                                                         <p><strong>Story</strong></p>
                                                         <p><strong>Title</strong></p>
+                                                        <p><strong>Status</strong></p>
                                                         <p><strong>Comments</strong></p>
                                                     </div>
                                                 </div>
@@ -133,6 +136,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                             <div className={accordionInnerClasses.Inner}>
                                                                 <p>{item.storyTitle}</p>
                                                                 <p>{item.title}</p>
+                                                                <p>{item.isPublished === true ? 'Published' : 'Draft'}</p>
                                                                 <p className="comment">{item.comments.length}</p>
                                                             </div>
                                                         </div>
