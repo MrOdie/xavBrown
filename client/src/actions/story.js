@@ -6,6 +6,7 @@ import {
   DELETE_STORY,
   ADD_STORY,
   GET_STORY,
+  EDIT_STORY,
   ADD_OG_COMMENT,
   REMOVE_OG_COMMENT
 } from './types';
@@ -66,6 +67,26 @@ export const addStory = formData => async dispatch => {
     dispatch(setAlert(err.response.statusText, 'danger'))
   }
 };
+
+// Edit Story
+export const editStory = (storyId, formData) => async dispatch => {
+  try {
+    const res = await api.put(`/stories/s/${storyId}`, formData);
+
+    dispatch({
+      type: EDIT_STORY,
+      payload: res.data
+    })
+
+    dispatch(setAlert('Story Edited', 'success'));
+  } catch (err) {
+    dispatch({
+      type: STORY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+    dispatch(setAlert(err.response.statusText, 'danger'));
+  }
+}
 
 // Get story
 export const getStory = slug => async dispatch => {

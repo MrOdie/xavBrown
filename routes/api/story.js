@@ -109,11 +109,56 @@ router.get(
       res.json(story);
     } catch (err) {
       console.error(err.message);
-
       res.status(500).send('Server Error.')
     }
   }
 );
+
+// @route update api/stories/:id
+// @desc update a story
+// @access Private
+router.put(
+  '/s/:id', [
+  auth,
+  roles
+], async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id);
+
+    if (!story) {
+      return res.status(404).json({ msg: 'Story not found.' });
+    }
+
+    // Check user
+    if (story.owner != req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized.' });
+    }
+
+    if(req.body.title) {
+      return res.status(401).json({ msg: 'Cannot change the name of the Story' });
+    }
+
+    const storyUpdate = await Story.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          owner: req.user.id,
+          description: req.body.description,
+          isPublished: req.body.isPublished
+        }
+      }, {
+      new: true,
+      upsert: true
+    }
+    );
+
+    res.json(storyUpdate);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error.')
+  }
+}
+)
 
 // @route Delete api/stories/:id
 // @desc Delete a story
@@ -261,7 +306,8 @@ router.put(
         {
           $set: {
             markdown: req.body.markdown,
-            description: description
+            description: description,
+            isPublished: req.body.isPublished
           }
         }, {
         new: true,
