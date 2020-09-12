@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import { getStory } from '../../actions/story';
+import { getStoryBySlug } from '../../actions/story';
 
 import Posts from '../post/Posts';
 import Layout from '../layout/Layout';
@@ -10,11 +10,12 @@ import SingleColumn from '../layout/singleColumn';
 
 import classes from '../../assets/scss/modules/individualStory.module.scss';
 
-const IndividualStory = ({ getStory, story: { story, loading }, match }) => {
+const IndividualStory = ({ getStoryBySlug, story: { story, loading }, match }) => {
   useEffect(() => {
-    getStory(match.params.slug);
-  }, [getStory, match.params.slug])
-
+    getStoryBySlug(match.params.slug);
+  }, [getStoryBySlug, match.params.slug])
+  console.log(match);
+  console.log(story);
   return (
     <>
       <Layout page='storyPage'>
@@ -41,7 +42,7 @@ const IndividualStory = ({ getStory, story: { story, loading }, match }) => {
 }
 
 IndividualStory.propTypes = {
-  getStory: PropTypes.func.isRequired,
+  getStoryBySlug: PropTypes.func.isRequired,
   story: PropTypes.object.isRequired
 };
 
@@ -49,4 +50,4 @@ const mapStateToProps = (state) => ({
   story: state.story
 })
 
-export default connect(mapStateToProps, { getStory })(IndividualStory);
+export default connect(mapStateToProps, { getStoryBySlug })(IndividualStory);

@@ -30,6 +30,7 @@ export const GET_STORY = 'GET_STORY';
 export const STORY_ERROR = 'STORY_ERROR';
 export const DELETE_STORY = 'DELETE_STORY';
 export const ADD_STORY = 'ADD_STORY';
+export const EDIT_STORY = 'EDIT_STORY';
 export const ADD_OG_COMMENT = 'ADD_OG_COMMENT';
 export const REMOVE_OG_COMMENT = 'REMOVE_OG_COMMENT';
 

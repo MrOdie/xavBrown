@@ -8,6 +8,8 @@ import StoriesImport from './StorySection/StoriesImport';
 import PostImport from './PostSection/PostImport';
 import AddNewStory from './AddNew/AddNewStory';
 import AddNewPost from './AddNew/AddNewPost';
+import EditStory from './Edit/EditStory';
+import EditPost from './Edit/EditPost';
 
 import classes from '../../assets/scss/modules/adminConsole.module.scss';
 
@@ -47,6 +49,8 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const [info, setInfo] = useState('');
   const [storyName, setStoryName] = useState('');
   const [story, setStory] = useState('');
+  const [elementType, setElementType] = useState();
+  const [modalType, setModalType] = useState('');
 
   const getElem = (e, arg) => {
     // get element from accordion, which is the child of the child element here
@@ -57,21 +61,26 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     const elemParent = elem.dataset.parent || null;
     const elemClasses = document.querySelectorAll(`.${accordionInnerClasses.selected}`)
 
+    // Reset state when clicking on other items, because of stupid bull shit that makes the code buggy.
+    setElementType();
+    setSelected(false);
+    setInfo('');
+    setStory('');
+    setModalType();
+
     // getting the info from the g-child
     if (elem.classList.contains(accordionInnerClasses.selected)) {
       elem.classList.remove(accordionInnerClasses.selected);
-      setSelected(false);
-      setInfo('');
-      setStory('');
     } else {
       elemClasses.forEach(el => {
         el.classList.remove(accordionInnerClasses.selected);
       })
       elem.classList.toggle(accordionInnerClasses.selected);
 
+
+      setElementType(elemType);
       // Currently do not want to delete users
       if (elemType !== 'Users') {
-        setSelected(true);
 
         // if it's a post item, we will have a elemParent value
         // if not, we won't. that value, though, will dictate whether it's a
@@ -82,6 +91,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         } else {
           const info = getContent(elemType, elemId);
 
+          setSelected(true);
           setStoryName(arg);
           setStory(elem.id);
           setInfo(info);
@@ -107,26 +117,31 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
       deletePost(postParent, id);
     }
 
+    setSelected(false);
     setStory('');
     setStoryName('');
     setInfo('');
-  }
-  const edit = (e) => {
-    console.log(e);
   }
 
   // MODAL CODE
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
+  const openModal = (e) => {
+    const target = e.target.id;
+
+    if (target === 'edit'){
+      console.log(info);
+    }
+    setModalType(target);
     setIsOpen(true);
   }
 
   const closeModal = () => {
     setIsOpen(false);
+    setModalType();
     setStory('');
     setStoryName('');
-    setInfo('');
+    // setInfo('');
   }
   // MODAL CODE
 
@@ -141,18 +156,20 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
       <section className={classes.adminButtons}>
         <article className={classes.buttons}>
           {
-            selected !== false ? (
+            info.length >= 2 ? (
               <>
-                <button className="btn btn-danger" onClick={del}>Delete</button>
-                <button className="btn btn-light" onClick={edit}>Edit</button>
+                <button id="delete" className="btn btn-danger" onClick={del}>Delete</button>
+                <button id="edit" className="btn btn-light" onClick={openModal}>Edit</button>
               </>
+            ) : (
+                <button id="create" className="btn btn-dark-alt" onClick={openModal}>Create a Story</button>
+              )
+          }
+          {
+            elementType === 'Stories' ? (
+              <button id="create" className="btn btn-dark-alt" onClick={openModal}>Create a Post</button>
             ) : ''
           }
-          <button className="btn btn-dark-alt" onClick={openModal}>
-            {
-              selected === false || info[0] !== 'Stories' ? (`Create a Story`) : (`Create a Post`)
-            }
-          </button>
         </article>
       </section>
 
@@ -165,17 +182,50 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         onRequestClose={closeModal}
         contentLabel="Example Modal">
         <button className={`btn btn-danger ${classes.closeBtn}`} onClick={closeModal}>X</button>
-        <h3>Create {selected === false ? (`Your Next Story`) : (`Your Next Post`)}</h3>
+        <h3>
+          {
+            modalType === 'edit' ? (
+              <>
+                Edit {selected === false ? (`${storyName}`) : (`${storyName}`)}
+              </>
+
+            ) : (
+                <>
+                  Create {selected === false ? (`Your Next Story`) : (`Your Next Post`)}
+
+                </>
+              )
+          }
+        </h3>
         {
-          storyName !== '' ? (<h4>{storyName}</h4>) : ''
+          storyName !== '' && modalType !== 'edit' ? (<h4>{storyName}</h4>) : ''
         }
         {
-          selected === false ? (
-            <AddNewStory closeModal={closeModal} />
+          modalType === 'edit' ? (
+            selected === false ? (
+              <EditPost />
+            ) : (
+                <EditStory closeModal={closeModal} storyInfo={info} />
+              )
           ) : (
-              <AddNewPost closeModal={closeModal} story={story} />
+              selected === false ? (
+                <AddNewStory closeModal={closeModal} />
+                ) : (
+                  <AddNewPost closeModal={closeModal} story={story} />
+                )
             )
         }
+        {/* {
+          (selected === false) ? (
+            <>
+              <EditStory />
+              <AddNewStory closeModal={closeModal} /></>
+          ) : (
+              <>
+                <EditPost />
+                <AddNewPost closeModal={closeModal} story={story} /></>
+            )
+        } */}
       </Modal>
     </>
   )

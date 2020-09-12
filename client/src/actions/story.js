@@ -6,6 +6,7 @@ import {
   DELETE_STORY,
   ADD_STORY,
   GET_STORY,
+  EDIT_STORY,
   ADD_OG_COMMENT,
   REMOVE_OG_COMMENT
 } from './types';
@@ -59,18 +60,57 @@ export const addStory = formData => async dispatch => {
 
     dispatch(setAlert('Story Created', 'success'));
   } catch (err) {
+
     dispatch({
       type: STORY_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
-    dispatch(setAlert(err.response.statusText, 'danger'))
+    dispatch(setAlert(err.response.data.msg, 'danger'))
   }
 };
 
-// Get story
-export const getStory = slug => async dispatch => {
+// Edit Story
+export const editStory = (storyId, formData) => async dispatch => {
   try {
-    const res = await api.get(`stories/s/${slug}`);
+    const res = await api.put(`/stories/s/${storyId}`, formData);
+
+    dispatch({
+      type: EDIT_STORY,
+      payload: res.data
+    })
+
+    dispatch(setAlert('Story Edited', 'success'));
+  } catch (err) {
+    dispatch({
+      type: STORY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+    dispatch(setAlert(err.response.statusText, 'danger'));
+  }
+}
+
+// Get story by slug
+export const getStoryBySlug = slug => async dispatch => {
+  try {
+    const res = await api.get(`stories/slug/${slug}`);
+
+    dispatch({
+      type: GET_STORY,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: STORY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get story by id
+export const getStoryById = id => async dispatch => {
+  try {
+    const res = await api.get(`stories/id/${id}`);
 
     dispatch({
       type: GET_STORY,

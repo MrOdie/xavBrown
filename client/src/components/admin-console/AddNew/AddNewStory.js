@@ -8,10 +8,10 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    isPublished: ''
+    isPublished: false
   });
 
-  const { title, description } = formData;
+  const { title, description, isPublished } = formData;
 
   const validate = (data) => {
     let isValid, dataArr, validateArr, i;
@@ -44,7 +44,15 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
   }
 
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let inputContent;
+
+    if (e.target.type === 'checkbox') {
+      inputContent = e.target.checked
+    } else {
+      inputContent = e.target.value
+    }
+
+    setFormData({ ...formData, [e.target.name]: inputContent });
   }
 
   const onSubmit = (e) => {
@@ -79,16 +87,18 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
             onChange={onChange} />
           <div className="radioGroup">
             <div className="radioSubGroup">
+              <p>By clicking the following button, you will publish this story.</p>
               <input
                 className="radioInput"
-                type="radio"
+                type="checkbox"
                 name="isPublished"
                 id="published"
-                value={true}
+                checked={isPublished}
+                value={isPublished}
                 onChange={onChange} />
               <label className="radioLabel" htmlFor="published">Published</label>
             </div>
-            <div className="radioSubGroup">
+            {/* <div className="radioSubGroup">
               <input
                 className="radioInput"
                 type="radio"
@@ -97,7 +107,7 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
                 value={false}
                 onChange={onChange} />
               <label className="radioLabel" htmlFor="draft">Draft</label>
-            </div>
+            </div> */}
           </div>
           <button className="btn btn-dark-alt margin-top-2">Submit</button>
         </form>

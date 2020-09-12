@@ -4,6 +4,7 @@ import {
   DELETE_STORY,
   ADD_STORY,
   GET_STORY,
+  EDIT_STORY,
   ADD_OG_COMMENT,
   REMOVE_OG_COMMENT
 } from '../actions/types';
@@ -32,6 +33,12 @@ export default function(state = initialState, action){
         loading: false
       }
     case ADD_STORY:
+      return {
+        ...state,
+        stories: [payload, ...state.stories],
+        loading: false
+      }
+    case EDIT_STORY:
       return {
         ...state,
         stories: [payload, ...state.stories],
