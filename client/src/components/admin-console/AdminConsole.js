@@ -50,6 +50,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const [storyName, setStoryName] = useState('');
   const [story, setStory] = useState('');
   const [elementType, setElementType] = useState();
+  const [modalType, setModalType] = useState('');
 
   const getElem = (e, arg) => {
     // get element from accordion, which is the child of the child element here
@@ -60,10 +61,12 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     const elemParent = elem.dataset.parent || null;
     const elemClasses = document.querySelectorAll(`.${accordionInnerClasses.selected}`)
 
-    setElementType(elemType);
+    // Reset state when clicking on other items, because of stupid bull shit that makes the code buggy.
+    setElementType();
     setSelected(false);
     setInfo('');
     setStory('');
+    setModalType();
 
     // getting the info from the g-child
     if (elem.classList.contains(accordionInnerClasses.selected)) {
@@ -74,6 +77,8 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
       })
       elem.classList.toggle(accordionInnerClasses.selected);
 
+
+      setElementType(elemType);
       // Currently do not want to delete users
       if (elemType !== 'Users') {
 
@@ -96,7 +101,6 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
   }
 
-  console.log(elementType);
   const getContent = (...args) => {
     return args
   }
@@ -118,22 +122,26 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setStoryName('');
     setInfo('');
   }
-  // const edit = (e) => {
-  //   console.log(e);
-  // }
 
   // MODAL CODE
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const openModal = (e) => {
+    const target = e.target.id;
+
+    if (target === 'edit'){
+      console.log(info);
+    }
+    setModalType(target);
     setIsOpen(true);
   }
 
   const closeModal = () => {
     setIsOpen(false);
+    setModalType();
     setStory('');
     setStoryName('');
-    setInfo('');
+    // setInfo('');
   }
   // MODAL CODE
 
@@ -153,22 +161,15 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
                 <button id="delete" className="btn btn-danger" onClick={del}>Delete</button>
                 <button id="edit" className="btn btn-light" onClick={openModal}>Edit</button>
               </>
-            ) : ''
+            ) : (
+                <button id="create" className="btn btn-dark-alt" onClick={openModal}>Create a Story</button>
+              )
           }
           {
-            selected === false || info.length === 2 ? (
-              <button id="create" className="btn btn-dark-alt" onClick={openModal}>
-                {
-                  info.length == 2 ? (`Create a Post`) : (`Create a Story`)
-                }
-              </button>
+            elementType === 'Stories' ? (
+              <button id="create" className="btn btn-dark-alt" onClick={openModal}>Create a Post</button>
             ) : ''
           }
-           {/* <button id="create" className="btn btn-dark-alt" onClick={openModal}>
-             {
-               selected === false || info[0] !== 'Stories' ? (`Create a Story`) : (`Create a Post`)
-             }
-           </button> */}
         </article>
       </section>
 
@@ -181,11 +182,40 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         onRequestClose={closeModal}
         contentLabel="Example Modal">
         <button className={`btn btn-danger ${classes.closeBtn}`} onClick={closeModal}>X</button>
-        <h3>Create {selected === false ? (`Your Next Story`) : (`Your Next Post`)}</h3>
+        <h3>
+          {
+            modalType === 'edit' ? (
+              <>
+                Edit {selected === false ? (`${storyName}`) : (`${storyName}`)}
+              </>
+
+            ) : (
+                <>
+                  Create {selected === false ? (`Your Next Story`) : (`Your Next Post`)}
+
+                </>
+              )
+          }
+        </h3>
         {
-          storyName !== '' ? (<h4>{storyName}</h4>) : ''
+          storyName !== '' && modalType !== 'edit' ? (<h4>{storyName}</h4>) : ''
         }
         {
+          modalType === 'edit' ? (
+            selected === false ? (
+              <EditPost />
+            ) : (
+                <EditStory closeModal={closeModal} storyInfo={info} />
+              )
+          ) : (
+              selected === false ? (
+                <AddNewStory closeModal={closeModal} />
+                ) : (
+                  <AddNewPost closeModal={closeModal} story={story} />
+                )
+            )
+        }
+        {/* {
           (selected === false) ? (
             <>
               <EditStory />
@@ -195,7 +225,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
                 <EditPost />
                 <AddNewPost closeModal={closeModal} story={story} /></>
             )
-        }
+        } */}
       </Modal>
     </>
   )

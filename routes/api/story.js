@@ -88,11 +88,35 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route Get api/stories/s/:slug
-// @desc Get Story by ID
+// @route Get api/stories/s/:id
+// @desc Get Story by id
 // @access Public
 router.get(
-  '/s/:slug',
+  '/id/:id',
+  async (req, res) => {
+
+    try {
+      const story = await Story.findById(req.params.id);
+
+      if (!story) {
+        return res.status(404).json({
+          msg: 'Story not found.'
+        })
+      }
+
+      res.json(story);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error.')
+    }
+  }
+);
+
+// @route Get api/stories/s/:slug
+// @desc Get Story by slug
+// @access Public
+router.get(
+  '/slug/:slug',
   async (req, res) => {
 
     try {

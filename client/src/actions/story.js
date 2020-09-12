@@ -60,11 +60,12 @@ export const addStory = formData => async dispatch => {
 
     dispatch(setAlert('Story Created', 'success'));
   } catch (err) {
+
     dispatch({
       type: STORY_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
-    dispatch(setAlert(err.response.statusText, 'danger'))
+    dispatch(setAlert(err.response.data.msg, 'danger'))
   }
 };
 
@@ -88,10 +89,28 @@ export const editStory = (storyId, formData) => async dispatch => {
   }
 }
 
-// Get story
-export const getStory = slug => async dispatch => {
+// Get story by slug
+export const getStoryBySlug = slug => async dispatch => {
   try {
-    const res = await api.get(`stories/s/${slug}`);
+    const res = await api.get(`stories/slug/${slug}`);
+
+    dispatch({
+      type: GET_STORY,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: STORY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get story by id
+export const getStoryById = id => async dispatch => {
+  try {
+    const res = await api.get(`stories/id/${id}`);
 
     dispatch({
       type: GET_STORY,
