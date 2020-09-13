@@ -51,7 +51,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const [story, setStory] = useState('');
   const [elementType, setElementType] = useState();
   const [modalType, setModalType] = useState('');
-
+  
   const getElem = (e, arg) => {
     // get element from accordion, which is the child of the child element here
     e.preventDefault();
@@ -141,7 +141,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setModalType();
     setStory('');
     setStoryName('');
-    // setInfo('');
+    
   }
   // MODAL CODE
 

@@ -11,17 +11,25 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
     getStoryById(storyInfo[1]);
   }, [getStoryById, storyInfo[1]]);
 
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    isPublished: ''
-  });
   const [updatedFormData, setUpdatedFormData] = useState({
     description: '',
-    isPublished: ''
+    isPublished: '',
+    version: ''
   })
-  
-  const { title, description, isPublished } = formData;
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  console.log(storyInfo);
+  console.log(story);
+
+  if (story !== null && dataLoaded !== true) {
+
+    setUpdatedFormData({
+      description: story.description,
+      isPublished: story.isPublished,
+      version: story.__v
+    });
+    setDataLoaded(true);
+  }
 
   const validate = (data) => {
     let isValid, dataArr, validateArr, i;
@@ -55,28 +63,25 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
 
   const onChange = (e) => {
     let inputContent;
-    
+
     if (e.target.type === 'checkbox') {
       inputContent = e.target.checked
     } else {
       inputContent = e.target.value
     }
-    console.log(inputContent);
     setUpdatedFormData({ ...updatedFormData, [e.target.name]: inputContent });
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log(updatedFormData);
-    return
     const check = validate(updatedFormData);
 
     if (!check) {
       return false;
     }
 
-    editStory(updatedFormData);
+    editStory(story._id, updatedFormData);
     closeModal();
   }
   return (
@@ -87,21 +92,16 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
         ) : (
             <section>
               <article>
-                <form id="createStory" className="form" onSubmit={onSubmit}>
-                  <input
-                    type="text"
-                    id="title"
-                    placeholder="Story Title"
-                    name="title"
-                    value={story.title}
-                    onChange={onChange} />
+                <form id="editStory" className="form" onSubmit={onSubmit}>
+                  <p><strong>{story.title}</strong></p>
+                  <label htmlFor="description"><strong>Please enter your new Description:</strong></label>
                   <textarea
                     className="addStoryDesc"
                     type="text"
                     id="description"
                     name="description"
                     placeholder="Story Description"
-                    value={story.description}
+                    value={updatedFormData.description}
                     onChange={onChange} />
                   <div className="radioGroup">
                     <div className="radioSubGroup">
@@ -111,8 +111,8 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
                         type="checkbox"
                         name="isPublished"
                         id="published"
-                        checked={story.isPublished}
-                        value={story.isPublished}
+                        checked={updatedFormData.isPublished}
+                        value={updatedFormData.isPublished}
                         onChange={onChange} />
                       <label className="radioLabel" htmlFor="published">Published</label>
                     </div>

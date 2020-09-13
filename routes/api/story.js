@@ -148,6 +148,7 @@ router.put(
 ], async (req, res) => {
   try {
     const story = await Story.findById(req.params.id);
+    console.log(story);
 
     if (!story) {
       return res.status(404).json({ msg: 'Story not found.' });
@@ -158,9 +159,13 @@ router.put(
       return res.status(401).json({ msg: 'User not authorized.' });
     }
 
-    if(req.body.title) {
+    if (req.body.title) {
       return res.status(401).json({ msg: 'Cannot change the name of the Story' });
     }
+
+    let version = story.__v += 1;
+
+    console.log(version);
 
     const storyUpdate = await Story.findOneAndUpdate(
       { _id: req.params.id },
@@ -168,8 +173,8 @@ router.put(
         $set: {
           owner: req.user.id,
           description: req.body.description,
-          isPublished: req.body.isPublished
-        }
+          isPublished: req.body.isPublished,
+        }, $inc: { __v: 1 }
       }, {
       new: true,
       upsert: true
