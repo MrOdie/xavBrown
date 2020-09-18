@@ -14,8 +14,7 @@ const IndividualStory = ({ getStoryBySlug, story: { story, loading }, match }) =
   useEffect(() => {
     getStoryBySlug(match.params.slug);
   }, [getStoryBySlug, match.params.slug])
-  console.log(match);
-  console.log(story);
+
   return (
     <>
       <Layout page='storyPage'>

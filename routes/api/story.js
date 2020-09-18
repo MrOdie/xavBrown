@@ -163,10 +163,6 @@ router.put(
       return res.status(401).json({ msg: 'Cannot change the name of the Story' });
     }
 
-    let version = story.__v += 1;
-
-    console.log(version);
-
     const storyUpdate = await Story.findOneAndUpdate(
       { _id: req.params.id },
       {
@@ -337,7 +333,7 @@ router.put(
             markdown: req.body.markdown,
             description: description,
             isPublished: req.body.isPublished
-          }
+          }, $inc: { __v: 1 }
         }, {
         new: true,
         upsert: true
