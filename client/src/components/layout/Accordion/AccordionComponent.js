@@ -33,23 +33,52 @@ const AccordionComponent = ({ comp, content, getElem }) => {
 
     const test = (cont) => {
 
-        let newCont = [];
-        let newArr = [];
+        let len = cont.length;
+        let updatedContArray = [];
+        let returnArray = [];
+        let titles = [];
+        let duplicate;
+        let duplicates = [];
+        let contArrDups = [];
+        let halfwayThrough = [];
+        let tempArrayFirstHalf = [];
 
-        for (let i = 0; i < cont.length; i++){
-            if (newCont.includes(cont[i]._id)) {
-                newArr.push(cont[i])
-            } else {
-                newCont.push(cont[i]);
+        for (let i = 0; i < len; i++) {
+            // Check for duplicates so as to indicate which titles were updated
+            if (titles.includes(cont[i].title)) {
+                duplicates.push(cont[i].title);
+                duplicate = cont[i].title;
             }
+            titles.push(cont[i].title);
         }
 
-        console.log(newArr);
-        console.log(cont.length);
-        console.log(newCont);
+        if (duplicates) {
+            for (let i = 0; i < len; i++) {
+                if (!duplicates.includes(cont[i].title)){
+                    updatedContArray.push(cont[i])
+                } else {
+                    contArrDups.push(cont[i]);
+                }
+            }
+
+            if (contArrDups.length > 0) {
+                // here we're taking the duplicates and we're only taking the first half of them BC when an item is edited, then it creates a duplicate, but the new items are always at the front of the array.
+                halfwayThrough = Math.floor(contArrDups.length / 2);
+                tempArrayFirstHalf = contArrDups.slice(0, halfwayThrough);
+
+                for (let i = 0; i < tempArrayFirstHalf.length; i++){
+                    updatedContArray.push(tempArrayFirstHalf[i])
+                }
+            }
+            returnArray = updatedContArray;
+        } else {
+            returnArray = cont;
+        }
+
+        console.log('*** *** *** *** *** ***')
 
         return (
-            cont.map(item => (
+            returnArray.map(item => (
                 <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={(e) => getElem(e, item.title)}>
                     <div className={accordionInnerClasses.Inner}>
                         <p>{item.title} {item.__v}</p>
