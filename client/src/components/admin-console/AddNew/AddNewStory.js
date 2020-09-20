@@ -98,16 +98,6 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
                 onChange={onChange} />
               <label className="radioLabel" htmlFor="published">Published</label>
             </div>
-            {/* <div className="radioSubGroup">
-              <input
-                className="radioInput"
-                type="radio"
-                name="isPublished"
-                id="draft"
-                value={false}
-                onChange={onChange} />
-              <label className="radioLabel" htmlFor="draft">Draft</label>
-            </div> */}
           </div>
           <button className="btn btn-dark-alt margin-top-2">Submit</button>
         </form>

@@ -4,7 +4,13 @@
 .adminButtons {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  
+  @include breakpoints(really_big large sm_desktop){
+    grid-template-columns: 1fr 4fr 1fr;
+  }
+  @include breakpoints(lg_tablet tablet nav mobile){
+    grid-template-columns: 15px 1fr 15px;
+  }
 
   .buttons {
     grid-column: 2/3;

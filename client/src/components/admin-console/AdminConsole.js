@@ -129,9 +129,6 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const openModal = (e) => {
     const target = e.target.id;
 
-    if (target === 'edit'){
-      console.log(info);
-    }
     setModalType(target);
     setIsOpen(true);
   }
@@ -141,7 +138,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setModalType();
     setStory('');
     setStoryName('');
-    // setInfo('');
+    
   }
   // MODAL CODE
 
@@ -205,27 +202,16 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
             selected === false ? (
               <EditPost />
             ) : (
-                <EditStory closeModal={closeModal} storyInfo={info} />
+                <EditStory closeModal={closeModal} storyInfo={info}/>
               )
           ) : (
               selected === false ? (
-                <AddNewStory closeModal={closeModal} />
+                <AddNewStory closeModal={closeModal}/>
                 ) : (
-                  <AddNewPost closeModal={closeModal} story={story} />
+                  <AddNewPost closeModal={closeModal} story={story}/>
                 )
             )
         }
-        {/* {
-          (selected === false) ? (
-            <>
-              <EditStory />
-              <AddNewStory closeModal={closeModal} /></>
-          ) : (
-              <>
-                <EditPost />
-                <AddNewPost closeModal={closeModal} story={story} /></>
-            )
-        } */}
       </Modal>
     </>
   )
