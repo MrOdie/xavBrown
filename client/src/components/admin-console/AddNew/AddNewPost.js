@@ -69,6 +69,7 @@ const AddNewPost = ({ setAlert, addPost, closeModal, story }) => {
             type="text"
             id="title"
             placeholder="Post Title"
+            className="title"
             name="title"
             value={title}
             onChange={onChange} />
@@ -108,7 +109,9 @@ const AddNewPost = ({ setAlert, addPost, closeModal, story }) => {
               <label className="radioLabel" htmlFor="draft">Draft</label>
             </div>
           </div>
-          <button className="btn btn-primary margin-top-2">Submit</button>
+          <div className="margin-top-1 text-right">
+            <button className="btn btn-dark-alt">Create Post</button>
+          </div>
         </form>
       </article>
     </section>

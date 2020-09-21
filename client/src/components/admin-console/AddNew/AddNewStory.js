@@ -74,6 +74,7 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
             type="text"
             id="title"
             placeholder="Story Title"
+            className="title"
             name="title"
             value={title}
             onChange={onChange} />
@@ -99,7 +100,9 @@ const AddNewStory = ({ setAlert, addStory, closeModal }) => {
               <label className="radioLabel" htmlFor="published">Published</label>
             </div>
           </div>
-          <button className="btn btn-dark-alt margin-top-2">Submit</button>
+          <div className="margin-top-1 text-right">
+            <button className="btn btn-dark-alt">Create Story</button>
+          </div>
         </form>
       </article>
     </section>

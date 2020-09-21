@@ -47,11 +47,10 @@
   .addStoryDesc,
   .addPostDesc,
   .addPostMarkdown {
-    border-bottom: 2px solid #767676;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    margin-bottom: 1rem;
+    border: none;
+    background-color: $input-bg;
+    border-radius: 5px;
+    margin-bottom: .5rem;
   }
 
   .radioGroup {
@@ -65,6 +64,20 @@
         cursor: pointer;
       }
       .radioLabel {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .checkBoxGroup {
+
+    .checkBoxSubGroup {
+      cursor: pointer;
+      .checkBoxInput {
+        margin-right: 0.5rem;
+        cursor: pointer;
+      }
+      .checkBoxLabel {
         cursor: pointer;
       }
     }
@@ -130,8 +143,13 @@
 }
 
 #createPost, #createStory, #editStory, #editPost {
+  .title {
+    border: none;
+    padding: 0.25rem 1rem 0.25rem 0.5rem;
+    background-color: $input-bg;
+  }
   .btn {
-    max-width: 150px;
+    max-width: max-content;
     margin: 0 auto;
   }
 }

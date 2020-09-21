@@ -55,6 +55,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const getElem = (e, arg) => {
     // get element from accordion, which is the child of the child element here
     e.preventDefault();
+
     const elem = e.currentTarget;
     const elemType = elem.parentNode.parentNode.id;
     const elemId = elem.id;
@@ -67,10 +68,11 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setInfo('');
     setStory('');
     setModalType();
-
+    
     // getting the info from the g-child
     if (elem.classList.contains(accordionInnerClasses.selected)) {
       elem.classList.remove(accordionInnerClasses.selected);
+
     } else {
       elemClasses.forEach(el => {
         el.classList.remove(accordionInnerClasses.selected);
@@ -86,9 +88,11 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         // if not, we won't. that value, though, will dictate whether it's a
         // storyName or a post... So the delete action will obviously be different.
         if (elemParent !== null) {
+          // For Posts
           const info = getContent(elemType, elemId, elemParent);
           setInfo(info);
         } else {
+          // For Stories
           const info = getContent(elemType, elemId);
 
           setSelected(true);
@@ -117,10 +121,18 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
       deletePost(postParent, id);
     }
 
+    // setSelected(false);
+    // setStory('');
+    // setStoryName('');
+    // setInfo('');
+
     setSelected(false);
     setStory('');
-    setStoryName('');
     setInfo('');
+    setStoryName('');
+    setElementType();
+    setModalType();
+    
   }
 
   // MODAL CODE
@@ -133,11 +145,15 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setIsOpen(true);
   }
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    
     setIsOpen(false);
-    setModalType();
+    setSelected(false);
     setStory('');
+    setInfo('');
     setStoryName('');
+    setElementType();
+    setModalType();
     
   }
   // MODAL CODE

@@ -10,34 +10,33 @@ import accordionInnerClasses from '../../../assets/scss/modules/accordionInner.m
 
 const AccordionComponent = ({ comp, content, getElem }) => {
 
-    const [users, setUsers] = useState();
-    const [stories, setStories] = useState();
-    const [posts, setPosts] = useState();
+    // const [users, setUsers] = useState();
+    // const [stories, setStories] = useState();
+    // const [posts, setPosts] = useState();
     const [initialState, setInitialState] = useState(false);
 
-    const [numStories, setNumStories] = useState();
+    // const [numStories, setNumStories] = useState();
 
     useEffect(() => {
-        if (comp === 'Users') {
-            setUsers(content);
-        }
-        if (comp === 'Stories') {
-            setStories(content);
-        }
-        if (comp === 'Posts') {
-            setPosts(content);
-        }
+        // if (comp === 'Users') {
+        //     setUsers(content);
+        // }
+        // if (comp === 'Stories') {
+        //     setStories(content);
+        // }
+        // if (comp === 'Posts') {
+        //     setPosts(content);
+        // }
 
         setInitialState(true);
     });
 
-    const test = (cont) => {
+    const getStories = (cont) => {
 
         let len = cont.length;
         let updatedContArray = [];
         let returnArray = [];
         let titles = [];
-        let duplicate;
         let duplicates = [];
         let contArrDups = [];
         let halfwayThrough = [];
@@ -47,7 +46,6 @@ const AccordionComponent = ({ comp, content, getElem }) => {
             // Check for duplicates so as to indicate which titles were updated
             if (titles.includes(cont[i].title)) {
                 duplicates.push(cont[i].title);
-                duplicate = cont[i].title;
             }
             titles.push(cont[i].title);
         }
@@ -67,7 +65,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                 tempArrayFirstHalf = contArrDups.slice(0, halfwayThrough);
 
                 for (let i = 0; i < tempArrayFirstHalf.length; i++){
-                    updatedContArray.push(tempArrayFirstHalf[i])
+                    updatedContArray.unshift(tempArrayFirstHalf[i])
                 }
             }
             returnArray = updatedContArray;
@@ -79,7 +77,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
 
         return (
             returnArray.map(item => (
-                <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={(e) => getElem(e, item.title)}>
+                <div key={item._id} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={(e) => getElem(e, item.title)}>
                     <div className={accordionInnerClasses.Inner}>
                         <p>{item.title} {item.__v}</p>
                         <p>{item.isPublished === true ? 'Published' : 'Draft'}</p>
@@ -91,6 +89,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
 
     const accordionHeight = (arg) => {
         // Gets the inner portion of the accordion in order to set max-height;
+        console.log(arg);
         const accordionInner = arg.childNodes[0];
         const heightConstraint = 350;
 
@@ -111,7 +110,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
     };
 
     const accordion = (e) => {
-        const elem = e.target;
+        const elem = e.currentTarget;
         let pnl = elem.nextElementSibling;
 
         if (elem.classList.contains(classes.accordion__active)) {
@@ -176,7 +175,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                     <p><strong>Status</strong></p>
                                                 </div>
                                             </div>
-                                            {test(content)}
+                                            {getStories(content)}
                                             {/* {
                                                 content.map(item => (
                                                     <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={(e) => getElem(e, item.title)}>{console.log(content.length)}
