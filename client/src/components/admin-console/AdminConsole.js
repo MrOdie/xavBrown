@@ -31,7 +31,9 @@ const customStyles = {
     flexFlow: 'column',
     padding: '30px',
     inset: '0',
-    gridColumn: '2/3'
+    gridColumn: '2/3',
+    maxWidth: '700px',
+    justifySelf: 'center'
   },
   overlay: {
     display: 'grid',

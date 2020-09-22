@@ -89,7 +89,6 @@ const AccordionComponent = ({ comp, content, getElem }) => {
 
     const accordionHeight = (arg) => {
         // Gets the inner portion of the accordion in order to set max-height;
-        console.log(arg);
         const accordionInner = arg.childNodes[0];
         const heightConstraint = 350;
 
@@ -176,16 +175,6 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                 </div>
                                             </div>
                                             {getStories(content)}
-                                            {/* {
-                                                content.map(item => (
-                                                    <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.StoriesRow} id={item._id} onClick={(e) => getElem(e, item.title)}>{console.log(content.length)}
-                                                        <div className={accordionInnerClasses.Inner}>
-                                                            <p>{item.title} {item.__v}</p>
-                                                            <p>{item.isPublished === true ? 'Published' : 'Draft'}</p>
-                                                        </div>
-                                                    </div>
-                                                ))
-                                            } */}
                                         </div>
                                     </article>
                                 </>
@@ -203,7 +192,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                             <p><strong>Story</strong></p>
                                                             <p><strong>Title</strong></p>
                                                             <p><strong>Status</strong></p>
-                                                            <p><strong>Comments</strong></p>
+                                                            <p><strong>Remarks</strong></p>
                                                         </div>
                                                     </div>
                                                     {

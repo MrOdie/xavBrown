@@ -50,7 +50,7 @@
     border: none;
     background-color: $input-bg;
     border-radius: 5px;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 
   .radioGroup {
@@ -70,7 +70,6 @@
   }
 
   .checkBoxGroup {
-
     .checkBoxSubGroup {
       cursor: pointer;
       .checkBoxInput {
@@ -142,7 +141,10 @@
   }
 }
 
-#createPost, #createStory, #editStory, #editPost {
+#createPost,
+#createStory,
+#editStory,
+#editPost {
   .title {
     border: none;
     padding: 0.25rem 1rem 0.25rem 0.5rem;
@@ -151,5 +153,76 @@
   .btn {
     max-width: max-content;
     margin: 0 auto;
+  }
+}
+
+#editPost {
+  .editDescription {
+    position: relative;
+    line-height: 35px;
+    height: 35px;
+    &.active {
+      .editDescriptionSpan {
+        -webkit-transform: scale(0.83333) translateY(-10px);
+        transform: scale(0.83333) translateY(-15px);
+        padding-left: 0;
+        font-size: 12px;
+      }
+    }
+    .editDescriptionSpan {
+      position: absolute;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+      padding-left: 0.55rem;
+    }
+    #editDescription {
+      font-size: 18px;
+    }
+  }
+
+  .editMarkdown {
+    position: relative;
+    line-height: 35px;
+    height: 35px;
+    &.active {
+      .editMarkdownSpan {
+        -webkit-transform: scale(0.83333) translateY(-10px);
+        transform: scale(0.83333) translateY(-15px);
+        padding-left: 0;
+        font-size: 12px;
+      }
+    }
+    .editMarkdownSpan {
+      position: absolute;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+      padding-left: 0.55rem;
+    }
+    #editMarkdown {
+      font-size: 18px;
+    }
+  }
+
+  .editStatus {
+    position: relative;
+    line-height: 35px;
+    height: 35px;
+    &.active {
+      .editStatusSpan {
+        -webkit-transform: scale(0.83333) translateY(-10px);
+        transform: scale(0.83333) translateY(-15px);
+        padding-left: 0;
+        font-size: 12px;
+      }
+    }
+    .editStatusSpan {
+      position: absolute;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+      padding-left: 0.55rem;
+    }
+    #editStatus {
+      font-size: 18px;
+    }
   }
 }
