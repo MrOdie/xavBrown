@@ -197,7 +197,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                     </div>
                                                     {
                                                         content.map(item => (
-                                                            <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.PostsRow} id={item._id} data-parent={item.storyId} onClick={getElem}>
+                                                            <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.PostsRow} id={item._id} data-parent={item.storyId} onClick={(e) => getElem(e, item.title)}>
                                                                 <div className={accordionInnerClasses.Inner}>
                                                                     <p>{item.storyTitle}</p>
                                                                     <p>{item.title}</p>

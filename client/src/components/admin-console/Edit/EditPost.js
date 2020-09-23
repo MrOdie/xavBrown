@@ -19,7 +19,7 @@ const EditPost = () => {
     console.log('submit');
   }
   return (
-    <section>
+    <section className="editPostModal">
       <article>
         <form id="editPost" className="form" onSubmit={Submit}>
           <label className="editDescription margin-bottom-1" htmlFor="editDescription">
@@ -28,7 +28,7 @@ const EditPost = () => {
           </label>
           <label className="editMarkdown margin-bottom-1" htmlFor="editMarkdown">
             <span className="editMarkdownSpan">Update the Markdown</span>
-            <input id="editMarkdown" type="text" onKeyUp={keyPress} />
+            <textarea id="editMarkdown" type="text" onKeyUp={keyPress} />
           </label>
           <label className="editStatus margin-bottom-1" htmlFor="editStatus">
             <span className="editStatusSpan">Update the Status</span>

@@ -62,7 +62,7 @@ const AddNewPost = ({ setAlert, addPost, closeModal, story }) => {
     closeModal();
   }
   return (
-    <section>
+    <section className="createPostModal">
       <article>
         <form id="createPost" className="form" onSubmit={onSubmit}>
           <input

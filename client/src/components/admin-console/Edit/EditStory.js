@@ -105,7 +105,7 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
         loading || story === null ? (
           <Spinner />
         ) : (
-            <section>
+            <section className="editPostModal">
               <article>
                 <form id="editStory" className="form" onSubmit={onSubmit}>
                   <label htmlFor="description"><strong>Please enter your new Description:</strong></label>
@@ -119,7 +119,7 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
                     onChange={onChange} />
                   <div className="checkBoxGroup">
                     <div className="checkBoxSubGroup">
-                      <p><strong>By clicking the following button, you will publish this story.</strong></p>
+                      <p className="margin-bottom-none"><strong>By clicking the following button, you will publish this story.</strong></p>
                       <input
                         className="checkBoxInput"
                         type="checkbox"
