@@ -86,7 +86,26 @@ export const addPost = (storyId, formData) => async dispatch => {
 // Get post
 export const getPost = (slug, id) => async dispatch => {
   try {
-    const res = await api.get(`/stories/s/${slug}/p/${id}`);
+    const res = await api.get(`/stories/slug/${slug}/p/${id}`);
+    console.log(res);
+
+    dispatch({
+      type: GET_POST,
+      payload: res.data
+    });
+  } catch (err) {
+
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get post by ID
+export const getPostById = (id, postId) => async dispatch => {
+  try {
+    const res = await api.get(`/stories/${id}/p/${postId}`);
     console.log(res);
 
     dispatch({

@@ -74,6 +74,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         if (elemParent !== null) {
           // For Posts
           const info = getContent(elemType, elemId, elemParent);
+          console.log(info)
           setInfo(info);
           setSelectedItem(arg);
         } else {
@@ -196,7 +197,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         {
           modalType === 'edit' ? (
             selected === false ? (
-              <EditPost />
+              <EditPost closeModal={closeModal} postInfo={info} />
             ) : (
                 <EditStory closeModal={closeModal} storyInfo={info}/>
               )

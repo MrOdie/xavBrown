@@ -390,7 +390,7 @@ router.get(
 // @desc get post
 // @access Public
 router.get(
-  '/s/:slug/p/:postSlug',
+  '/slug/:slug/p/:postSlug',
   async (req, res) => {
     try {
       const story = await Story.find({ slug: req.params.slug });
@@ -398,6 +398,38 @@ router.get(
 
       const storyId = story[0]._id;
       const postId = post[0]._id;
+
+      const getStory = await Story.findById(storyId)
+      const getPost = await Post.findById(postId);
+
+      if (!getStory) {
+        return res.status(404).json({ msg: 'Cannot find the Story' });
+      }
+
+      if (!getPost) {
+        return res.status(404).json({ msg: 'Cannot find the Post' });
+      }
+
+      res.json(getPost)
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server Error.')
+    }
+  }
+)
+
+// @route GET api/id/post
+// @desc get post
+// @access Public
+router.get(
+  '/:id/p/:postId',
+  async (req, res) => {
+    try {
+      const story = await Story.findById(req.params.id);
+      const post = await Post.findById(req.params.postId);
+
+      const storyId = story._id;
+      const postId = post._id;
 
       const getStory = await Story.findById(storyId)
       const getPost = await Post.findById(postId);
