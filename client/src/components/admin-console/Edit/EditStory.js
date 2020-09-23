@@ -9,24 +9,41 @@ import Spinner from '../../layout/Spinner';
 const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAlert, closeModal, storyInfo }) => {
   useEffect(() => {
     getStoryById(storyInfo[1]);
-  }, [getStoryById, storyInfo[1]]);
+  }, [getStoryById, storyInfo]);
+
+  // https://daveceddia.com/useeffect-hook-examples/
 
   const [updatedFormData, setUpdatedFormData] = useState({
     description: '',
     isPublished: '',
     version: ''
   })
+
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  if (story !== null && dataLoaded !== true) {
+  useEffect(() => {
+    return () => {
+      // reset values on unmount
+      setDataLoaded(false);
+      setUpdatedFormData({
+        description: '',
+        isPublished: '',
+        version: ''
+      });
+    }
+  }, [])
 
-    setUpdatedFormData({
-      description: story.description,
-      isPublished: story.isPublished,
-      version: story.__v
-    });
-    setDataLoaded(true);
-  }
+  useEffect(() => {
+    // gotta pass in the story._id === storyInfo[1] bc I want to wait until the correct story is loaded.
+    if (story !== null && dataLoaded !== true && story._id === storyInfo[1]) {
+      setUpdatedFormData({
+        description: story.description,
+        isPublished: story.isPublished,
+        version: story.__v
+      });
+      setDataLoaded(true);
+    }
+  }, [story, dataLoaded, storyInfo])
 
   const validate = (data) => {
     let isValid, dataArr, validateArr, i;
@@ -81,13 +98,14 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
     editStory(story._id, updatedFormData);
     closeModal();
   }
+
   return (
     <>
       {
         loading || story === null ? (
           <Spinner />
         ) : (
-            <section>
+            <section className="editPostModal">
               <article>
                 <form id="editStory" className="form" onSubmit={onSubmit}>
                   <label htmlFor="description"><strong>Please enter your new Description:</strong></label>
@@ -99,20 +117,23 @@ const EditStory = ({ getStoryById, story: { story, loading }, editStory, setAler
                     placeholder="Story Description"
                     value={updatedFormData.description}
                     onChange={onChange} />
-                  <div className="radioGroup">
-                    <div className="radioSubGroup">
-                      <p>By clicking the following button, you will publish this story.</p>
+                  <div className="checkBoxGroup">
+                    <div className="checkBoxSubGroup">
+                      <p className="margin-bottom-none"><strong>By clicking the following button, you will publish this story.</strong></p>
                       <input
-                        className="radioInput"
+                        className="checkBoxInput"
                         type="checkbox"
                         name="isPublished"
                         id="published"
                         checked={updatedFormData.isPublished}
                         value={updatedFormData.isPublished}
                         onChange={onChange} />
-                      <label className="radioLabel" htmlFor="published">Published</label>
+                      <label className="checkBoxLabel" htmlFor="published">Published</label>
                     </div>
-                  </div><button className="btn btn-dark-alt margin-top-2">Submit</button>
+                  </div>
+                  <div className="margin-top-1 text-right">
+                    <button className="btn btn-dark-alt">Update Story</button>
+                  </div>
                 </form>
               </article>
             </section>

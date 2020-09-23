@@ -47,11 +47,10 @@
   .addStoryDesc,
   .addPostDesc,
   .addPostMarkdown {
-    border-bottom: 2px solid #767676;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    margin-bottom: 1rem;
+    border: none;
+    background-color: $input-bg;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
   }
 
   .radioGroup {
@@ -65,6 +64,19 @@
         cursor: pointer;
       }
       .radioLabel {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .checkBoxGroup {
+    .checkBoxSubGroup {
+      cursor: pointer;
+      .checkBoxInput {
+        margin-right: 0.5rem;
+        cursor: pointer;
+      }
+      .checkBoxLabel {
         cursor: pointer;
       }
     }
@@ -129,9 +141,119 @@
   }
 }
 
-#createPost, #createStory, #editStory, #editPost {
-  .btn {
-    max-width: 150px;
-    margin: 0 auto;
+.createPostModal,
+.createStoryModal,
+.editStoryModal,
+.editPostModal {
+  @include breakpoints(really_big large desktop sm_desktop) {
+    width: 650px;
+  }
+  #createPost,
+  #createStory,
+  #editStory,
+  #editPost {
+    .title {
+      border: none;
+      padding: 0.25rem 1rem 0.25rem 0.5rem;
+      background-color: $input-bg;
+    }
+    .btn {
+      max-width: max-content;
+      margin: 0 auto;
+    }
+  }
+}
+
+#editPost {
+  label {
+    input,
+    textarea {
+      outline: none;
+      border: none;
+      background-color: $input-bg;
+      width: 100%;
+    }
+  }
+  .editDescription {
+    position: relative;
+    line-height: 35px;
+    height: max-content;
+    &.active {
+      .editDescriptionSpan {
+        -webkit-transform: scale(0.83333) translateY(-2rem);
+        transform: scale(0.83333) translateY(-2rem);
+        margin-left: -15px;
+        font-size: 16px;
+      }
+    }
+    .editDescriptionSpan {
+      position: absolute;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+      padding-left: 0.55rem;
+      padding-top: 0.35rem;
+    }
+    #editDescription {
+      font-size: 18px;
+    }
+  }
+
+  .editMarkdown {
+    position: relative;
+    line-height: 35px;
+    height: max-content;
+    &.active {
+      .editMarkdownSpan {
+        -webkit-transform: scale(0.83333) translateY(-2rem);
+        transform: scale(0.83333) translateY(-2rem);
+        margin-left: -15px;
+        font-size: 16px;
+      }
+    }
+    .editMarkdownSpan {
+      position: absolute;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+      padding-left: 0.55rem;
+      padding-top: 0.35rem;
+    }
+    #editMarkdown {
+      font-size: 18px;
+      border: none;
+      background-color: $input-bg;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .editStatus {
+    position: relative;
+    line-height: 35px;
+    height: max-content;
+    &.active {
+      .editStatusSpan {
+        -webkit-transform: scale(0.83333) translateY(-2rem);
+        transform: scale(0.83333) translateY(-2rem);
+        margin-left: -15px;
+        font-size: 16px;
+      }
+    }
+    .editStatusSpan {
+      position: absolute;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+      padding-left: 0.55rem;
+      padding-top: 0.35rem;
+    }
+    #editStatus {
+      font-size: 18px;
+    }
+  }
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+
+  .ReactModal__Content.ReactModal__Content--after-open {
+
   }
 }

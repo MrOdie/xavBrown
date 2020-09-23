@@ -111,12 +111,12 @@
 
 .Posts {
   .PostsTitleRow {
-    grid-template-columns: 1fr 6fr 1fr;
+    grid-template-columns: 1fr 10fr 1fr;
     grid-column: 1/4;
     display: grid;
     .TitleRowInner {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 2fr 1fr .5fr;
       justify-items: start;
       grid-column: 2/3;
       justify-self: stretch;
@@ -126,7 +126,7 @@
   .PostsRow {
     grid-column: 1/4;
     display: grid;
-    grid-template-columns: 1fr 6fr 1fr;
+    grid-template-columns: 1fr 10fr 1fr;
     justify-items: center;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -141,7 +141,7 @@
     .Inner {
       grid-column: 2/3;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 2fr 1fr .5fr;
       justify-self: stretch;
       gap: 1.5rem;
     }

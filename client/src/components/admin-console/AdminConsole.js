@@ -24,22 +24,6 @@ import accordionInnerClasses from '../../assets/scss/modules/accordionInner.modu
 // MODAL CODE
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,.7)';
-const customStyles = {
-  content: {
-    position: 'relative',
-    display: 'flex',
-    flexFlow: 'column',
-    padding: '30px',
-    inset: '0',
-    gridColumn: '2/3'
-  },
-  overlay: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 3fr 1fr',
-    justifyItems: 'stretch',
-    alignContent: 'center',
-  }
-};
 
 // MODAL CODE
 
@@ -47,7 +31,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
   const [selected, setSelected] = useState(false);
   const [info, setInfo] = useState('');
-  const [storyName, setStoryName] = useState('');
+  const [selectedItem, setSelectedItem] = useState('');
   const [story, setStory] = useState('');
   const [elementType, setElementType] = useState();
   const [modalType, setModalType] = useState('');
@@ -55,6 +39,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
   const getElem = (e, arg) => {
     // get element from accordion, which is the child of the child element here
     e.preventDefault();
+
     const elem = e.currentTarget;
     const elemType = elem.parentNode.parentNode.id;
     const elemId = elem.id;
@@ -67,10 +52,11 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setInfo('');
     setStory('');
     setModalType();
-
+    
     // getting the info from the g-child
     if (elem.classList.contains(accordionInnerClasses.selected)) {
       elem.classList.remove(accordionInnerClasses.selected);
+
     } else {
       elemClasses.forEach(el => {
         el.classList.remove(accordionInnerClasses.selected);
@@ -84,15 +70,18 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
         // if it's a post item, we will have a elemParent value
         // if not, we won't. that value, though, will dictate whether it's a
-        // storyName or a post... So the delete action will obviously be different.
+        // SelectedItem or a post... So the delete action will obviously be different.
         if (elemParent !== null) {
+          // For Posts
           const info = getContent(elemType, elemId, elemParent);
           setInfo(info);
+          setSelectedItem(arg);
         } else {
+          // For Stories
           const info = getContent(elemType, elemId);
 
           setSelected(true);
-          setStoryName(arg);
+          setSelectedItem(arg);
           setStory(elem.id);
           setInfo(info);
         }
@@ -119,8 +108,11 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
     setSelected(false);
     setStory('');
-    setStoryName('');
     setInfo('');
+    setSelectedItem('');
+    setElementType();
+    setModalType();
+    
   }
 
   // MODAL CODE
@@ -133,11 +125,15 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setIsOpen(true);
   }
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    
     setIsOpen(false);
-    setModalType();
+    setSelected(false);
     setStory('');
-    setStoryName('');
+    setInfo('');
+    setSelectedItem('');
+    setElementType();
+    setModalType();
     
   }
   // MODAL CODE
@@ -171,19 +167,19 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
       </section>
 
       <Modal
-        portalClassName={classes.Modal}
+        portalClassName={classes.Portal}
+        overlayClassName={classes.Overlay}
+        className={classes.Modal}
         isOpen={modalIsOpen}
-        // onAfterOpen={afterOpenModal}
-        style={customStyles}
         shouldCloseOnOverlayClick={true}
         onRequestClose={closeModal}
-        contentLabel="Example Modal">
+        contentLabel="Multi-use Modal">
         <button className={`btn btn-danger ${classes.closeBtn}`} onClick={closeModal}>X</button>
         <h3>
           {
             modalType === 'edit' ? (
               <>
-                Edit {selected === false ? (`${storyName}`) : (`${storyName}`)}
+                Edit {selected === false ? (selectedItem) : (selectedItem)}
               </>
 
             ) : (
@@ -195,7 +191,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
           }
         </h3>
         {
-          storyName !== '' && modalType !== 'edit' ? (<h4>{storyName}</h4>) : ''
+          selectedItem !== '' && modalType !== 'edit' ? (<h4>{selectedItem}</h4>) : ''
         }
         {
           modalType === 'edit' ? (
