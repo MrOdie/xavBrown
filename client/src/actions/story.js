@@ -79,7 +79,7 @@ export const editStory = (storyId, formData) => async dispatch => {
       payload: res.data
     })
 
-    dispatch(setAlert('Story Edited', 'success'));
+    dispatch(setAlert('Story Updated', 'success'));
   } catch (err) {
     dispatch({
       type: STORY_ERROR,

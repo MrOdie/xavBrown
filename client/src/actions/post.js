@@ -6,6 +6,7 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
+  EDIT_POST,
   ADD_COMMENT,
   REMOVE_COMMENT
 } from './types';
@@ -120,6 +121,21 @@ export const getPostById = (id, postId) => async dispatch => {
     });
   }
 };
+
+export const editPost = (storyId, postId) => async dispatch => {
+  try {
+    const res = await api.put(`/stories/s/${storyId}/${postId}`);
+
+    dispatch({
+      EDIT_POST,
+      payload: res.data
+    })
+
+    dispatch(setAlert('Post Updated', 'success'))
+  } catch (err) {
+    
+  }
+}
 
 // Add comment
 export const addComment = (postId, formData) => async dispatch => {

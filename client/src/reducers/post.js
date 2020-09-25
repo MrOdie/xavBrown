@@ -5,6 +5,7 @@ import {
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
+  EDIT_POST,
   REMOVE_COMMENT
 } from '../actions/types';
 
@@ -15,7 +16,7 @@ const initialState = {
   error: {}
 };
 
-export default function(state = initialState, action){
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -53,6 +54,12 @@ export default function(state = initialState, action){
       return {
         ...state,
         posts: { ...state.post, comments: payload },
+        loading: false
+      }
+    case EDIT_POST:
+      return {
+        ...state,
+        posts: [payload, ...state.posts],
         loading: false
       }
     case REMOVE_COMMENT:

@@ -10,27 +10,6 @@ import accordionInnerClasses from '../../../assets/scss/modules/accordionInner.m
 
 const AccordionComponent = ({ comp, content, getElem }) => {
 
-    // const [users, setUsers] = useState();
-    // const [stories, setStories] = useState();
-    // const [posts, setPosts] = useState();
-    const [initialState, setInitialState] = useState(false);
-
-    // const [numStories, setNumStories] = useState();
-
-    useEffect(() => {
-        // if (comp === 'Users') {
-        //     setUsers(content);
-        // }
-        // if (comp === 'Stories') {
-        //     setStories(content);
-        // }
-        // if (comp === 'Posts') {
-        //     setPosts(content);
-        // }
-
-        setInitialState(true);
-    });
-
     const getStories = (cont) => {
 
         let len = cont.length;
@@ -125,9 +104,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
 
     }
 
-    return initialState === false ? (
-        <Spinner />
-    ) : (
+    return (
             <section className={classes.accordion__component}>
                 {
                     comp === 'Users' ? (
