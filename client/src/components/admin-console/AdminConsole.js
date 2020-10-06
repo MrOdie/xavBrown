@@ -27,7 +27,7 @@ Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,.7)';
 
 // MODAL CODE
 
-const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, adminUser }) => {
+const AdminConsole = ({ deleteStory, deletePost, auth: { user }, adminUser, reload }) => {
 
   const [selected, setSelected] = useState(false);
   const [info, setInfo] = useState('');
@@ -74,7 +74,6 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
         if (elemParent !== null) {
           // For Posts
           const info = getContent(elemType, elemId, elemParent);
-          console.log(info)
           setInfo(info);
           setSelectedItem(arg);
         } else {
@@ -126,7 +125,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
     setIsOpen(true);
   }
 
-  const closeModal = (e) => {
+  const closeModal = () => {
     
     setIsOpen(false);
     setSelected(false);
@@ -145,7 +144,7 @@ const AdminConsole = ({ deleteStory, deletePost, setAlert, auth: { user }, admin
 
       <UsersImport getElement={getElem} />
       <StoriesImport getElement={getElem} />
-      <PostImport getElement={getElem} />
+      <PostImport getElement={getElem}/>
 
       <section className={classes.adminButtons}>
         <article className={classes.buttons}>

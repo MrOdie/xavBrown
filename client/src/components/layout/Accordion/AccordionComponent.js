@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import classes from "../../../assets/scss/modules/accordionComponent.module.scss";
-import Spinner from '../Spinner';
 
 import accordionInnerClasses from '../../../assets/scss/modules/accordionInner.module.scss';
 
@@ -31,7 +30,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
 
         if (duplicates) {
             for (let i = 0; i < len; i++) {
-                if (!duplicates.includes(cont[i].title)){
+                if (!duplicates.includes(cont[i].title)) {
                     updatedContArray.push(cont[i])
                 } else {
                     contArrDups.push(cont[i]);
@@ -43,7 +42,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                 halfwayThrough = Math.floor(contArrDups.length / 2);
                 tempArrayFirstHalf = contArrDups.slice(0, halfwayThrough);
 
-                for (let i = 0; i < tempArrayFirstHalf.length; i++){
+                for (let i = 0; i < tempArrayFirstHalf.length; i++) {
                     updatedContArray.unshift(tempArrayFirstHalf[i])
                 }
             }
@@ -51,8 +50,6 @@ const AccordionComponent = ({ comp, content, getElem }) => {
         } else {
             returnArray = cont;
         }
-
-        console.log('*** *** *** *** *** ***')
 
         return (
             returnArray.map(item => (
@@ -105,94 +102,94 @@ const AccordionComponent = ({ comp, content, getElem }) => {
     }
 
     return (
-            <section className={classes.accordion__component}>
-                {
-                    comp === 'Users' ? (
-                        <>
-                            <button className={`${classes.accordion} ${comp}`} onClick={accordion}>
-                                {comp}
-                                <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
-                            </button>
-                            <article className={classes.panel} id={comp}>
-                                <div className={accordionInnerClasses.Users}>
-                                    <div className={accordionInnerClasses.UsersTitleRow}>
-                                        <div className={accordionInnerClasses.TitleRowInner}>
-                                            <p><strong>Name</strong></p>
-                                            <p><strong>UserName</strong></p>
-                                            <p><strong>Role</strong></p>
-                                        </div>
+        <section className={classes.accordion__component}>
+            {
+                comp === 'Users' ? (
+                    <>
+                        <button className={`${classes.accordion} ${comp}`} onClick={accordion}>
+                            {comp}
+                            <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
+                        </button>
+                        <article className={classes.panel} id={comp}>
+                            <div className={accordionInnerClasses.Users}>
+                                <div className={accordionInnerClasses.UsersTitleRow}>
+                                    <div className={accordionInnerClasses.TitleRowInner}>
+                                        <p><strong>Name</strong></p>
+                                        <p><strong>UserName</strong></p>
+                                        <p><strong>Role</strong></p>
                                     </div>
-                                    {
-                                        content.map(item => (
-                                            <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.UsersRow} id={item._id} onClick={getElem}>
-                                                <div className={accordionInnerClasses.Inner}>
-                                                    <p>{item.name}</p>
-                                                    <p>{item.userName}</p>
-                                                    <p>{item.role}</p>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
                                 </div>
-                            </article>
-                        </>
-                    ) : (
-                            comp === 'Stories' ? (
-                                <>
-                                    <button className={`${classes.accordion} ${comp}`} onClick={accordion}>
-                                        {comp}
-                                        <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
-                                    </button>
-                                    <article className={classes.panel} id={comp}>
-                                        <div className={accordionInnerClasses.Stories}>
-                                            <div className={accordionInnerClasses.StoriesTitleRow}>
-                                                <div className={accordionInnerClasses.TitleRowInner}>
-                                                    <p><strong>Story</strong></p>
-                                                    <p><strong>Status</strong></p>
-                                                </div>
+                                {
+                                    content.map(item => (
+                                        <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.UsersRow} id={item._id} onClick={getElem}>
+                                            <div className={accordionInnerClasses.Inner}>
+                                                <p>{item.name}</p>
+                                                <p>{item.userName}</p>
+                                                <p>{item.role}</p>
                                             </div>
-                                            {getStories(content)}
                                         </div>
-                                    </article>
-                                </>
-                            ) : (
-                                    comp === 'Posts' ? (
-                                        <>
-                                            <button className={`${classes.accordion} ${comp}`} onClick={accordion}>
-                                                {comp}
-                                                <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
-                                            </button>
-                                            <article className={classes.panel} id={comp}>
-                                                <div className={accordionInnerClasses.Posts}>
-                                                    <div className={accordionInnerClasses.PostsTitleRow}>
-                                                        <div className={accordionInnerClasses.TitleRowInner}>
-                                                            <p><strong>Story</strong></p>
-                                                            <p><strong>Title</strong></p>
-                                                            <p><strong>Status</strong></p>
-                                                            <p><strong>Remarks</strong></p>
-                                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </article>
+                    </>
+                ) : (
+                        comp === 'Stories' ? (
+                            <>
+                                <button className={`${classes.accordion} ${comp}`} onClick={accordion}>
+                                    {comp}
+                                    <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
+                                </button>
+                                <article className={classes.panel} id={comp}>
+                                    <div className={accordionInnerClasses.Stories}>
+                                        <div className={accordionInnerClasses.StoriesTitleRow}>
+                                            <div className={accordionInnerClasses.TitleRowInner}>
+                                                <p><strong>Story</strong></p>
+                                                <p><strong>Status</strong></p>
+                                            </div>
+                                        </div>
+                                        {getStories(content)}
+                                    </div>
+                                </article>
+                            </>
+                        ) : (
+                                comp === 'Posts' ? (
+                                    <>
+                                        <button className={`${classes.accordion} ${comp}`} onClick={accordion}>
+                                            {comp}
+                                            <FontAwesomeIcon className={classes.accordion__plus} icon={faPlus} />
+                                        </button>
+                                        <article className={classes.panel} id={comp}>
+                                            <div className={accordionInnerClasses.Posts}>
+                                                <div className={accordionInnerClasses.PostsTitleRow}>
+                                                    <div className={accordionInnerClasses.TitleRowInner}>
+                                                        <p><strong>Story</strong></p>
+                                                        <p><strong>Title</strong></p>
+                                                        <p><strong>Status</strong></p>
+                                                        <p><strong>Remarks</strong></p>
                                                     </div>
-                                                    {
-                                                        content.map(item => (
-                                                            <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.PostsRow} id={item._id} data-parent={item.storyId} onClick={(e) => getElem(e, item.title)}>
-                                                                <div className={accordionInnerClasses.Inner}>
-                                                                    <p>{item.storyTitle}</p>
-                                                                    <p>{item.title}</p>
-                                                                    <p>{item.isPublished === true ? 'Published' : 'Draft'}</p>
-                                                                    <p className="comment">{item.comments.length}</p>
-                                                                </div>
-                                                            </div>
-                                                        ))
-                                                    }
                                                 </div>
-                                            </article>
-                                        </>
-                                    ) : ''
-                                )
-                        )
-                }
-            </section>
-        );
+                                                {
+                                                    content.map(item => (
+                                                        <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.PostsRow} id={item._id} data-parent={item.storyId} onClick={(e) => getElem(e, item.title)}>
+                                                            <div className={accordionInnerClasses.Inner}>
+                                                                <p>{item.storyTitle}</p>
+                                                                <p>{item.title}</p>
+                                                                <p>{item.isPublished === true ? 'Published' : 'Draft'}</p>
+                                                                <p className="comment">{item.comments.length}</p>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </article>
+                                    </>
+                                ) : ''
+                            )
+                    )
+            }
+        </section>
+    );
 }
 
 AccordionComponent.propTypes = {

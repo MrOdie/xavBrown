@@ -9,7 +9,9 @@ import AccordionComponent from '../../layout/Accordion/AccordionComponent';
 const PostImport = ({ getAllPosts, post: { posts, loading }, getElement }) => {
   useEffect(() => {
     getAllPosts()
-  }, [getAllPosts])
+
+  }),[];
+
   return loading || posts === null ? (
     <Spinner />
   ) : (

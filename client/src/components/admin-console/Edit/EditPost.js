@@ -7,14 +7,15 @@ import Spinner from '../../layout/Spinner';
 
 // import classes from '../../../assets/scss/modules/editPost.module.scss';
 
-const EditPost = ({ getPostById, post: { post, loading }, setAlert, closeModal, postInfo }) => {
+const EditPost = ({ getPostById, post: { post, loading }, setAlert,editPost, closeModal, postInfo }) => {
   useEffect(() => {
-    getPostById(postInfo[1], postInfo[2])
+    getPostById(postInfo[2], postInfo[1])
   }, [getPostById, postInfo])
 
   const [updatedFormData, setUpdatedFormData] = useState({
     description: '',
     markdown: '',
+    isPublished: '',
     version: ''
   });
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -33,8 +34,8 @@ const EditPost = ({ getPostById, post: { post, loading }, setAlert, closeModal, 
   }, [])
 
   useEffect(() => {
-
-    if (post !== null && dataLoaded !== true && post._id === postInfo[2]) {
+    
+    if (post !== null && dataLoaded !== true && post._id === postInfo[1]) {
       setUpdatedFormData({
         description: post.description,
         markdown: post.markdown,
@@ -65,9 +66,47 @@ const EditPost = ({ getPostById, post: { post, loading }, setAlert, closeModal, 
       elem.parentNode.classList.remove('active');
     }
   }
-  const Submit = () => {
-    console.log(updatedFormData)
-    console.log('submit');
+
+  const validate = (data) => {
+    let isValid, dataArr, validateArr, i;
+
+    isValid = true;
+    dataArr = [];
+    validateArr = [];
+
+    //convert obj to array if the obj key or value is empty
+    for (const prop in data){
+      if (data[prop] === ''){
+        dataArr.push(prop);
+      }
+    }
+
+    // add error messages for each error
+    for (i = 0; i < dataArr.length; i++){
+      if (dataArr[i] === 'description') {
+        validateArr.push(' a description');
+      } else if (dataArr[i] === 'markdown') {
+        validateArr.push(' the markdown');
+      } else {
+        validateArr.push(' to designate whether this is a draft or published story');
+      }
+      setAlert(`You need ${validateArr}`, 'danger')
+    }
+
+    return isValid;
+  }
+
+  const Submit = (e) => {
+    e.preventDefault();
+
+    const check = validate(updatedFormData);
+
+    if (!check){
+      return false
+    }
+
+    editPost(post.storyId, post._id, updatedFormData);
+    closeModal();
   }
   return (
     <>
@@ -78,7 +117,7 @@ const EditPost = ({ getPostById, post: { post, loading }, setAlert, closeModal, 
             <section className="editPostModal">
               <article>
                 <form id="editPost" className="form" onSubmit={Submit}>
-                  <label className="editDescription margin-bottom-1" htmlFor="editDescription">
+                  <label className="editDescription margin-bottom-1 active" htmlFor="editDescription">
                     <span className="editDescriptionSpan">Update the Description</span>
                     <input
                       id="editDescription"
@@ -88,7 +127,7 @@ const EditPost = ({ getPostById, post: { post, loading }, setAlert, closeModal, 
                       value={updatedFormData.description}
                       onChange={onChange} />
                   </label>
-                  <label className="editMarkdown margin-bottom-1" htmlFor="editMarkdown">
+                  <label className="editMarkdown margin-bottom-1 active" htmlFor="editMarkdown">
                     <span className="editMarkdownSpan">Update the Markdown</span>
                     <textarea
                       id="editMarkdown"

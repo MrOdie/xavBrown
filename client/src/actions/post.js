@@ -32,7 +32,7 @@ export const getPosts = id => async dispatch => {
 export const getAllPosts = () => async dispatch => {
   try {
     const res = await api.get('/stories/posts');
-
+    console.log(res);
     dispatch({
       type: GET_POSTS,
       payload: res.data
@@ -107,7 +107,6 @@ export const getPost = (slug, id) => async dispatch => {
 export const getPostById = (id, postId) => async dispatch => {
   try {
     const res = await api.get(`/stories/${id}/p/${postId}`);
-    console.log(res);
 
     dispatch({
       type: GET_POST,
@@ -122,9 +121,9 @@ export const getPostById = (id, postId) => async dispatch => {
   }
 };
 
-export const editPost = (storyId, postId) => async dispatch => {
+export const editPost = (storyId, postId, formData) => async dispatch => {
   try {
-    const res = await api.put(`/stories/s/${storyId}/${postId}`);
+    const res = await api.put(`/stories/s/${storyId}/${postId}`, formData);
 
     dispatch({
       EDIT_POST,
