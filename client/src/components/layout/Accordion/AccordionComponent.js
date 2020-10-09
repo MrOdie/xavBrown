@@ -169,6 +169,7 @@ const AccordionComponent = ({ comp, content, getElem }) => {
                                                         <p><strong>Remarks</strong></p>
                                                     </div>
                                                 </div>
+                                                {console.log(content)}
                                                 {
                                                     content.map(item => (
                                                         <div key={`${item._id} ${item.updatedAt}`} className={accordionInnerClasses.PostsRow} id={item._id} data-parent={item.storyId} onClick={(e) => getElem(e, item.title)}>

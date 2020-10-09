@@ -78,10 +78,31 @@ router.post(
 // @route Get api/stories
 // @desc Get all Stories
 // @Public
-router.get('/', async (req, res) => {
+router.get('/admin', async (req, res) => {
   try {
     const stories = await Story.find().sort({ data: -1 });
     res.json(stories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error.');
+  }
+});
+
+// @route Get api/stories
+// @desc Get all Stories
+// @Public
+router.get('/', async (req, res) => {
+  try {
+    const stories = await Story.find().sort({ data: -1 });
+    let publishedStories = [];
+    console.log(stories);
+    for (let i = 0; i < stories.length; i++){
+      if (stories[i].isPublished === true){
+        publishedStories.push(stories[i])
+      }
+    }
+
+    res.json(publishedStories);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error.');

@@ -1,5 +1,6 @@
 import {
   GET_POSTS,
+  GET_ALL_POSTS,
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
@@ -21,6 +22,12 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_POSTS:
+      return {
+        ...state,
+        posts: payload,
+        loading: false
+      }
+    case GET_ALL_POSTS:
       return {
         ...state,
         posts: payload,

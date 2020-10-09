@@ -12,10 +12,25 @@ import {
 } from './types';
 
 // Get stories
+export const getStoriesAdminConsole = () => async dispatch => {
+  try {
+    const res = await api.get('/stories/admin');
+    dispatch({
+      type: GET_STORIES,
+      payload: res.data
+    })
+  } catch (err) {
+    console.log(err)
+    dispatch({
+      type: STORY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+}
+// Get stories
 export const getStories = () => async dispatch => {
   try {
     const res = await api.get('/stories');
-
     dispatch({
       type: GET_STORIES,
       payload: res.data

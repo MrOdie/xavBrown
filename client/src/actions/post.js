@@ -2,6 +2,7 @@ import api from '../utils/api';
 import { setAlert } from './alert';
 import {
   GET_POSTS,
+  GET_ALL_POSTS,
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
@@ -32,9 +33,8 @@ export const getPosts = id => async dispatch => {
 export const getAllPosts = () => async dispatch => {
   try {
     const res = await api.get('/stories/posts');
-    console.log(res);
     dispatch({
-      type: GET_POSTS,
+      type: GET_ALL_POSTS,
       payload: res.data
     })
 

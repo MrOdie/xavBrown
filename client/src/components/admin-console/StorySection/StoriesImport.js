@@ -2,27 +2,25 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
-import { getStories } from '../../../actions/story';
+import { getStoriesAdminConsole } from '../../../actions/story';
 
 import AccordionComponent from '../../layout/Accordion/AccordionComponent';
 
-const StoriesImport = ({ getStories, story: { stories, loading }, getElement }) => {
+const StoriesImport = ({ getStoriesAdminConsole, story: { stories, loading }, getElement }) => {
   useEffect(() => {
-    getStories()
-  }, [getStories]);
+    getStoriesAdminConsole()
+  }, [getStoriesAdminConsole]);
 
   return loading || stories === null ? (
     <Spinner />
   ) : (
-      <>
-        <AccordionComponent title="Stories" comp="Stories" content={stories} getElem={getElement} />
-      </>
+      <AccordionComponent title="Stories" comp="Stories" content={stories} getElem={getElement} />
     )
 
 }
 
 StoriesImport.propTypes = {
-  getStories: PropTypes.func.isRequired,
+  getStoriesAdminConsole: PropTypes.func.isRequired,
   story: PropTypes.object.isRequired
 };
 
@@ -30,4 +28,4 @@ const mapStateToProps = (state) => ({
   story: state.story
 });
 
-export default connect(mapStateToProps, { getStories })(StoriesImport);
+export default connect(mapStateToProps, { getStoriesAdminConsole })(StoriesImport);

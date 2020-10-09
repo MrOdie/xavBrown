@@ -12,7 +12,7 @@ const AddNewPost = ({ setAlert, addPost, closeModal, story }) => {
     isPublished: ''
   });
 
-  const { title, description, markdown } = formData;
+  const { title, description, markdown, isPublished } = formData;
 
   const validate = (data) => {
     let isValid, dataArr, validateArr, i;
@@ -47,7 +47,14 @@ const AddNewPost = ({ setAlert, addPost, closeModal, story }) => {
   }
 
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let inputContent;
+
+    if (e.target.type === 'checkbox') {
+      inputContent = e.target.checked
+    } else {
+      inputContent = e.target.value
+    }
+    setFormData({ ...formData, [e.target.name]: inputContent });
   }
 
   const onSubmit = (e) => {
@@ -87,26 +94,18 @@ const AddNewPost = ({ setAlert, addPost, closeModal, story }) => {
             name="markdown"
             value={markdown}
             onChange={onChange} />
-          <div className="radioGroup">
-            <div className="radioSubGroup">
+          <div className="checkBoxGroup">
+            <div className="checkBoxSubGroup">
+              <p className="margin-bottom-none"><strong>By clicking the following button, you will publish this post.</strong></p>
               <input
-                className="radioInput"
-                type="radio"
+                className="checkBoxInput"
+                type="checkbox"
                 name="isPublished"
                 id="published"
-                value={true}
+                checked={isPublished}
+                value={isPublished}
                 onChange={onChange} />
-              <label className="radioLabel" htmlFor="published">Published</label>
-            </div>
-            <div className="radioSubGroup">
-              <input
-                className="radioInput"
-                type="radio"
-                name="isPublished"
-                id="draft"
-                value={false}
-                onChange={onChange} />
-              <label className="radioLabel" htmlFor="draft">Draft</label>
+              <label className="checkBoxLabel" htmlFor="published">Published</label>
             </div>
           </div>
           <div className="margin-top-1 text-right">

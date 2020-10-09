@@ -106,6 +106,7 @@ const EditPost = ({ getPostById, post: { post, loading }, setAlert,editPost, clo
     }
 
     editPost(post.storyId, post._id, updatedFormData);
+
     closeModal();
   }
   return (
